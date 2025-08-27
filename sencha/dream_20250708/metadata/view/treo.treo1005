@@ -1,0 +1,658 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|snapToGrid": 10,
+        "designer|userAlias": "treo.treo1005",
+        "designer|userClassName": "treo.treo1005",
+        "height": 850,
+        "layout": "absolute",
+        "title": "",
+        "width": 1600
+    },
+    "configAlternates": {
+        "designer|snapToGrid": "number",
+        "designer|userAlias": "string",
+        "designer|userClassName": "string",
+        "height": "auto",
+        "layout": "string",
+        "title": "string",
+        "width": "auto"
+    },
+    "name": "MyPanel",
+    "designerId": "e996fa84-e775-428b-a81f-fc849adc77ca",
+    "viewControllerInstanceId": "e4603001-f396-483a-981f-07517ae06097",
+    "viewModelInstanceId": "c46a1720-af14-4187-9300-880ddb3f28dd",
+    "cn": [
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": 430,
+                "layout|x": 10,
+                "layout|y": 80,
+                "title": "목록",
+                "width": 1200
+            },
+            "configAlternates": {
+                "height": "auto",
+                "layout|x": "number",
+                "layout|y": "number",
+                "title": "string",
+                "width": "auto"
+            },
+            "name": "MyGridPanel13",
+            "designerId": "4f730fc0-894f-4e87-8a7c-2b69444ab5dd",
+            "cn": [
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "string",
+                        "text": "String"
+                    },
+                    "configAlternates": {
+                        "dataIndex": "datafield",
+                        "text": "string"
+                    },
+                    "name": "MyColumn9",
+                    "designerId": "e3bd6662-f7cc-4850-b0ed-70000809be4c"
+                },
+                {
+                    "type": "Ext.grid.column.Number",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "number",
+                        "text": "Number"
+                    },
+                    "configAlternates": {
+                        "dataIndex": "datafield",
+                        "text": "string"
+                    },
+                    "name": "MyNumberColumn9",
+                    "designerId": "7dae271d-08ce-42c0-8d4e-f9eb9ec9216a"
+                },
+                {
+                    "type": "Ext.grid.column.Date",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "date",
+                        "text": "Date"
+                    },
+                    "configAlternates": {
+                        "dataIndex": "datafield",
+                        "text": "string"
+                    },
+                    "name": "MyDateColumn9",
+                    "designerId": "42562995-475d-48f7-8051-2c82f36e0011"
+                },
+                {
+                    "type": "Ext.grid.column.Boolean",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "bool",
+                        "text": "Boolean"
+                    },
+                    "configAlternates": {
+                        "dataIndex": "datafield",
+                        "text": "string"
+                    },
+                    "name": "MyBooleanColumn9",
+                    "designerId": "e83c7247-5f9e-467e-8dd3-76c49f501eed"
+                },
+                {
+                    "type": "Ext.view.Table",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyTable9",
+                    "designerId": "8673ea26-58f3-4b7a-8ad4-466b51641932"
+                }
+            ]
+        },
+        {
+            "type": "Ext.form.Label",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|x": 10,
+                "layout|y": 10,
+                "text": "반품회송관리 [TREO1005]"
+            },
+            "configAlternates": {
+                "layout|x": "number",
+                "layout|y": "number",
+                "text": "string"
+            },
+            "name": "MyLabel11",
+            "designerId": "4e982f34-bb9e-4ed6-9c35-18925dcb27da"
+        },
+        {
+            "type": "Ext.form.field.Date",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "시작",
+                "labelWidth": 50,
+                "layout|x": 10,
+                "layout|y": 50
+            },
+            "configAlternates": {
+                "fieldLabel": "string",
+                "labelWidth": "number",
+                "layout|x": "number",
+                "layout|y": "number"
+            },
+            "name": "MyDateField",
+            "designerId": "f68c770d-1fff-466e-9bc9-f180e840c623"
+        },
+        {
+            "type": "Ext.form.field.Date",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "끝",
+                "labelWidth": 50,
+                "layout|x": 240,
+                "layout|y": 50
+            },
+            "configAlternates": {
+                "fieldLabel": "string",
+                "labelWidth": "number",
+                "layout|x": "number",
+                "layout|y": "number"
+            },
+            "name": "MyDateField1",
+            "designerId": "ad434a4d-0aaf-4c95-8251-06f1f28619ee"
+        },
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "출판사명",
+                "labelWidth": 70,
+                "layout|x": 480,
+                "layout|y": 50,
+                "width": 160
+            },
+            "configAlternates": {
+                "fieldLabel": "string",
+                "labelWidth": "number",
+                "layout|x": "number",
+                "layout|y": "number",
+                "width": "auto"
+            },
+            "name": "MyTextField95",
+            "designerId": "f681f47f-03e9-43bb-87aa-80cc13e91a79"
+        },
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "서점명",
+                "labelWidth": 70,
+                "layout|x": 670,
+                "layout|y": 50,
+                "width": 160
+            },
+            "configAlternates": {
+                "fieldLabel": "string",
+                "labelWidth": "number",
+                "layout|x": "number",
+                "layout|y": "number",
+                "width": "auto"
+            },
+            "name": "MyTextField96",
+            "designerId": "56e89d6e-cc95-4952-b602-6e3f97943148"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|x": 970,
+                "layout|y": 50,
+                "text": "검색"
+            },
+            "configAlternates": {
+                "layout|x": "number",
+                "layout|y": "number",
+                "text": "string"
+            },
+            "name": "MyButton39",
+            "designerId": "4332672b-9063-4de1-8062-4720b4267a82"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|x": 1170,
+                "layout|y": 550,
+                "text": "삭제"
+            },
+            "configAlternates": {
+                "layout|x": "number",
+                "layout|y": "number",
+                "text": "string"
+            },
+            "name": "MyButton40",
+            "designerId": "2f994b02-efb4-4173-9923-52895e6d968f"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|x": 1130,
+                "layout|y": 550,
+                "text": "수정"
+            },
+            "configAlternates": {
+                "layout|x": "number",
+                "layout|y": "number",
+                "text": "string"
+            },
+            "name": "MyButton41",
+            "designerId": "c7be6740-3b46-4ec6-ac09-64699068278a"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|x": 1090,
+                "layout|y": 550,
+                "text": "등록"
+            },
+            "configAlternates": {
+                "layout|x": "number",
+                "layout|y": "number",
+                "text": "string"
+            },
+            "name": "MyButton42",
+            "designerId": "84ba05e8-c3ec-4d4a-9cc2-66771a08c45b"
+        },
+        {
+            "type": "Ext.form.field.ComboBox",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "체크",
+                "labelWidth": 40,
+                "layout|x": 850,
+                "layout|y": 50,
+                "width": 110
+            },
+            "configAlternates": {
+                "fieldLabel": "string",
+                "labelWidth": "number",
+                "layout|x": "number",
+                "layout|y": "number",
+                "width": "auto"
+            },
+            "name": "MyComboBox6",
+            "designerId": "45308d98-80df-4ed8-b41c-96878ad96e77"
+        },
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyPadding": 10,
+                "designer|snapToGrid": 10,
+                "height": 250,
+                "layout": "absolute",
+                "layout|x": 10,
+                "layout|y": 580,
+                "title": "",
+                "width": 1200
+            },
+            "configAlternates": {
+                "bodyPadding": "auto",
+                "designer|snapToGrid": "number",
+                "height": "auto",
+                "layout": "string",
+                "layout|x": "number",
+                "layout|y": "number",
+                "title": "string",
+                "width": "auto"
+            },
+            "name": "MyForm9",
+            "designerId": "c91e4343-ad10-482d-9ed5-b86674d3ef72",
+            "cn": [
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "코드번호",
+                        "labelWidth": 80
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "labelWidth": "number"
+                    },
+                    "name": "MyTextField97",
+                    "designerId": "49f31978-2402-4eb9-a442-9a37f0468e7a"
+                },
+                {
+                    "type": "Ext.form.field.Date",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "회송일자",
+                        "labelWidth": 80,
+                        "layout|x": 290,
+                        "layout|y": 10
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "labelWidth": "number",
+                        "layout|x": "number",
+                        "layout|y": "number"
+                    },
+                    "name": "MyDateField2",
+                    "designerId": "64126439-f5d6-4ce8-ac9a-5115b3464036"
+                },
+                {
+                    "type": "Ext.form.field.Date",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "확인일자",
+                        "labelWidth": 80,
+                        "layout|x": 180,
+                        "layout|y": 160
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "labelWidth": "number",
+                        "layout|x": "number",
+                        "layout|y": "number"
+                    },
+                    "name": "MyDateField4",
+                    "designerId": "7f2ebe82-e82a-458f-bca7-ee9459563ab4"
+                },
+                {
+                    "type": "Ext.form.field.Date",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "명세서일자",
+                        "labelWidth": 80,
+                        "layout|x": 10,
+                        "layout|y": 110
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "labelWidth": "number",
+                        "layout|x": "number",
+                        "layout|y": "number"
+                    },
+                    "name": "MyDateField3",
+                    "designerId": "92e74e7a-aa0e-419e-a3a5-b841f598fba5"
+                },
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "거래분류",
+                        "labelWidth": 80,
+                        "layout|x": 580,
+                        "layout|y": 10,
+                        "width": 190
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "labelWidth": "number",
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "width": "auto"
+                    },
+                    "name": "MyComboBox7",
+                    "designerId": "76a0cdb9-4a58-41cc-913a-ab9f9f80edbf"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "서점명",
+                        "labelWidth": 80,
+                        "layout|x": 10,
+                        "layout|y": 60
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "labelWidth": "number",
+                        "layout|x": "number",
+                        "layout|y": "number"
+                    },
+                    "name": "MyTextField99",
+                    "designerId": "3e4b0681-7a0a-4c36-b052-8cdde966e5ba"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "출판사명",
+                        "labelWidth": 80,
+                        "layout|x": 290,
+                        "layout|y": 60
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "labelWidth": "number",
+                        "layout|x": "number",
+                        "layout|y": "number"
+                    },
+                    "name": "MyTextField101",
+                    "designerId": "4cb8822d-1016-49e6-8b9b-25e051f89da5"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "부수",
+                        "labelWidth": 50,
+                        "layout|x": 290,
+                        "layout|y": 110,
+                        "width": 120
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "labelWidth": "number",
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "width": "auto"
+                    },
+                    "name": "MyTextField102",
+                    "designerId": "6099f899-29d5-4a32-bfc1-0cf3e8e9c5f7"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "BOX",
+                        "labelWidth": 50,
+                        "layout|x": 430,
+                        "layout|y": 110,
+                        "width": 120
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "labelWidth": "number",
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "width": "auto"
+                    },
+                    "name": "MyTextField103",
+                    "designerId": "5768a508-9c34-4367-97b3-c471554baad9"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "확인체크",
+                        "labelWidth": 70,
+                        "layout|x": 10,
+                        "layout|y": 160,
+                        "width": 120
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "labelWidth": "number",
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "width": "auto"
+                    },
+                    "name": "MyTextField105",
+                    "designerId": "7d4ac0cf-9020-436c-8664-16094df3aa88"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "비고",
+                        "labelWidth": 50,
+                        "layout|x": 590,
+                        "layout|y": 110,
+                        "width": 260
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "labelWidth": "number",
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "width": "auto"
+                    },
+                    "name": "MyTextField104",
+                    "designerId": "8f8e97d5-824e-464a-bd5e-e695aa54103f"
+                },
+                {
+                    "type": "Ext.form.field.Checkbox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "boxLabel": "확인 체크",
+                        "fieldLabel": "",
+                        "layout|x": 440,
+                        "layout|y": 160
+                    },
+                    "configAlternates": {
+                        "boxLabel": "string",
+                        "fieldLabel": "string",
+                        "layout|x": "number",
+                        "layout|y": "number"
+                    },
+                    "name": "MyCheckbox",
+                    "designerId": "802ab758-94c9-4893-8bb0-f17af4b3114d"
+                }
+            ]
+        }
+    ]
+}

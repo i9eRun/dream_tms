@@ -1,0 +1,1099 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "tbas.tbas2001",
+        "designer|userClassName": "tbas.tbas2001",
+        "height": 850,
+        "layout": "border",
+        "requires": [
+            "dream.view.tbas.tbas20.commonCarList"
+        ],
+        "title": "",
+        "width": 1600
+    },
+    "configAlternates": {
+        "designer|userAlias": "string",
+        "designer|userClassName": "string",
+        "height": "auto",
+        "layout": "string",
+        "requires": "typedarray",
+        "title": "string",
+        "width": "auto"
+    },
+    "name": "MyPanel",
+    "designerId": "e60431d6-e10a-4496-b594-38e232280406",
+    "viewControllerInstanceId": "bc0e9857-1d43-4f41-bd01-db5a2b89f8e2",
+    "viewModelInstanceId": "dd231b94-fb9c-4af2-8fe7-5e6af22bb6dd",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|region": "west",
+                "reference": "tbas2001",
+                "title": "차량리스트",
+                "width": 300
+            },
+            "configAlternates": {
+                "layout|region": "string",
+                "reference": "string",
+                "title": "string",
+                "width": "auto"
+            },
+            "name": "MyPanel",
+            "designerId": "09379118-7d27-4cab-9539-da1d2b2087fa",
+            "cn": [
+                {
+                    "type": "viewcontrollereventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onTbas2001AfterRender",
+                        "implHandler": [
+                            "const view = this.getView();",
+                            "const tbas2001Panel = view.lookupReference('tbas2001');",
+                            "    ",
+                            "    if (tbas2001Panel) {",
+                            "        tbas2001Panel.removeAll(); // 기존 항목 제거 (선택사항)",
+                            "        tbas2001Panel.add({",
+                            "            xtype: 'tbas.tbas20.commoncarlist' // alias로 추가",
+                            "        });",
+                            "    }"
+                        ],
+                        "name": "afterrender",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onTbas2001AfterRender",
+                    "designerId": "221e4938-4705-4812-8c19-4af1beec11ab"
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|snapToGrid": 10,
+                "layout": "absolute",
+                "layout|region": "center",
+                "title": "차량기본정보"
+            },
+            "configAlternates": {
+                "layout|region": "string",
+                "title": "string",
+                "designer|snapToGrid": "number",
+                "layout": "string"
+            },
+            "name": "MyPanel1",
+            "designerId": "6ff86dbe-f44d-48d8-b254-b5c74d77f83c",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": 10,
+                        "designer|snapToGrid": 5,
+                        "height": 380,
+                        "layout": "absolute",
+                        "layout|x": 10,
+                        "layout|y": 10,
+                        "title": "",
+                        "width": 720
+                    },
+                    "configAlternates": {
+                        "bodyPadding": "auto",
+                        "designer|snapToGrid": "number",
+                        "height": "auto",
+                        "layout": "string",
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "title": "string",
+                        "width": "auto"
+                    },
+                    "name": "MyForm7",
+                    "designerId": "7dcfae9b-084a-4c55-8a41-ffbe56a7c924",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "운전자명",
+                                "fieldStyle": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "height": 30,
+                                "labelStyle": "text-align: left; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "labelWidth": 80,
+                                "width": 220
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "fieldStyle": "string",
+                                "height": "auto",
+                                "labelStyle": "string",
+                                "labelWidth": "number",
+                                "width": "auto"
+                            },
+                            "name": "MyTextField190",
+                            "designerId": "a3c9fc01-b52b-4928-95c8-7f01082d4406"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "차량등록번호",
+                                "fieldStyle": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "height": 30,
+                                "labelStyle": "text-align: left; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "layout|x": 10,
+                                "layout|y": 45,
+                                "width": 220
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "fieldStyle": "string",
+                                "height": "auto",
+                                "labelStyle": "string",
+                                "labelWidth": "number",
+                                "width": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number"
+                            },
+                            "name": "MyTextField192",
+                            "designerId": "00cbf0b2-053b-4377-a0b1-d27c49654bf6"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "차명(차량코드)",
+                                "fieldStyle": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "height": 30,
+                                "labelStyle": "text-align: left; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "labelWidth": 120,
+                                "layout|x": 10,
+                                "layout|y": 80,
+                                "width": 220
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "fieldStyle": "string",
+                                "height": "auto",
+                                "labelStyle": "string",
+                                "labelWidth": "number",
+                                "width": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number"
+                            },
+                            "name": "MyTextField193",
+                            "designerId": "9d30b2ed-5f2a-4c68-a385-87904607d31a"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "내용년수",
+                                "fieldStyle": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "height": 30,
+                                "labelStyle": "text-align: left; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "labelWidth": 120,
+                                "layout|x": 10,
+                                "layout|y": 115,
+                                "width": 220
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "fieldStyle": "string",
+                                "height": "auto",
+                                "labelStyle": "string",
+                                "labelWidth": "number",
+                                "width": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number"
+                            },
+                            "name": "MyTextField194",
+                            "designerId": "8922dba4-f843-430b-89dd-47d1a6b699da"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "취득년월일",
+                                "fieldStyle": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "height": 30,
+                                "labelStyle": "text-align: left; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "labelWidth": 120,
+                                "layout|x": 10,
+                                "layout|y": 150,
+                                "width": 220
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "fieldStyle": "string",
+                                "height": "auto",
+                                "labelStyle": "string",
+                                "labelWidth": "number",
+                                "width": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number"
+                            },
+                            "name": "MyTextField3",
+                            "designerId": "db4ccf62-576c-4eac-a659-f4247eda4962"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "차량톤수",
+                                "fieldStyle": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "height": 30,
+                                "labelStyle": "text-align: left; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "labelWidth": 80,
+                                "layout|x": 250,
+                                "layout|y": 10,
+                                "width": 220
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "fieldStyle": "string",
+                                "height": "auto",
+                                "labelStyle": "string",
+                                "labelWidth": "number",
+                                "width": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number"
+                            },
+                            "name": "MyTextField191",
+                            "designerId": "232e5012-6f67-4614-b529-836595d95253"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "종별",
+                                "fieldStyle": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "height": 30,
+                                "labelStyle": "text-align: left; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "labelWidth": 80,
+                                "layout|x": 250,
+                                "layout|y": 45,
+                                "width": 220
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "fieldStyle": "string",
+                                "height": "auto",
+                                "labelStyle": "string",
+                                "labelWidth": "number",
+                                "width": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number"
+                            },
+                            "name": "MyTextField1",
+                            "designerId": "f85f9e24-c145-4f91-b727-acd8f695005e"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "형식 및 년식",
+                                "fieldStyle": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "height": 30,
+                                "labelStyle": "text-align: left; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "labelWidth": 80,
+                                "layout|x": 250,
+                                "layout|y": 80,
+                                "width": 220
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "fieldStyle": "string",
+                                "height": "auto",
+                                "labelStyle": "string",
+                                "labelWidth": "number",
+                                "width": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number"
+                            },
+                            "name": "MyTextField4",
+                            "designerId": "0c55d486-bccf-4121-9a1e-b00d34470c66"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "차량구분",
+                                "fieldStyle": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "height": 30,
+                                "labelStyle": "text-align: left; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "labelWidth": 80,
+                                "layout|x": 250,
+                                "layout|y": 115,
+                                "width": 220
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "fieldStyle": "string",
+                                "height": "auto",
+                                "labelStyle": "string",
+                                "labelWidth": "number",
+                                "width": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number"
+                            },
+                            "name": "MyTextField5",
+                            "designerId": "ff674894-1a1a-46e0-8327-5f4c9ddac495"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "취득방법",
+                                "fieldStyle": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "height": 30,
+                                "labelStyle": "text-align: left; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "labelWidth": 80,
+                                "layout|x": 250,
+                                "layout|y": 150,
+                                "width": 220
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "fieldStyle": "string",
+                                "height": "auto",
+                                "labelStyle": "string",
+                                "labelWidth": "number",
+                                "width": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number"
+                            },
+                            "name": "MyTextField6",
+                            "designerId": "5ed48463-9d67-4741-913c-a3e1080fb50b"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "용도",
+                                "fieldStyle": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "height": 30,
+                                "labelStyle": "text-align: left; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "labelWidth": 80,
+                                "layout|x": 490,
+                                "layout|y": 45,
+                                "width": 220
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "fieldStyle": "string",
+                                "height": "auto",
+                                "labelStyle": "string",
+                                "labelWidth": "number",
+                                "width": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number"
+                            },
+                            "name": "MyTextField2",
+                            "designerId": "75a0f138-168b-473d-9cd2-471eb6ee21c1"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "차대번호",
+                                "fieldStyle": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "height": 30,
+                                "labelStyle": "text-align: left; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "labelWidth": 80,
+                                "layout|x": 490,
+                                "layout|y": 80,
+                                "width": 220
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "fieldStyle": "string",
+                                "height": "auto",
+                                "labelStyle": "string",
+                                "labelWidth": "number",
+                                "width": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number"
+                            },
+                            "name": "MyTextField7",
+                            "designerId": "31abda50-1f5e-46cc-96c2-8bf8093386c7"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "제조회사",
+                                "fieldStyle": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "height": 30,
+                                "labelStyle": "text-align: left; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "labelWidth": 80,
+                                "layout|x": 490,
+                                "layout|y": 115,
+                                "width": 220
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "fieldStyle": "string",
+                                "height": "auto",
+                                "labelStyle": "string",
+                                "labelWidth": "number",
+                                "width": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number"
+                            },
+                            "name": "MyTextField8",
+                            "designerId": "35d288e6-ddaa-426f-97f1-909783ecf879"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "취득금액",
+                                "fieldStyle": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "height": 30,
+                                "labelStyle": "text-align: left; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "labelWidth": 80,
+                                "layout|x": 490,
+                                "layout|y": 150,
+                                "width": 220
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "fieldStyle": "string",
+                                "height": "auto",
+                                "labelStyle": "string",
+                                "labelWidth": "number",
+                                "width": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number"
+                            },
+                            "name": "MyTextField9",
+                            "designerId": "f495295c-7d33-4704-8114-e6088d822b5d"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "적재량",
+                                "fieldStyle": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "height": 30,
+                                "labelStyle": "text-align: left; font-weight: bold; display: flex; align-items: center; justify-content: center;",
+                                "labelWidth": 80,
+                                "layout|x": 490,
+                                "layout|y": 10,
+                                "width": 220
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "fieldStyle": "string",
+                                "height": "auto",
+                                "labelStyle": "string",
+                                "labelWidth": "number",
+                                "width": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number"
+                            },
+                            "name": "MyTextField",
+                            "designerId": "99fdae43-ac2e-4d1e-a48a-d3fa2bd4e5d9"
+                        },
+                        {
+                            "type": "Ext.form.Label",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 80,
+                                "layout|x": 10,
+                                "layout|y": 205,
+                                "style": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; border: 1px solid black;",
+                                "text": "검사일정",
+                                "width": 100
+                            },
+                            "configAlternates": {
+                                "height": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number",
+                                "style": "string",
+                                "text": "string",
+                                "width": "auto"
+                            },
+                            "name": "MyLabel5",
+                            "designerId": "e4030c86-6d1e-432c-a609-15f62552ec3d"
+                        },
+                        {
+                            "type": "Ext.form.Label",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 80,
+                                "layout|x": 10,
+                                "layout|y": 285,
+                                "style": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; border: 1px solid black;",
+                                "text": "보험관리",
+                                "width": 100
+                            },
+                            "configAlternates": {
+                                "height": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number",
+                                "style": "string",
+                                "text": "string",
+                                "width": "auto"
+                            },
+                            "name": "MyLabel74",
+                            "designerId": "77a8d400-625b-44b4-886c-bbfaeb39665a"
+                        },
+                        {
+                            "type": "Ext.form.Label",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 40,
+                                "layout|x": 110,
+                                "layout|y": 205,
+                                "style": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; border: 1px solid black;",
+                                "text": "정기검사",
+                                "width": 185
+                            },
+                            "configAlternates": {
+                                "height": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number",
+                                "style": "string",
+                                "text": "string",
+                                "width": "auto"
+                            },
+                            "name": "MyLabel49",
+                            "designerId": "45b7a9e7-29bc-4476-b203-7cc70192bb4a"
+                        },
+                        {
+                            "type": "Ext.form.Label",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 40,
+                                "layout|x": 110,
+                                "layout|y": 285,
+                                "style": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; border: 1px solid black;",
+                                "text": "보험사",
+                                "width": 185
+                            },
+                            "configAlternates": {
+                                "height": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number",
+                                "style": "string",
+                                "text": "string",
+                                "width": "auto"
+                            },
+                            "name": "MyLabel75",
+                            "designerId": "a12f1273-ef37-40d3-8a3e-7a255762a37c"
+                        },
+                        {
+                            "type": "Ext.form.Label",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 40,
+                                "layout|x": 295,
+                                "layout|y": 285,
+                                "style": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; border: 1px solid black;",
+                                "text": "책임보험료",
+                                "width": 115
+                            },
+                            "configAlternates": {
+                                "height": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number",
+                                "style": "string",
+                                "text": "string",
+                                "width": "auto"
+                            },
+                            "name": "MyLabel76",
+                            "designerId": "f1b520af-b7b1-442c-889f-65132a90e4e2"
+                        },
+                        {
+                            "type": "Ext.form.Label",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 40,
+                                "layout|x": 410,
+                                "layout|y": 285,
+                                "style": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; border: 1px solid black;",
+                                "text": "종합보험료",
+                                "width": 115
+                            },
+                            "configAlternates": {
+                                "height": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number",
+                                "style": "string",
+                                "text": "string",
+                                "width": "auto"
+                            },
+                            "name": "MyLabel77",
+                            "designerId": "6422c0e2-fcfc-4935-b18b-b53c151beb29"
+                        },
+                        {
+                            "type": "Ext.form.Label",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 40,
+                                "layout|x": 525,
+                                "layout|y": 285,
+                                "style": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; border: 1px solid black;",
+                                "text": "연보험료(책임+종합)",
+                                "width": 160
+                            },
+                            "configAlternates": {
+                                "height": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number",
+                                "style": "string",
+                                "text": "string",
+                                "width": "auto"
+                            },
+                            "name": "MyLabel78",
+                            "designerId": "186cd906-ec02-4b1c-8f76-7629ef86c12d"
+                        },
+                        {
+                            "type": "Ext.form.Label",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 40,
+                                "layout|x": 295,
+                                "layout|y": 205,
+                                "style": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; border: 1px solid black;",
+                                "text": "영업용검사",
+                                "width": 185
+                            },
+                            "configAlternates": {
+                                "height": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number",
+                                "style": "string",
+                                "text": "string",
+                                "width": "auto"
+                            },
+                            "name": "MyLabel72",
+                            "designerId": "47cdf174-9c0c-4e62-82e4-9bada67757d7"
+                        },
+                        {
+                            "type": "Ext.form.Label",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 40,
+                                "layout|x": 480,
+                                "layout|y": 205,
+                                "style": "text-align: center; font-weight: bold; display: flex; align-items: center; justify-content: center; border: 1px solid black;",
+                                "text": "배출가스검사",
+                                "width": 205
+                            },
+                            "configAlternates": {
+                                "height": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number",
+                                "style": "string",
+                                "text": "string",
+                                "width": "auto"
+                            },
+                            "name": "MyLabel73",
+                            "designerId": "6363eacc-e1c1-4882-8e72-772a1ee45f40"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "",
+                                "height": 40,
+                                "layout|x": 110,
+                                "layout|y": 325,
+                                "width": 185
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "height": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number",
+                                "width": "auto"
+                            },
+                            "name": "MyTextField10",
+                            "designerId": "a18dc660-773f-43b1-b3a6-60b610587183"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "",
+                                "height": 40,
+                                "layout|x": 295,
+                                "layout|y": 325,
+                                "width": 115
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "height": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number",
+                                "width": "auto"
+                            },
+                            "name": "MyTextField14",
+                            "designerId": "b46e8294-1b80-4e36-8bb1-b60ccee0e88c"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "",
+                                "height": 40,
+                                "layout|x": 410,
+                                "layout|y": 325,
+                                "width": 115
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "height": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number",
+                                "width": "auto"
+                            },
+                            "name": "MyTextField15",
+                            "designerId": "b5dd885f-6a80-49fb-b6b7-e67298696df2"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "",
+                                "height": 40,
+                                "layout|x": 525,
+                                "layout|y": 325,
+                                "width": 160
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "height": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number",
+                                "width": "auto"
+                            },
+                            "name": "MyTextField16",
+                            "designerId": "f8488104-30d4-423f-a4a1-990a14607db0"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "",
+                                "height": 40,
+                                "layout|x": 110,
+                                "layout|y": 245,
+                                "width": 185
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "height": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number",
+                                "width": "auto"
+                            },
+                            "name": "MyTextField11",
+                            "designerId": "733e132e-8e9a-4ad3-a737-a4919b27e177"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "",
+                                "height": 40,
+                                "layout|x": 295,
+                                "layout|y": 245,
+                                "width": 185
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "height": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number",
+                                "width": "auto"
+                            },
+                            "name": "MyTextField12",
+                            "designerId": "b35740c6-50e0-4ae1-a0ef-96a6bbacf073"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "",
+                                "height": 40,
+                                "layout|x": 480,
+                                "layout|y": 245,
+                                "width": 205
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "height": "auto",
+                                "layout|x": "number",
+                                "layout|y": "number",
+                                "width": "auto"
+                            },
+                            "name": "MyTextField13",
+                            "designerId": "70ff43e1-095e-49c6-987b-53a577dee584"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|x": 690,
+                        "layout|y": 400,
+                        "text": "삭제"
+                    },
+                    "configAlternates": {
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "text": "string"
+                    },
+                    "name": "MyButton1",
+                    "designerId": "c74c3805-bf34-480e-8e01-76ea21871ab9"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|x": 650,
+                        "layout|y": 400,
+                        "text": "저장"
+                    },
+                    "configAlternates": {
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "text": "string"
+                    },
+                    "name": "MyButton2",
+                    "designerId": "fa19252c-acb8-447b-994e-d2a8e326e57a"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|x": 610,
+                        "layout|y": 400,
+                        "text": "입력"
+                    },
+                    "configAlternates": {
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "text": "string"
+                    },
+                    "name": "MyButton3",
+                    "designerId": "54e48fc4-2a20-4c68-b156-8afb011f776f"
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|snapToGrid": 10,
+                "height": 40,
+                "layout": "absolute",
+                "layout|region": "north",
+                "title": ""
+            },
+            "configAlternates": {
+                "designer|snapToGrid": "number",
+                "height": "auto",
+                "layout": "string",
+                "layout|region": "string",
+                "title": "string"
+            },
+            "name": "MyPanel2",
+            "designerId": "d0478f00-2dd8-4f92-aaf4-4769f1c30e63",
+            "cn": [
+                {
+                    "type": "Ext.form.Label",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|x": 10,
+                        "layout|y": 10,
+                        "text": "차량기본관리 [TBAS2001]"
+                    },
+                    "configAlternates": {
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "text": "string"
+                    },
+                    "name": "MyLabel",
+                    "designerId": "677bd4a5-0b08-4526-8c75-cd57f683769f"
+                }
+            ]
+        }
+    ]
+}

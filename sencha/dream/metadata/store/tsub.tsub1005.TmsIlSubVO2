@@ -1,0 +1,44 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "tsub.tsub1005.TmsIlSubVO2",
+        "model": "tsub.tsub1005.TmsIlSubVO",
+        "storeId": "tsub.tsub1005.TmsIlSubVO2"
+    },
+    "configAlternates": {
+        "designer|userClassName": "string",
+        "model": "model",
+        "storeId": "string"
+    },
+    "name": "tsub.tsub1005.TmsIlSubVO3",
+    "designerId": "0ede50ab-bb70-40b5-92b4-d16fa771e010",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyAjaxProxy",
+            "designerId": "8014796f-39cd-4c8e-b0e1-d974c0ffbff6",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyJsonReader",
+                    "designerId": "92085bb8-adb2-442c-94f4-b9aeed14d32e"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,46 @@
+# --- OS / IDE ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.iml
+
+# --- Java / Spring Boot ---
+/backend/target/
+/backend/build/
+/backend/out/
+/backend/.gradle/
+/backend/.settings/
+/backend/.classpath
+/backend/.project
+
+# Logs
+/backend/*.log
+/backend/logs/
+/backend/tmp/
+/backend/.env
+
+# --- Sencha / Architect ---
+/sencha/build/
+/sencha/classic/build/
+/sencha/modern/build/
+/sencha/resources/sass/.sass-cache/
+/sencha/.sass-cache/
+/sencha/.sencha/**/temp/
+/sencha/.sencha/**/.cache/
+/sencha/.architect/backup/
+
+# Ext JS SDK 캐시/빌드 (ext/ 자체는 커밋 여부 선택)
+/sencha/ext/build/
+/sencha/ext/**/.sencha_temp/
+/sencha/ext/**/.cache/
+
+# --- Node (혹시 사용한다면) ---
+node_modules/
+npm-debug.log*
+yarn-error.log
+
+# --- Archives ---
+*.zip
+*.tar
+*.tar.gz

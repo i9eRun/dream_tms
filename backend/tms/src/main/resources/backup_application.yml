@@ -1,0 +1,8 @@
+ftp:
+  host: 190.170.10.6
+  port: 21
+  username: dream
+  password: dreamnalgae
+  basePaths:
+    initial: /dream1   # 가인수
+    final: /dream      # 확정인수

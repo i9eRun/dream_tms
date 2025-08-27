@@ -1,0 +1,682 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|snapToGrid": 10,
+        "designer|userAlias": "tsys.tsys1002",
+        "designer|userClassName": "tsys.tsys1002",
+        "height": 850,
+        "layout": "absolute",
+        "title": "",
+        "width": 1600
+    },
+    "configAlternates": {
+        "designer|snapToGrid": "number",
+        "designer|userAlias": "string",
+        "designer|userClassName": "string",
+        "height": "auto",
+        "layout": "string",
+        "title": "string",
+        "width": "auto"
+    },
+    "name": "MyPanel4",
+    "designerId": "99dd2260-a698-49c7-8d5f-93c7e1a687db",
+    "viewControllerInstanceId": "a0fc5f25-bd82-40e9-90fa-ed7175286642",
+    "viewModelInstanceId": "5b061845-3bf0-4279-ac46-6e55416f62d8",
+    "cn": [
+        {
+            "type": "Ext.tree.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "displayField": "menuNm",
+                "height": 660,
+                "layout|x": 10,
+                "layout|y": 70,
+                "reference": "tsys1002_tree_panel",
+                "title": "메뉴 목록",
+                "width": 600
+            },
+            "configAlternates": {
+                "height": "auto",
+                "layout|x": "number",
+                "layout|y": "number",
+                "title": "string",
+                "width": "auto",
+                "displayField": "datafield",
+                "reference": "string"
+            },
+            "name": "MyTreePanel1",
+            "designerId": "9eb4673a-0749-4968-ae55-45666d842f68",
+            "cn": [
+                {
+                    "type": "Ext.tree.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyTreeView",
+                    "designerId": "29f5d146-1a93-459f-82ea-e7e098a9ff23"
+                },
+                {
+                    "type": "viewcontrollereventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onTreepanelAfterRender_tsys1002_tree_panel",
+                        "implHandler": [
+                            "",
+                            "Ext.Ajax.request({",
+                            "    url: dream.util.Common.BASE_URL + '/tsys/getmenutree',",
+                            "    method: 'GET',",
+                            "    params: {",
+                            "        userCetCd: dream.util.Common.LOGIN_USER_CET_CD",
+                            "    },",
+                            "    success: function(response) {",
+                            "        const data = Ext.decode(response.responseText);",
+                            "        const rootNode = component.getRootNode();",
+                            "        rootNode.removeAll(true);",
+                            "        rootNode.appendChild(data);",
+                            "        rootNode.expand(true);",
+                            "    },",
+                            "    failure: function() {",
+                            "        Ext.Msg.alert('오류', '메뉴 데이터를 불러오지 못했습니다.');",
+                            "    }",
+                            "});",
+                            "",
+                            ""
+                        ],
+                        "name": "afterrender",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onTreepanelAfterRender_tsys1002_tree_panel",
+                    "designerId": "0ac33156-8984-45ea-8447-9e2e3b045288"
+                },
+                {
+                    "type": "viewcontrollereventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onTreepanelItemClick_tsys1002_tree_panel",
+                        "implHandler": [
+                            "const view = this.getView();",
+                            "const form = view.lookupReference('tsys1002_tree_form');",
+                            "",
+                            "if (form) {",
+                            "    form.loadRecord(record);",
+                            "}"
+                        ],
+                        "name": "itemclick",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onTreepanelItemClick_tsys1002_tree_panel",
+                    "designerId": "5bdcd887-bc62-4342-8e49-613fcaaca1c2"
+                }
+            ]
+        },
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyPadding": 10,
+                "designer|snapToGrid": 10,
+                "height": 240,
+                "layout": "absolute",
+                "layout|x": 630,
+                "layout|y": 70,
+                "reference": "tsys1002_tree_form",
+                "title": "메뉴 정보",
+                "width": 440
+            },
+            "configAlternates": {
+                "bodyPadding": "auto",
+                "designer|snapToGrid": "number",
+                "height": "auto",
+                "layout": "string",
+                "layout|x": "number",
+                "layout|y": "number",
+                "title": "string",
+                "width": "auto",
+                "reference": "string"
+            },
+            "name": "MyForm4",
+            "designerId": "d47bfc03-c78e-4f43-8c01-a3bb94eb273e",
+            "cn": [
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "메뉴ID",
+                        "name": "menuId"
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "name": "string"
+                    },
+                    "name": "MyTextField44",
+                    "designerId": "10fbfbb0-19f3-4a8b-b08c-92ddd13b14b9"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "메뉴명",
+                        "layout|x": 10,
+                        "layout|y": 40,
+                        "name": "menuNm"
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "name": "string"
+                    },
+                    "name": "MyTextField45",
+                    "designerId": "245b2a39-137c-40d9-bdce-53d3beb27d20"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "메뉴레벨",
+                        "layout|x": 10,
+                        "layout|y": 70,
+                        "name": "menuLevel"
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "name": "string"
+                    },
+                    "name": "MyTextField46",
+                    "designerId": "aa12bbb3-ac89-4bd6-928c-084499bb935f"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "상위메뉴",
+                        "layout|x": 10,
+                        "layout|y": 100,
+                        "name": "parentMenuId"
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "name": "string"
+                    },
+                    "name": "MyTextField47",
+                    "designerId": "73af0711-ba8e-436c-a8c3-5fbcf2943e20"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "웹/모바일구분",
+                        "layout|x": 10,
+                        "layout|y": 130,
+                        "name": "pgmYn"
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "name": "string"
+                    },
+                    "name": "MyTextField48",
+                    "designerId": "d01fb2b6-8e63-467d-a9f8-dfabdb81923c"
+                },
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "displayField": "codeNm",
+                        "fieldLabel": "사용여부",
+                        "layout|x": 10,
+                        "layout|y": 160,
+                        "name": "useYn",
+                        "valueField": "codeCd"
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "displayField": "datafield",
+                        "name": "string",
+                        "valueField": "datafield"
+                    },
+                    "name": "MyComboBox1",
+                    "designerId": "ecfb5720-d090-455a-9765-20b97bed663f",
+                    "cn": [
+                        {
+                            "type": "viewcontrollereventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onComboboxAfterRender_tsys1002_combo_useyn",
+                                "implHandler": [
+                                    "dream.util.Common.setFlagCombo(component,\"사용\",\"\",\"\");"
+                                ],
+                                "name": "afterrender",
+                                "scope": "me"
+                            },
+                            "configAlternates": {
+                                "fn": "string",
+                                "implHandler": "code",
+                                "name": "string",
+                                "scope": "string"
+                            },
+                            "name": "onComboboxAfterRender_tsys1002_combo_useyn",
+                            "designerId": "5289f158-0baa-40c9-be0d-504f09d69198"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.form.Label",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|x": 10,
+                "layout|y": 10,
+                "text": "메뉴관리 [TSYS1002]"
+            },
+            "configAlternates": {
+                "layout|x": "number",
+                "layout|y": "number",
+                "text": "string"
+            },
+            "name": "MyLabel4",
+            "designerId": "9b8bc108-bedd-4150-8d31-a39f7b37be36"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "tsys1002_tree_insert_button",
+                "layout|x": 990,
+                "layout|y": 40,
+                "text": "등록"
+            },
+            "configAlternates": {
+                "layout|x": "number",
+                "layout|y": "number",
+                "text": "string",
+                "id": "string"
+            },
+            "name": "MyButton13",
+            "designerId": "781273c6-94ef-4cfa-9323-e9eea165ddda",
+            "cn": [
+                {
+                    "type": "viewcontrollereventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onTsys1002_tree_insert_buttonClick",
+                        "implHandler": [
+                            "const form = this.lookupReference('tsys1002_tree_form');",
+                            "const values = form.getValues();",
+                            "values.userCetCd = dream.util.Common.LOGIN_USER_CET_CD;",
+                            "values.insertId = dream.util.Common.LOGIN_USER;",
+                            "",
+                            "if (!form.isValid()) {",
+                            "    Ext.Msg.alert('오류', '필수 항목을 입력하세요.');",
+                            "    return;",
+                            "}",
+                            "",
+                            "Ext.Msg.confirm('확인', '메뉴를 등록하시겠습니까?', function(choice) {",
+                            "    if (choice === 'yes') {",
+                            "        Ext.Ajax.request({",
+                            "            url: dream.util.Common.BASE_URL + '/tsys/menuadd',",
+                            "            method: 'POST',",
+                            "            jsonData: values,",
+                            "            success: function() {",
+                            "                Ext.Msg.alert('성공', '메뉴가 저장되었습니다.');",
+                            "                const tree = Ext.ComponentQuery.query('treepanel[reference=tsys1002_tree_panel]')[0];",
+                            "",
+                            "                Ext.Ajax.request({",
+                            "                    url: dream.util.Common.BASE_URL + '/tsys/getmenutree',",
+                            "                    method: 'GET',",
+                            "                    params: {",
+                            "                        userCetCd: dream.util.Common.LOGIN_USER_CET_CD",
+                            "                    },",
+                            "                    success: function(response) {",
+                            "                        const data = Ext.decode(response.responseText);",
+                            "                        const rootNode = tree.getRootNode();",
+                            "                        rootNode.removeAll(true);",
+                            "                        rootNode.appendChild(data);",
+                            "                        rootNode.expand(true);",
+                            "                    },",
+                            "                    failure: function() {",
+                            "                        Ext.Msg.alert('오류', '메뉴 데이터를 불러오지 못했습니다.');",
+                            "                    }",
+                            "                });",
+                            "            },",
+                            "            failure: function(response) {",
+                            "                let msg = '저장 실패';",
+                            "                ",
+                            "                try {",
+                            "                    const res = Ext.decode(response.responseText);",
+                            "                    if (res.message) msg = res.message;",
+                            "                } catch (e) {",
+                            "                      // responseText가 JSON이 아닐 수도 있음",
+                            "                }",
+                            "                ",
+                            "                Ext.Msg.alert('오류', msg);",
+                            "            }",
+                            "        });",
+                            "    }",
+                            "});"
+                        ],
+                        "name": "click",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onTsys1002_tree_insert_buttonClick",
+                    "designerId": "ea581b72-0b8f-4bfd-a038-5bde626f3316"
+                }
+            ]
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "tsys1002_menu_add",
+                "layout|x": 570,
+                "layout|y": 40,
+                "text": "추가"
+            },
+            "configAlternates": {
+                "layout|x": "number",
+                "layout|y": "number",
+                "text": "string",
+                "id": "string"
+            },
+            "name": "MyButton10",
+            "designerId": "5f493ead-b2db-49e4-a29f-9e3e4883a2a5",
+            "cn": [
+                {
+                    "type": "viewcontrollereventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onTsys1002_menu_addClick",
+                        "implHandler": [
+                            "const tree = this.lookupReference('tsys1002_tree_panel');",
+                            "const form = this.lookupReference('tsys1002_tree_form');",
+                            "const selection = tree.getSelection()[0];",
+                            "",
+                            "if (!selection || selection.get('menuLevel') == 3) {",
+                            "    Ext.Msg.alert('알림', '먼저 상위 메뉴를 선택하세요.');",
+                            "    return;",
+                            "}",
+                            "",
+                            "// 신규 메뉴 ID 임시 설정 (예: NEW001 등)",
+                            "const newNode = {",
+                            "    menuId: '',         // 저장 전까지는 공백",
+                            "    menuNm: '',",
+                            "    menuLevel: selection.get('menuLevel') + 1,",
+                            "    parentMenuId: selection.get('menuId'),",
+                            "    pgmYn: '1',",
+                            "    useYn: '1',",
+                            "    leaf: true,",
+                            "    expanded: false,",
+                            "    children: []",
+                            "};",
+                            "",
+                            "// 자식 노드로 추가",
+                            "//selection.appendChild(newNode);",
+                            "//selection.expand();",
+                            "",
+                            "// 트리에서 새 노드 선택",
+                            "//tree.getSelectionModel().select(newNode);",
+                            "",
+                            "// 폼 초기화 후 바인딩",
+                            "form.getForm().reset();",
+                            "form.loadRecord(Ext.create('Ext.data.Model', newNode));",
+                            "",
+                            "Ext.defer(function() {",
+                            "    const menuIdField = form.down('[name=menuId]');",
+                            "    if (menuIdField) {",
+                            "        menuIdField.focus();",
+                            "    }",
+                            "}, 100); // 약간의 지연을 줘야 안정적으로 포커스 됨",
+                            "",
+                            ""
+                        ],
+                        "name": "click",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onTsys1002_menu_addClick",
+                    "designerId": "3f0f18e2-01a9-474d-b1e9-d37dc2bf7c98"
+                }
+            ]
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "id": "tsys1002_tree_delete_button",
+                "layout|x": 1030,
+                "layout|y": 40,
+                "text": "삭제"
+            },
+            "configAlternates": {
+                "layout|x": "number",
+                "layout|y": "number",
+                "text": "string",
+                "id": "string"
+            },
+            "name": "MyButton11",
+            "designerId": "34b9c911-07d7-4aed-8393-70d6ebac1057",
+            "cn": [
+                {
+                    "type": "viewcontrollereventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onTsys1002_tree_delete_buttonClick",
+                        "implHandler": [
+                            "const tree = this.lookupReference('tsys1002_tree_panel');",
+                            "const selection = tree.getSelection()[0];",
+                            "",
+                            "if (!selection) {",
+                            "    Ext.Msg.alert('알림', '삭제할 메뉴를 선택하세요.');",
+                            "    return;",
+                            "}",
+                            "",
+                            "const menuId = selection.get('menuId');",
+                            "",
+                            "Ext.Msg.confirm('확인', `'${menuId}' 메뉴를 삭제하시겠습니까?`, function(choice) {",
+                            "    if (choice === 'yes') {",
+                            "        Ext.Ajax.request({",
+                            "            url: dream.util.Common.BASE_URL + '/tsys/menudelete',",
+                            "            method: 'POST',",
+                            "            jsonData: {",
+                            "                menuId: menuId,",
+                            "                userCetCd: dream.util.Common.LOGIN_USER_CET_CD",
+                            "            },",
+                            "            success: function(response) {",
+                            "                Ext.Msg.alert('성공', '메뉴가 삭제되었습니다.');",
+                            "",
+                            "                // 폼 초기화",
+                            "                const form = Ext.ComponentQuery.query('form[reference=tsys1002_tree_form]')[0];",
+                            "                if (form) form.getForm().reset();",
+                            "",
+                            "                // 트리 리로드",
+                            "                const tree = Ext.ComponentQuery.query('treepanel[reference=tsys1002_tree_panel]')[0];",
+                            "",
+                            "                Ext.Ajax.request({",
+                            "                    url: dream.util.Common.BASE_URL + '/tsys/getmenutree',",
+                            "                    method: 'GET',",
+                            "                    params: {",
+                            "                        userCetCd: dream.util.Common.LOGIN_USER_CET_CD",
+                            "                    },",
+                            "                    success: function(response) {",
+                            "                        const data = Ext.decode(response.responseText);",
+                            "                        const rootNode = tree.getRootNode();",
+                            "                        rootNode.removeAll(true);",
+                            "                        rootNode.appendChild(data);",
+                            "                        rootNode.expand(true);",
+                            "                    },",
+                            "                    failure: function() {",
+                            "                        Ext.Msg.alert('오류', '메뉴 데이터를 불러오지 못했습니다.');",
+                            "                    }",
+                            "                });",
+                            "                ",
+                            "            },",
+                            "            failure: function(response) {",
+                            "                const res = Ext.decode(response.responseText);",
+                            "                Ext.Msg.alert('삭제 실패', res.message || '서버 오류가 발생했습니다.');",
+                            "            }",
+                            "        });",
+                            "    }",
+                            "});",
+                            "",
+                            ""
+                        ],
+                        "name": "click",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onTsys1002_tree_delete_buttonClick",
+                    "designerId": "63e77bc0-6f30-4b56-9789-a8475960e910"
+                }
+            ]
+        },
+        {
+            "type": "Ext.form.field.TextArea",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "",
+                "height": 90,
+                "layout|x": 630,
+                "layout|y": 340,
+                "readOnly": true,
+                "value": [
+                    "1. 메뉴추가 버튼을 누르시면 현재 선택된 메뉴의 하위에 신규 메뉴가 생성됩니다.",
+                    "2. 1단계 메뉴 ID : 영문4자 (ex:TBAS)",
+                    "3. 2단계 메뉴 ID : 영문4자 + 숫자2 (ex:TBAS10)",
+                    "4. 3단계 메뉴 ID : 영문4자 + 숫자4 (ex:TBAS1001)",
+                    ""
+                ],
+                "width": 450
+            },
+            "configAlternates": {
+                "fieldLabel": "string",
+                "height": "auto",
+                "layout|x": "number",
+                "layout|y": "number",
+                "readOnly": "boolean",
+                "value": "object",
+                "width": "auto"
+            },
+            "name": "MyTextArea",
+            "designerId": "17b91eff-ce99-4f83-92e1-7f249485f10a"
+        }
+    ]
+}

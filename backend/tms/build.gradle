@@ -1,0 +1,53 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.0'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.dreamnalgae'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// Excel POI 라이브러리
+    implementation 'org.apache.poi:poi-ooxml:5.2.5'
+	
+	// KO16MSWIN949 문자셋 호환을 위한 라이브러리 추가
+	implementation 'com.oracle.ojdbc:orai18n:19.3.0.0'
+	//implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+	// Oracle 11g에 적합한 JDBC 드라이버
+	runtimeOnly 'com.oracle.database.jdbc:ojdbc8:21.9.0.0'
+
+	// FTP 클라이언트 라이브러리 (프록시 API 구현용)
+    implementation 'commons-net:commons-net:3.11.1'
+	implementation 'org.apache.commons:commons-pool2:2.12.0'
+	
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

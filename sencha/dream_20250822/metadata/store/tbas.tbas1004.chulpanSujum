@@ -1,0 +1,44 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "tbas.tbas1004.chulpanSujum",
+        "model": "tbas.tbas1004.chulpanSujum",
+        "storeId": "tbas.tbas1004.chulpanSujum"
+    },
+    "configAlternates": {
+        "designer|userClassName": "string",
+        "model": "model",
+        "storeId": "string"
+    },
+    "name": "MyJsonStore",
+    "designerId": "c527814c-dff9-4b9c-9ae7-381b326edeb7",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyAjaxProxy8",
+            "designerId": "9514b0fd-b073-455a-b11b-7e2175ecae40",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyJsonReader8",
+                    "designerId": "120754b1-4ae6-421a-b534-9886783b55ab"
+                }
+            ]
+        }
+    ]
+}

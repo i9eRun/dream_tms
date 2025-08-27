@@ -1,0 +1,44 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "tsys.tsys1006.TmsExcelDlLogVO",
+        "model": "tsys.tsys1006.TmsExcelDlLogVO",
+        "storeId": "tsys.tsys1006.TmsExcelDlLogVO"
+    },
+    "configAlternates": {
+        "designer|userClassName": "string",
+        "model": "model",
+        "storeId": "string"
+    },
+    "name": "MyJsonStore",
+    "designerId": "0aafba23-dd7e-4f00-b21e-6452d1f0c18b",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyAjaxProxy3",
+            "designerId": "12739c75-db19-435d-a0eb-728baa20f7d5",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyJsonReader2",
+                    "designerId": "83931b10-ec37-4402-bee2-3d6600d96ff5"
+                }
+            ]
+        }
+    ]
+}

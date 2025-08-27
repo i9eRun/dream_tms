@@ -1,0 +1,210 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "tbas.tbas1004.publish"
+    },
+    "configAlternates": {
+        "designer|userClassName": "string"
+    },
+    "name": "MyModel",
+    "designerId": "592df1d2-90ad-475b-89a9-1e089940dc6a",
+    "cn": [
+        {
+            "type": "Ext.data.field.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "custCd"
+            },
+            "configAlternates": {
+                "name": "string"
+            },
+            "name": "MyField242",
+            "designerId": "0d2af976-d128-480e-bf47-964c7eaeac23"
+        },
+        {
+            "type": "Ext.data.field.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "custAbbrNm"
+            },
+            "configAlternates": {
+                "name": "string"
+            },
+            "name": "MyField245",
+            "designerId": "67551c74-fbb2-479a-9f4e-20aa254ad2f3"
+        },
+        {
+            "type": "Ext.data.field.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "jiyukNm"
+            },
+            "configAlternates": {
+                "name": "string"
+            },
+            "name": "MyField246",
+            "designerId": "9aa72db1-bbba-4e1d-8959-5839236fd140"
+        },
+        {
+            "type": "Ext.data.field.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "chulgoGb"
+            },
+            "configAlternates": {
+                "name": "string"
+            },
+            "name": "MyField247",
+            "designerId": "283c4dd5-109d-4e34-8932-be2d451a562b"
+        },
+        {
+            "type": "Ext.data.field.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "teamNm"
+            },
+            "configAlternates": {
+                "name": "string"
+            },
+            "name": "MyField248",
+            "designerId": "c2c48a1e-2425-48ed-80ef-2c12de6378e4"
+        },
+        {
+            "type": "Ext.data.field.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "paymentManagerNm"
+            },
+            "configAlternates": {
+                "name": "string"
+            },
+            "name": "MyField249",
+            "designerId": "dc2243d2-0ef6-46e8-841a-b59b194235ad"
+        },
+        {
+            "type": "Ext.data.field.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "chargeEmpId"
+            },
+            "configAlternates": {
+                "name": "string"
+            },
+            "name": "MyField250",
+            "designerId": "d5873cac-bbcf-4bbe-b9ff-52870b6961e0"
+        },
+        {
+            "type": "Ext.data.field.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "telNo"
+            },
+            "configAlternates": {
+                "name": "string"
+            },
+            "name": "MyField251",
+            "designerId": "79d408b5-6db7-4b7d-ad75-6afa7fd15402"
+        },
+        {
+            "type": "Ext.data.field.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "faxNo"
+            },
+            "configAlternates": {
+                "name": "string"
+            },
+            "name": "MyField252",
+            "designerId": "8991e218-cae2-45d8-a742-0db0eda8b58b"
+        },
+        {
+            "type": "Ext.data.field.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "custDivGb"
+            },
+            "configAlternates": {
+                "name": "string"
+            },
+            "name": "MyField253",
+            "designerId": "00cc7f2e-8db8-42d9-b6a2-6d686cd74722"
+        },
+        {
+            "type": "Ext.data.field.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "banpTeamNm"
+            },
+            "configAlternates": {
+                "name": "string"
+            },
+            "name": "MyField254",
+            "designerId": "960d7542-9585-451a-bc83-eb78a1810175"
+        },
+        {
+            "type": "Ext.data.field.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "baebonCd"
+            },
+            "configAlternates": {
+                "name": "string"
+            },
+            "name": "MyField255",
+            "designerId": "258d7af9-1736-4aab-91d1-c59484ffda4b"
+        }
+    ]
+}

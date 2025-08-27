@@ -1,0 +1,248 @@
+{
+    "type": "Ext.container.Viewport",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "system.mainframe",
+        "designer|userClassName": "system.MainFrame",
+        "height": 250,
+        "layout": "border",
+        "requires": [
+            "dream.util.Common"
+        ],
+        "width": 400
+    },
+    "configAlternates": {
+        "designer|userAlias": "string",
+        "designer|userClassName": "string",
+        "height": "auto",
+        "layout": "string",
+        "width": "auto",
+        "requires": "typedarray"
+    },
+    "name": "MyViewport",
+    "designerId": "5acdbd9c-b5e5-42da-8ea7-10617a92c4d6",
+    "viewControllerInstanceId": "3fa234b2-7a8b-4d8e-b257-287d9e5c2f58",
+    "viewModelInstanceId": "2ccef2d4-48c8-4755-b98c-41db082584aa",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout": "border",
+                "layout|region": "center",
+                "title": ""
+            },
+            "configAlternates": {
+                "layout": "string",
+                "layout|region": "string",
+                "title": "string"
+            },
+            "name": "MyPanel",
+            "designerId": "a8c6ca06-dba5-49a6-9186-c41af55dc132",
+            "cn": [
+                {
+                    "type": "Ext.tree.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "itemId": "menuTree",
+                        "layout|region": "west",
+                        "rootVisible": false,
+                        "title": "드림날개",
+                        "width": 250
+                    },
+                    "configAlternates": {
+                        "itemId": "string",
+                        "layout|region": "string",
+                        "rootVisible": "boolean",
+                        "title": "string",
+                        "width": "auto"
+                    },
+                    "name": "MyTreePanel",
+                    "designerId": "324fd8f1-87f2-4faa-9b90-e84d433a9c47"
+                },
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|region": "center",
+                        "title": ""
+                    },
+                    "configAlternates": {
+                        "layout|region": "string",
+                        "title": "string"
+                    },
+                    "name": "MyPanel2",
+                    "designerId": "625cffe6-1e01-4456-8871-470086408753",
+                    "cn": [
+                        {
+                            "type": "Ext.tab.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "itemId": "mainTopTabPanel",
+                                "scrollable": "vertical"
+                            },
+                            "configAlternates": {
+                                "itemId": "string",
+                                "scrollable": "auto"
+                            },
+                            "name": "MyTabPanel",
+                            "designerId": "c1ef612d-0d01-4752-8fe7-fb3f5295ee54"
+                        },
+                        {
+                            "type": "Ext.panel.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "itemId": "mainContentPanel",
+                                "layout": "card",
+                                "title": ""
+                            },
+                            "configAlternates": {
+                                "itemId": "string",
+                                "layout": "string",
+                                "title": "string"
+                            },
+                            "name": "MyPanel3",
+                            "designerId": "2a70c104-daef-4601-a741-325f0c189fc4"
+                        },
+                        {
+                            "type": "Ext.tab.Panel",
+                            "reference": {
+                                "name": "dockedItems",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dock": "bottom",
+                                "height": 30,
+                                "itemId": "mainBottomTabPanel"
+                            },
+                            "configAlternates": {
+                                "itemId": "string",
+                                "dock": "string",
+                                "height": "auto"
+                            },
+                            "name": "MyTabPanel1",
+                            "designerId": "95d316dc-eb37-4345-91f1-20e060f63d43"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "viewcontrollereventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onMainFrameLoad",
+                "implHandler": [
+                    "const tree        = Ext.ComponentQuery.query('#menuTree')[0];",
+                    "const topTabPanel = Ext.ComponentQuery.query('#mainTopTabPanel')[0];",
+                    "const bottomTabs  = Ext.ComponentQuery.query('#mainBottomTabPanel')[0];",
+                    "const content     = Ext.ComponentQuery.query('#mainContentPanel')[0];",
+                    "",
+                    "// 트리 클릭 → 프로그램 열기",
+                    "tree.on('itemclick', function (view, record) {",
+                    "    if (record.isLeaf()) {",
+                    "        const menuId = record.getId();",
+                    "        const menuNm = record.get('text');",
+                    "",
+                    "        dream.util.Common.loadProgram(menuId, menuNm);",
+                    "",
+                    "    }",
+                    "});",
+                    "",
+                    "// 하단 탭 전환 시 → 해당 카드 활성화",
+                    "bottomTabs.on('tabchange', (tp, newTab) => {",
+                    "    const reg = dream.util.Common.cache[newTab.menuId];",
+                    "    if (reg && reg.view) {",
+                    "        content.getLayout().setActiveItem(reg.view);",
+                    "    }",
+                    "});",
+                    "",
+                    "// 메뉴 트리 데이터 로드",
+                    "Ext.Ajax.request({",
+                    "    url: dream.util.Common.BASE_URL + '/system/menu/tree',",
+                    "    method: 'POST',",
+                    "    jsonData:{",
+                    "        user_id : dream.util.Common.LOGIN_USER,",
+                    "        user_cet_cd : dream.util.Common.LOGIN_USER_CET_CD",
+                    "    },",
+                    "    success:(res) => {",
+                    "        const temp_menus  = Ext.decode(res.responseText);",
+                    "        const level1Menus = temp_menus[0].children;",
+                    "",
+                    "        level1Menus.forEach((menu) => {",
+                    "            topTabPanel.add({",
+                    "                title   : menu.menuNm,",
+                    "                itemId  : menu.menuId,",
+                    "                closable: false,",
+                    "                listeners:{",
+                    "                    activate: () => {",
+                    "                        const treeRoot = {",
+                    "                            expanded: true,",
+                    "                            children: (menu.children || []).map((level2) => ({",
+                    "                                text    : level2.menuNm,",
+                    "                                id      : level2.menuId,",
+                    "                                expanded: true,",
+                    "                                children: (level2.children || []).map((child) => ({",
+                    "                                    text: child.menuNm,",
+                    "                                    id  : child.menuId,",
+                    "                                    leaf: true",
+                    "                                }))",
+                    "                            }))",
+                    "                        };",
+                    "                        tree.setRootNode(treeRoot);",
+                    "                    }",
+                    "                }",
+                    "            });",
+                    "        });",
+                    "",
+                    "        if (level1Menus.length > 0) {",
+                    "            topTabPanel.setActiveTab(0);",
+                    "            topTabPanel.items.items[0].fireEvent('activate');",
+                    "        }",
+                    "    }",
+                    "});",
+                    ""
+                ],
+                "name": "afterrender",
+                "scope": "me"
+            },
+            "configAlternates": {
+                "fn": "string",
+                "implHandler": "code",
+                "name": "string",
+                "scope": "string"
+            },
+            "name": "onMainFrameLoad",
+            "designerId": "fc1220e8-071d-4952-916b-e3676284cd9c"
+        }
+    ]
+}

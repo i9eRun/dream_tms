@@ -1,0 +1,44 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "treo.treo1004.TmsJaechulgoVO",
+        "model": "treo.treo1004.TmsJaechulgoVO",
+        "storeId": "treo.treo1004.TmsJaechulgoVO"
+    },
+    "configAlternates": {
+        "designer|userClassName": "string",
+        "model": "model",
+        "storeId": "string"
+    },
+    "name": "MyJsonStore",
+    "designerId": "c6f36d94-f9b7-402c-90a6-2ffa4e04f638",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyAjaxProxy11",
+            "designerId": "c7f4d6ca-7e84-493b-850d-a7a8573427e5",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyJsonReader11",
+                    "designerId": "4e23eb01-22b0-4b1d-8d9c-ebd317604f06"
+                }
+            ]
+        }
+    ]
+}

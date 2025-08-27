@@ -1,0 +1,44 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "tsub.tsub1003.CourseMasterDTO",
+        "model": "tsub.tsub1003.CourseMasterDTO",
+        "storeId": "tsub.tsub1003.CourseMasterDTO"
+    },
+    "configAlternates": {
+        "designer|userClassName": "string",
+        "model": "model",
+        "storeId": "string"
+    },
+    "name": "MyJsonStore",
+    "designerId": "c65bacf9-06a9-4df9-8c48-162197266f76",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyAjaxProxy",
+            "designerId": "5c0f1458-983e-47b3-ac2e-5300db344efd",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyJsonReader",
+                    "designerId": "44cc4cbf-01b2-4c33-b86e-88521513a81e"
+                }
+            ]
+        }
+    ]
+}

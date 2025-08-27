@@ -1,0 +1,44 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "tban.tban1002.TmsBanpIbgoMstVO",
+        "model": "tban.tban1002.TmsBanpIbgoMstVO",
+        "storeId": "tban.tban1002.TmsBanpIbgoMstVO"
+    },
+    "configAlternates": {
+        "designer|userClassName": "string",
+        "model": "model",
+        "storeId": "string"
+    },
+    "name": "MyJsonStore",
+    "designerId": "03649a77-f219-42da-be3a-2e2b6de0070c",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyAjaxProxy10",
+            "designerId": "e1b3660e-d1c0-45ae-854b-4b7140218dd2",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyJsonReader10",
+                    "designerId": "0ef5a451-90b9-4b4e-ba08-3f6c9d6f4676"
+                }
+            ]
+        }
+    ]
+}

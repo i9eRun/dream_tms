@@ -1,0 +1,19 @@
+ftp:
+  host: 190.170.10.6
+  port: 21
+  username: dream
+  password: dreamnalgae
+  basePaths:
+    initial: /dream1      # 가인수
+    final: /dream         # 확정인수
+  timeouts:
+    connectMillis: 3000
+    dataMillis: 10000
+  keepAliveSec: 30        # 제어연결 NOOP 간격(초)
+
+  pool:
+    maxTotal: 10
+    maxIdle: 5
+    minIdle: 1
+    testOnBorrow: true
+    testWhileIdle: true
