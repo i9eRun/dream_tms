@@ -98,7 +98,7 @@ public class MenuService {
         List<Menu> roots = new ArrayList<>();
 
         for (Menu menu : allMenus) {
-            if (!"1".equals(menu.getPgmYn())) continue;  // pgmYn이 '1'인 경우만 통과
+            //if (!"1".equals(menu.getPgmYn())) continue;  // pgmYn이 '1'인 경우만 통과
             //if (!"1".equals(menu.getUseYn())) continue;
 
             menuMap.put(menu.getMenuId(), menu);
@@ -107,7 +107,7 @@ public class MenuService {
         }
 
         for (Menu menu : allMenus) {
-            if (!"1".equals(menu.getPgmYn())) continue;  // pgmYn이 '1'인 경우만 통과
+            //if (!"1".equals(menu.getPgmYn())) continue;  // pgmYn이 '1'인 경우만 통과
             //if (!"1".equals(menu.getUseYn())) continue;
 
             if (menu.getParentMenuId() == null || menu.getParentMenuId().isEmpty()) {

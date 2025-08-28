@@ -2,7 +2,10 @@ package com.dreamnalgae.tms.service.system;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -11,14 +14,17 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.dreamnalgae.tms.model.system.ExcelRequestDTO;
 
@@ -160,5 +166,54 @@ public class CommonService {
     }
 
 
-    
+
+    public List<Map<String, Object>> readExcel(MultipartFile file) throws IOException {
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        try (InputStream is = file.getInputStream();
+             Workbook workbook = WorkbookFactory.create(is)) {
+            
+            Sheet sheet = workbook.getSheetAt(0);
+            Iterator<Row> rows = sheet.iterator();
+
+            // 첫번째 행은 헤더라고 가정
+            if (rows.hasNext()) rows.next();
+
+            while (rows.hasNext()) {
+                Row row = rows.next();
+                Map<String, Object> map = new HashMap<>();
+
+                map.put("chulpanCnvCd", getCellValue((row.getCell(0)))); // 출판사코드
+                map.put("chulpanCnvNm", getCellValue((row.getCell(1)))); // 출판사명
+                map.put("sujumCnvCd", getCellValue((row.getCell(2))));   // 거래처 코드
+                map.put("sujumCnvNm", getCellValue((row.getCell(3))));   // 거래처명
+                map.put("qty", getCellValue((row.getCell(4))));          // 수량 
+                map.put("box", getCellValue((row.getCell(5))));          // 덩이
+
+                result.add(map);
+            }
+        }
+
+        return result;
+    }
+
+
+
+    private String getCellValue(Cell cell) {
+        if (cell == null) return "";
+        return switch (cell.getCellType()) {
+            case STRING -> cell.getStringCellValue();
+            case NUMERIC -> {
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    yield cell.getDateCellValue().toString();
+                } else {
+                    yield String.valueOf((long) cell.getNumericCellValue());
+                }
+            }
+            case BOOLEAN -> String.valueOf(cell.getBooleanCellValue());
+            default -> "";
+        };
+    }
+
+
 }

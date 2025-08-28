@@ -60,7 +60,8 @@ Ext.application({
         'tsub.tsub1003.CourseDetailDTO',
         'treo.treo1004.TmsJaechulgoVO',
         'tbas.tbas1010.DochakVO',
-        'tbas.tbas1010.DochakChulpanVO'
+        'tbas.tbas1010.DochakChulpanVO',
+        'tord.tord1001.excelVO'
     ],
     stores: [
         'tbas.carListStore',
@@ -103,7 +104,8 @@ Ext.application({
         'treo.treo1004.TmsJaechulgoVO',
         'tbas.tbas1010.DochakVO',
         'tbas.tbas1010.chulpan1',
-        'tbas.tbas1010.chulpan2'
+        'tbas.tbas1010.chulpan2',
+        'tord.tord1001.excel'
     ],
     views: [
         'system.Login',
@@ -132,7 +134,7 @@ Ext.application({
         'tpop.tpop1001',
         'tpop.tpop1002',
         'tpop.tpop1003',
-        'tord.tord1001',
+        'tord.tord1003',
         'tsys.tsys1004',
         'tpop.tpop1004',
         'tpop.tpop1005',
@@ -146,7 +148,8 @@ Ext.application({
         'treo.treo1004',
         'tsys.tsys1006',
         'tsub.tsub1003',
-        'tbas.tbas1010'
+        'tbas.tbas1010',
+        'tord.tord1001'
     ],
     name: 'dream',
 

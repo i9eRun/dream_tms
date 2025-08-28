@@ -6,12 +6,12 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userAlias": "tord.tord1001",
-        "designer|userClassName": "tord.tord1001ViewController"
+        "designer|userAlias": "tord.tord1003",
+        "designer|userClassName": "tord.tord1003ViewController"
     },
     "configAlternates": {
         "designer|userAlias": "string",
         "designer|userClassName": "string"
     },
-    "designerId": "a3167913-52c4-417e-8833-ab5991551467"
+    "designerId": "3225ed2e-1f7a-4cad-aecc-f316fd6a36c8"
 }

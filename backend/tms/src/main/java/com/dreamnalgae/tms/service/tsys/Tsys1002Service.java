@@ -11,7 +11,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import com.dreamnalgae.tms.model.tsys.TmsMenuVO;
 
@@ -24,10 +23,14 @@ public class Tsys1002Service {
     private final NamedParameterJdbcTemplate jdbc;
 
     public List<TmsMenuVO> selectAllMenu(String userCetCd) {
+        // String sql = """
+        //         SELECT * FROM TMS_MENU_M
+        //         WHERE USER_CET_CD = :userCetCd
+        //         AND PGM_YN = '1'
+        //         """;
         String sql = """
                 SELECT * FROM TMS_MENU_M
                 WHERE USER_CET_CD = :userCetCd
-                AND PGM_YN = '1'
                 """;
     
         Map<String, Object> params = new HashMap<>();

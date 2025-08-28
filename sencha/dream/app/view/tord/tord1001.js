@@ -19,14 +19,16 @@ Ext.define('dream.view.tord.tord1001', {
 
     requires: [
         'dream.view.tord.tord1001ViewModel',
+        'dream.view.tord.tord1001ViewController',
+        'Ext.form.Label',
+        'Ext.form.field.Date',
+        'Ext.form.field.ComboBox',
         'Ext.grid.Panel',
         'Ext.grid.column.Column',
-        'Ext.form.FieldContainer',
-        'Ext.form.field.Text',
-        'Ext.button.Button',
-        'Ext.form.Label'
+        'Ext.button.Button'
     ],
 
+    controller: 'tord.tord1001',
     viewModel: {
         type: 'tord.tord1001'
     },
@@ -37,85 +39,159 @@ Ext.define('dream.view.tord.tord1001', {
 
     items: [
         {
-            xtype: 'gridpanel',
-            x: 5,
-            y: 140,
-            height: 610,
-            width: 600,
-            title: '담당자별 주문 현황',
-            columns: [
-                {
-                    xtype: 'gridcolumn',
-                    width: 36,
-                    text: 'NO'
-                },
-                {
-                    xtype: 'gridcolumn',
-                    text: '출판사NO'
-                },
-                {
-                    xtype: 'gridcolumn',
-                    text: '출판사명'
-                },
-                {
-                    xtype: 'gridcolumn',
-                    text: '의뢰전표'
-                },
-                {
-                    xtype: 'gridcolumn',
-                    text: '의뢰수량'
-                },
-                {
-                    xtype: 'gridcolumn',
-                    text: '누적수량'
-                }
-            ]
-        },
-        {
-            xtype: 'fieldcontainer',
-            x: 10,
-            y: 35,
-            height: 80,
-            width: 600,
-            layout: 'absolute',
-            fieldLabel: '',
-            items: [
-                {
-                    xtype: 'textfield',
-                    x: 5,
-                    y: 20,
-                    fieldLabel: '날개담당자',
-                    labelWidth: 70
-                },
-                {
-                    xtype: 'textfield',
-                    x: 5,
-                    y: 50,
-                    width: 160,
-                    fieldLabel: '입력',
-                    labelWidth: 60
-                },
-                {
-                    xtype: 'textfield',
-                    x: 185,
-                    y: 50,
-                    width: 160,
-                    fieldLabel: '통신',
-                    labelWidth: 60
-                },
-                {
-                    xtype: 'button',
-                    x: 245,
-                    y: 20,
-                    text: '주문갱신'
-                }
-            ]
-        },
-        {
             xtype: 'label',
             x: 10,
             y: 10,
             text: '배송출고수신관리 [TORD1001]'
+        },
+        {
+            xtype: 'datefield',
+            x: 10,
+            y: 40,
+            width: 200,
+            fieldLabel: '출고일자 지정',
+            format: 'Ymd'
+        },
+        {
+            xtype: 'combobox',
+            x: 230,
+            y: 40,
+            width: 140,
+            fieldLabel: '구분',
+            labelWidth: 40
+        },
+        {
+            xtype: 'combobox',
+            x: 400,
+            y: 40,
+            width: 140,
+            fieldLabel: '출고구분',
+            labelWidth: 60
+        },
+        {
+            xtype: 'combobox',
+            x: 560,
+            y: 40,
+            width: 140,
+            fieldLabel: '수거담당',
+            labelWidth: 60
+        },
+        {
+            xtype: 'combobox',
+            x: 730,
+            y: 40,
+            width: 140,
+            fieldLabel: '대행사',
+            labelWidth: 60
+        },
+        {
+            xtype: 'gridpanel',
+            x: 10,
+            y: 120,
+            reference: 'excel_grid',
+            height: 670,
+            width: 1400,
+            title: '엑셀자료',
+            store: 'tord.tord1001.excel',
+            columns: [
+                {
+                    xtype: 'gridcolumn',
+                    width: 40,
+                    text: 'NO'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'chulpanCnvCd',
+                    text: '대행-출코드'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'chulpanCnvNm',
+                    text: '대행-출판사명'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    width: 56,
+                    dataIndex: 'chulpanCheck',
+                    text: '입력'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'chulpanCd',
+                    text: '드림-출코드'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'chulpanNm',
+                    text: '드림-출판사명'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    width: 48,
+                    dataIndex: 'sujumCheck',
+                    text: '입력'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'sujumCnvCd',
+                    text: '대행-서점코드'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'sujumCnvNm',
+                    text: '대행-서점명'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'jiyukNm',
+                    text: '대행-지역명'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'sujumCd',
+                    text: '드림-서점코드'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'sujumNm',
+                    text: '드림-서점명'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'qty',
+                    text: '부수'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'cnvQty',
+                    text: '환산부수'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    dataIndex: 'box',
+                    text: '덩이'
+                },
+                {
+                    xtype: 'gridcolumn',
+                    text: '비고'
+                }
+            ]
+        },
+        {
+            xtype: 'button',
+            x: 10,
+            y: 90,
+            reference: 'excel_import_button',
+            text: '엑셀자료 불러오기',
+            listeners: {
+                click: 'onButtonClick_excel_import_button'
+            }
+        },
+        {
+            xtype: 'button',
+            x: 130,
+            y: 90,
+            text: '저장하기'
         }
     ]
 

@@ -15,5 +15,44 @@
 
 Ext.define('dream.view.tord.tord1001ViewController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.tord.tord1001'
+    alias: 'controller.tord.tord1001',
+
+    onButtonClick_excel_import_button: function(button, e, eOpts) {
+        const grid = this.lookupReference('excel_grid');
+
+        // 숨겨진 file input 동적으로 생성
+        const fileInput = Ext.DomHelper.append(document.body, {
+            tag: 'input',
+            type: 'file',
+            accept: '.xls,.xlsx',
+            style: 'display:none'
+        }, true);
+
+        fileInput.on('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            Ext.Ajax.request({
+                url: dream.util.Common.BASE_URL + '/system/excel/import',
+                rawData: formData,
+                headers: { 'Content-Type':null }, // 멀티파트 자동처리
+                success: function (res) {
+                    const data = Ext.decode(res.responseText);
+
+                    // 그리드 store 로드
+                    grid.getStore().loadData(data);
+                },
+                failure: function (res) {
+                    Ext.Msg.alert('오류', '엑셀 데이터를 불러오는데 실패했습니다.');
+                }
+            });
+        });
+
+        fileInput.dom.click();
+
+    }
+
 });

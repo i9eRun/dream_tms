@@ -1,17 +1,17 @@
 {
-    "type": "Ext.app.ViewController",
+    "type": "Ext.app.ViewModel",
     "reference": {
         "name": "items",
         "type": "array"
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userAlias": "tord.tord1001",
-        "designer|userClassName": "tord.tord1001ViewController"
+        "designer|userAlias": "tord.tord1003",
+        "designer|userClassName": "tord.tord1003ViewModel"
     },
     "configAlternates": {
         "designer|userAlias": "string",
         "designer|userClassName": "string"
     },
-    "designerId": "a3167913-52c4-417e-8833-ab5991551467"
+    "designerId": "11701c61-405e-43c6-82e3-e929214b7803"
 }

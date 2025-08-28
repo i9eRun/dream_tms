@@ -89,12 +89,12 @@ public class Tord1002Service {
            .append("      T2.JIYUK_NM AS CHULPAN_JIYUK_NM,\n")
            .append("      T3.CUST_NM AS SUJUM_NM,\n")
            .append("      T3.JIYUK_NM AS SUJUM_JIYUK_NM,\n")
-           .append("      T4.USER_NM AS ORD_INPUT_NM,\n")
+           //.append("      T4.USER_NM AS ORD_INPUT_NM,\n")
            .append("      ROW_NUMBER() OVER(ORDER BY T3.CUST_NM, T3.JIYUK_NM) AS RNUM\n")
            .append(" FROM TMS_ORDER_MST T1\n")
            .append(" JOIN TMS_CUST T2 ON T1.CHULPAN_CD = T2.CUST_CD AND T2.CUST_DIV_GB = '1'\n")
            .append(" JOIN TMS_CUST T3 ON T1.SUJUM_CD = T3.CUST_CD AND T3.CUST_DIV_GB = '2'\n")
-           .append(" JOIN TMS_COM_USER T4 ON T1.ORD_INPUT_ID = T4.USER_ID\n")
+           //.append(" JOIN TMS_COM_USER T4 ON T1.ORD_INPUT_ID = T4.USER_ID\n")
            .append(" WHERE T1.ORD_DIV_GB = '02'\n")
            .append(" AND T1.ORD_DT >= :frDt\n")
            .append(" AND T1.ORD_DT <= :toDt\n");
@@ -112,6 +112,8 @@ public class Tord1002Service {
             sql.append(" AND T1.SUJUM_CD = :sujumCd\n");
             params.addValue("sujumCd", sujumCd);
         }
+
+        System.out.println(sql.toString());
 
         return jdbc.query(sql.toString(), params, new BeanPropertyRowMapper<>(OrderVO.class));
     }

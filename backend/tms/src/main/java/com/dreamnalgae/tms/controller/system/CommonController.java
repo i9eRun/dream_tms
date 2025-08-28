@@ -1,16 +1,31 @@
 package com.dreamnalgae.tms.controller.system;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.dreamnalgae.tms.model.system.ExcelRequestDTO;
 import com.dreamnalgae.tms.service.system.CommonService;
@@ -81,4 +96,65 @@ public class CommonController {
         } catch (Exception ignore) {}
         return null;
     }
+
+
+
+    @PostMapping(value="/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Map<String, Object> importExcel(@RequestPart("file") MultipartFile file) throws Exception {
+        List<Map<String,Object>> rows = new ArrayList<>();
+
+        try (InputStream in = file.getInputStream(); XSSFWorkbook wb = new XSSFWorkbook(in)) {
+            XSSFSheet sheet = wb.getSheetAt(0);
+            Iterator<Row> it = sheet.iterator();
+            if (!it.hasNext()) return Map.of("success", true, "data", rows);
+
+            // 첫 번째 행 = 헤더
+            Row headerRow = it.next();
+            List<String> headers = new ArrayList<>();
+            headerRow.forEach(c -> headers.add(c.getStringCellValue().trim()));
+
+            // 데이터 행
+            while (it.hasNext()) {
+                Row r = it.next();
+                Map<String,Object> map = new LinkedHashMap<>();
+                for (int i = 0; i < headers.size(); i++) {
+                    Cell c = r.getCell(i, Row.MissingCellPolicy.RETURN_BLANK_AS_NULL);
+                    map.put(headers.get(i), getCellValue(c));
+                }
+                rows.add(map);
+            }
+        }
+
+        return Map.of("success", true, "data", rows);
+    }
+
+    private Object getCellValue(Cell c) {
+        if (c == null) return null;
+        return switch (c.getCellType()) {
+            case STRING  -> c.getStringCellValue();
+            case NUMERIC -> DateUtil.isCellDateFormatted(c) ? c.getDateCellValue() : c.getNumericCellValue();
+            case BOOLEAN -> c.getBooleanCellValue();
+            case FORMULA -> c.getCachedFormulaResultType() == CellType.NUMERIC
+                                ? (DateUtil.isCellDateFormatted(c) ? c.getDateCellValue() : c.getNumericCellValue())
+                                : c.getStringCellValue();
+            default -> null;
+        };
+    }
+
+
+      
+    @PostMapping("/excel/import")
+    public List<Map<String, Object>> readExcel(@RequestParam("file") MultipartFile file) throws IOException {
+        return commonService.readExcel(file);
+    }
+
+
+
+
+
+
+
+
+
+
 }

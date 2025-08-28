@@ -182,6 +182,8 @@ public class Tbas1001Service {
 
         SqlParameterSource params = new BeanPropertySqlParameterSource(vo);
 
+        System.out.println(sql.toString());
+
         return jdbc.query(sql.toString(), params, new BeanPropertyRowMapper<>(TmsCustInfoVO.class));
     }
     
