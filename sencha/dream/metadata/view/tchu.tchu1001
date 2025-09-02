@@ -1,0 +1,884 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|snapToGrid": 10,
+        "designer|userAlias": "tchu.tchu1001",
+        "designer|userClassName": "tchu.tchu1001",
+        "height": 850,
+        "layout": "absolute",
+        "title": "",
+        "width": 1600
+    },
+    "configAlternates": {
+        "designer|snapToGrid": "number",
+        "designer|userAlias": "string",
+        "designer|userClassName": "string",
+        "height": "auto",
+        "layout": "string",
+        "title": "string",
+        "width": "auto"
+    },
+    "name": "MyPanel",
+    "designerId": "33849bb5-67f2-4fd0-b1de-0a6b0d22f299",
+    "viewControllerInstanceId": "177d5bba-8856-47de-b6a2-213d042a31f8",
+    "viewModelInstanceId": "3916be41-d4d4-4b1d-a5b8-94dd94e1122c",
+    "cn": [
+        {
+            "type": "Ext.form.Label",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|x": 10,
+                "layout|y": 10,
+                "text": "출고증관리_대행사 [TCHU1001]"
+            },
+            "configAlternates": {
+                "layout|x": "number",
+                "layout|y": "number",
+                "text": "string"
+            },
+            "name": "MyLabel1",
+            "designerId": "bcc7fb6d-e3ea-4722-8f29-8fb8d9eb6f6a"
+        },
+        {
+            "type": "Ext.form.field.ComboBox",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "출고구분",
+                "labelWidth": 60,
+                "layout|x": 10,
+                "layout|y": 60,
+                "reference": "chulgo_gb",
+                "store": [
+                    "[",
+                    "        [''   , '전체'],",
+                    "        ['01', '시내'],",
+                    "        ['02', '지방']",
+                    "        ",
+                    "        ]"
+                ],
+                "value": [
+                    "''"
+                ],
+                "width": 180
+            },
+            "configAlternates": {
+                "fieldLabel": "string",
+                "layout|x": "number",
+                "layout|y": "number",
+                "labelWidth": "number",
+                "width": "auto",
+                "store": "array",
+                "reference": "string",
+                "value": "object"
+            },
+            "name": "MyComboBox",
+            "designerId": "c9bb5e46-b66b-446f-a606-78f7043dc346"
+        },
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "출판사",
+                "labelWidth": 60,
+                "layout|x": 10,
+                "layout|y": 100,
+                "reference": "chulpan_code",
+                "width": 150
+            },
+            "configAlternates": {
+                "fieldLabel": "string",
+                "layout|x": "number",
+                "layout|y": "number",
+                "width": "auto",
+                "labelWidth": "number",
+                "reference": "string"
+            },
+            "name": "MyTextField2",
+            "designerId": "94e205e8-826e-4f4b-be12-b972e3e23431"
+        },
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "",
+                "layout|x": 160,
+                "layout|y": 100,
+                "reference": "chulpan_name"
+            },
+            "configAlternates": {
+                "fieldLabel": "string",
+                "layout|x": "number",
+                "layout|y": "number",
+                "reference": "string"
+            },
+            "name": "MyTextField3",
+            "designerId": "95048ca7-e506-443d-97e6-04884d6761ca"
+        },
+        {
+            "type": "Ext.form.field.Date",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "일자",
+                "format": "Ymd",
+                "labelWidth": 40,
+                "layout|x": 290,
+                "layout|y": 60,
+                "reference": "choose_date",
+                "submitFormat": "Ymd",
+                "width": 170
+            },
+            "configAlternates": {
+                "fieldLabel": "string",
+                "layout|x": "number",
+                "layout|y": "number",
+                "labelWidth": "number",
+                "format": "string",
+                "reference": "string",
+                "submitFormat": "string",
+                "width": "auto"
+            },
+            "name": "MyDateField",
+            "designerId": "1dd34d3f-6ff7-41a1-9846-dde593fd9c0a",
+            "cn": [
+                {
+                    "type": "viewcontrollereventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onDatefieldAfterRender_choose_date",
+                        "implHandler": [
+                            "component.setValue(new Date());"
+                        ],
+                        "name": "afterrender",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onDatefieldAfterRender_choose_date",
+                    "designerId": "c4e5b19d-34bf-4564-8c09-29f20acc4712"
+                }
+            ]
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|x": 310,
+                "layout|y": 100,
+                "reference": "chulpan_search_button",
+                "text": "찾기"
+            },
+            "configAlternates": {
+                "layout|x": "number",
+                "layout|y": "number",
+                "text": "string",
+                "reference": "string"
+            },
+            "name": "MyButton2",
+            "designerId": "64b5b111-65ee-4be2-a05f-4d65d805a27a"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|x": 660,
+                "layout|y": 30,
+                "text": "초기화",
+                "width": 60
+            },
+            "configAlternates": {
+                "layout|x": "number",
+                "layout|y": "number",
+                "text": "string",
+                "width": "auto"
+            },
+            "name": "MyButton3",
+            "designerId": "598bf801-c11b-4ba3-8ecc-efed5866cfbe"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|x": 1130,
+                "layout|y": 120,
+                "text": "자료삭제",
+                "width": 80
+            },
+            "configAlternates": {
+                "layout|x": "number",
+                "layout|y": "number",
+                "text": "string",
+                "width": "auto"
+            },
+            "name": "MyButton8",
+            "designerId": "6e117857-c1d6-465f-bbe9-c7941a8e1100"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|x": 950,
+                "layout|y": 750,
+                "text": "자료전송",
+                "width": 80
+            },
+            "configAlternates": {
+                "layout|x": "number",
+                "layout|y": "number",
+                "text": "string",
+                "width": "auto"
+            },
+            "name": "MyButton9",
+            "designerId": "51d75d8a-be43-418c-98a8-71e7b0932c63"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|x": 1040,
+                "layout|y": 750,
+                "reference": "print_chulgo",
+                "text": "출고증 출력",
+                "width": 80
+            },
+            "configAlternates": {
+                "layout|x": "number",
+                "layout|y": "number",
+                "text": "string",
+                "width": "auto",
+                "reference": "string"
+            },
+            "name": "MyButton10",
+            "designerId": "279c20bf-3279-41b8-a0bd-487225c0f22d",
+            "cn": [
+                {
+                    "type": "viewcontrollereventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onButtonClick_print_chulgo",
+                        "implHandler": [
+                            "const chooseDateCmp = this.lookupReference('choose_date');",
+                            "const chooseDate = chooseDateCmp ? chooseDateCmp.getSubmitValue() : null;",
+                            "if (!chooseDate) {",
+                            "    Ext.Msg.alert('알림', '일자를 선택하세요.');",
+                            "    return;",
+                            "}",
+                            "",
+                            "const userCetCd = dream.util.Common.LOGIN_USER_CET_CD;",
+                            "const baseUrl   = dream.util.Common.BASE_URL || '';",
+                            "const url = baseUrl+ '/system/print/pdf/chulgo?chooseDate=' + encodeURIComponent(chooseDate)+ '&userCetCd=' + encodeURIComponent(userCetCd)+ '&_=' + Date.now(); // 캐시 방지",
+                            "",
+                            "// 새탭으로 열기 (사용자가 직접 인쇄)",
+                            "const win = window.open(url, '_blank');",
+                            "if (win) return;",
+                            "",
+                            "// 팝업 차단시: iframe으로 로드해서 자동 인쇄 시도",
+                            "this.printPdfInHiddenIframe(url);",
+                            "",
+                            "",
+                            "",
+                            ""
+                        ],
+                        "name": "click",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onButtonClick_print_chulgo",
+                    "designerId": "58011c1e-434e-4e0c-a755-a049108baffa"
+                }
+            ]
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|x": 1130,
+                "layout|y": 750,
+                "text": "라벨 출력",
+                "width": 80
+            },
+            "configAlternates": {
+                "layout|x": "number",
+                "layout|y": "number",
+                "text": "string",
+                "width": "auto"
+            },
+            "name": "MyButton12",
+            "designerId": "9138e401-c269-48c6-923a-0d64bb56b8ca"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|x": 730,
+                "layout|y": 30,
+                "reference": "search_button",
+                "text": "조회",
+                "width": 60
+            },
+            "configAlternates": {
+                "layout|x": "number",
+                "layout|y": "number",
+                "text": "string",
+                "reference": "string",
+                "width": "auto"
+            },
+            "name": "MyButton4",
+            "designerId": "3b508291-956e-40cc-b725-926a13a3a5a3",
+            "cn": [
+                {
+                    "type": "viewcontrollereventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onButtonClick_search_button",
+                        "implHandler": [
+                            "const grid = this.lookupReference('list_grid');",
+                            "const store = grid.getStore();",
+                            "const choose_date = this.lookupReference('choose_date').getSubmitValue();",
+                            "",
+                            "        store.getProxy().setExtraParams({",
+                            "            userCetCd: dream.util.Common.LOGIN_USER_CET_CD,",
+                            "            chooseDate: choose_date",
+                            "        });",
+                            "",
+                            "        store.load();"
+                        ],
+                        "name": "click",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onButtonClick_search_button",
+                    "designerId": "8759a3a0-6cba-4fda-991f-51b5d20e250f"
+                }
+            ]
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|x": 800,
+                "layout|y": 30,
+                "text": "저장",
+                "width": 60
+            },
+            "configAlternates": {
+                "layout|x": "number",
+                "layout|y": "number",
+                "text": "string",
+                "width": "auto"
+            },
+            "name": "MyButton5",
+            "designerId": "c036badd-e13a-4225-8d9b-ed9fa6db2351"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|x": 870,
+                "layout|y": 30,
+                "text": "엑셀",
+                "width": 60
+            },
+            "configAlternates": {
+                "layout|x": "number",
+                "layout|y": "number",
+                "text": "string",
+                "width": "auto"
+            },
+            "name": "MyButton6",
+            "designerId": "d04cf080-cd48-4f9e-83ff-d7a9d77668d5"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|x": 940,
+                "layout|y": 30,
+                "text": "닫기",
+                "width": 60
+            },
+            "configAlternates": {
+                "layout|x": "number",
+                "layout|y": "number",
+                "text": "string",
+                "width": "auto"
+            },
+            "name": "MyButton7",
+            "designerId": "603b5bcb-2bc5-403b-9ee8-62aea3855d24"
+        },
+        {
+            "type": "Ext.form.field.Checkbox",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "boxLabel": "선택출력",
+                "fieldLabel": "",
+                "layout|x": 440,
+                "layout|y": 100
+            },
+            "configAlternates": {
+                "boxLabel": "string",
+                "fieldLabel": "string",
+                "layout|x": "number",
+                "layout|y": "number"
+            },
+            "name": "MyCheckbox",
+            "designerId": "38497caf-e89d-4852-a7b4-16476598667a"
+        },
+        {
+            "type": "Ext.form.field.Checkbox",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "boxLabel": "다이렉트출력",
+                "fieldLabel": "",
+                "layout|x": 540,
+                "layout|y": 100
+            },
+            "configAlternates": {
+                "boxLabel": "string",
+                "fieldLabel": "string",
+                "layout|x": "number",
+                "layout|y": "number"
+            },
+            "name": "MyCheckbox1",
+            "designerId": "adbd817a-1cd5-4a7b-a7ff-937e737b0e01"
+        },
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": 590,
+                "layout|x": 10,
+                "layout|y": 150,
+                "reference": "list_grid",
+                "store": "tchu.tchc1001.TMS_DUNGE_MST",
+                "title": "",
+                "width": 1200
+            },
+            "configAlternates": {
+                "height": "auto",
+                "layout|x": "number",
+                "layout|y": "number",
+                "store": "store",
+                "title": "string",
+                "width": "auto",
+                "reference": "string"
+            },
+            "name": "MyGridPanel",
+            "designerId": "1e836de5-5604-436c-b30d-b76fb0f873e8",
+            "cn": [
+                {
+                    "type": "Ext.grid.column.RowNumberer",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "text": "NO",
+                        "width": 40
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "width": "auto"
+                    },
+                    "name": "MyRowNumberer",
+                    "designerId": "5be1137f-ed07-4c6b-96e6-8364bb8ac548"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "ordNo",
+                        "text": "전표번호"
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "dataIndex": "datafield"
+                    },
+                    "name": "MyColumn5",
+                    "designerId": "b82af3ab-4d3f-4804-95be-3d0235c0b94b"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "chulpanNm",
+                        "text": "출판사명"
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "dataIndex": "datafield"
+                    },
+                    "name": "MyColumn6",
+                    "designerId": "a8d05cfd-5952-408b-b757-cebbe5974e21"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "sujumCd",
+                        "text": "서점코드"
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "dataIndex": "datafield"
+                    },
+                    "name": "MyColumn7",
+                    "designerId": "6d410f80-9a0d-4389-b155-73bc94be9db3"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "jiyukNm",
+                        "text": "지역명"
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "dataIndex": "datafield"
+                    },
+                    "name": "MyColumn8",
+                    "designerId": "de323c5c-ff7b-462d-b5c7-e3bc3812d3e1"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "sujumNm",
+                        "text": "거래처명"
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "dataIndex": "datafield"
+                    },
+                    "name": "MyColumn9",
+                    "designerId": "3f6b1541-e356-4c30-92d1-7aacc47d8766"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "qty",
+                        "text": "부수"
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "dataIndex": "datafield"
+                    },
+                    "name": "MyColumn10",
+                    "designerId": "38bbd7d2-8722-40db-9f6f-51b1b01b0722"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "dunge",
+                        "text": "덩이"
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "dataIndex": "datafield"
+                    },
+                    "name": "MyColumn17",
+                    "designerId": "48c284f3-ad25-437a-ac5f-68bf097ff457"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "bigo",
+                        "text": "비고"
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "dataIndex": "datafield"
+                    },
+                    "name": "MyColumn18",
+                    "designerId": "0574c0d9-1e20-4569-a3ad-54fdb987f7f2"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "text": "구분"
+                    },
+                    "configAlternates": {
+                        "text": "string"
+                    },
+                    "name": "MyColumn19",
+                    "designerId": "8075efd9-4833-4843-9eaf-b9e9aa5e6b12"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "transGb",
+                        "text": "전송"
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "dataIndex": "datafield"
+                    },
+                    "name": "MyColumn20",
+                    "designerId": "8a74aa62-79a2-49a0-bd55-16b035193820",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "return dream.util.Common.getFlagCodeName('전송', value);"
+                                ]
+                            },
+                            "configAlternates": {
+                                "designer|params": "typedarray",
+                                "fn": "string",
+                                "implHandler": "code"
+                            },
+                            "name": "renderer",
+                            "designerId": "359c881d-8089-49e0-9e28-2d2e328eb3a6"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "outYn",
+                        "text": "출력유무"
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "dataIndex": "datafield"
+                    },
+                    "name": "MyColumn21",
+                    "designerId": "1eb45c78-a588-466d-abb0-1ac410efe8ca",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "return dream.util.Common.getFlagCodeName('출력', value);"
+                                ]
+                            },
+                            "configAlternates": {
+                                "designer|params": "typedarray",
+                                "fn": "string",
+                                "implHandler": "code"
+                            },
+                            "name": "renderer",
+                            "designerId": "83c5784e-018d-44ff-86c5-46bcbfb1452c"
+                        }
+                    ]
+                },
+                {
+                    "type": "viewcontrollereventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onGridpanelAfterRender_list_grid",
+                        "implHandler": [
+                            "const store = component.getStore();",
+                            "",
+                            "store.getProxy().setUrl(dream.util.Common.BASE_URL + '/tchu/1001/list');",
+                            "",
+                            "store.getProxy().setExtraParams({",
+                            "    userCetCd: dream.util.Common.LOGIN_USER_CET_CD",
+                            "});",
+                            "",
+                            "// store.reload();"
+                        ],
+                        "name": "afterrender",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onGridpanelAfterRender_list_grid",
+                    "designerId": "59b8dd08-8a74-487b-97a4-8d07c12cb65b"
+                }
+            ]
+        }
+    ]
+}

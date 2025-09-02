@@ -1,0 +1,44 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "tchu.tchc1001.TMS_DUNGE_MST",
+        "model": "tchu.TMS_DUNGE_MST",
+        "storeId": "tchu.tchc1001.TMS_DUNGE_MST"
+    },
+    "configAlternates": {
+        "designer|userClassName": "string",
+        "model": "model",
+        "storeId": "string"
+    },
+    "name": "MyJsonStore",
+    "designerId": "34cf08cf-b99d-4bfd-9339-d6a1aefdf9f7",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyAjaxProxy",
+            "designerId": "b08cad58-e833-4ee4-873f-4608ec00b238",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyJsonReader",
+                    "designerId": "05df7343-c6fd-43ee-9542-3750e9ad0f43"
+                }
+            ]
+        }
+    ]
+}

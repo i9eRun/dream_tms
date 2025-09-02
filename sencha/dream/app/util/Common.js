@@ -255,6 +255,7 @@ Ext.define('dream.util.Common', {
         '위탁':      { codes: ['1', '0'], names: ['위탁', '위탁안함'] },
         '종료':      { codes: ['1', '0'], names: ['종료', '유지'] },
         '출력':      { codes: ['1', '0'], names: ['출력', '미출력'] },
+        '전송':      { codes: ['1', '0'], names: ['전송', '미전송'] },
         '포함':      { codes: ['1', '0'], names: ['포함', '미포함'] },
         '발송':      { codes: ['1', '0'], names: ['발송', '미발송'] },
         '있음':      { codes: ['1', '0'], names: ['있음', '없음'] },
@@ -909,6 +910,48 @@ Ext.define('dream.util.Common', {
 
             grid.getView().refresh();
         }, 50);
+    },
+
+
+
+    /**
+     * 동일 출처(same-origin)일 때 PDF를 숨은 iframe으로 로드해 자동 인쇄
+     */
+    printPdfInHiddenIframe: function(url) {
+        const id = 'printIframe_chulgo';
+        let iframe = document.getElementById(id);
+        if (!iframe) {
+            iframe = document.createElement('iframe');
+            iframe.id = id;
+            iframe.style.position = 'fixed';
+            iframe.style.right = '0';
+            iframe.style.bottom = '0';
+            iframe.style.width = '0';
+            iframe.style.height = '0';
+            iframe.style.border = '0';
+            document.body.appendChild(iframe);
+        }
+
+        const me = this;
+        const mask = new Ext.LoadMask(Ext.getBody(),{msg:'pdf 생성 중 ...'});
+        mask.show();
+
+        iframe.onload = function() {
+            mask.hide();
+            try {
+                // 일부 브라우저는 약간의 지연시간이 필요함.
+                setTimeout(function () {
+                    iframe.contentWindow.focus();
+                    iframe.contentWindow.print();
+                }, 150);
+
+            } catch (e) {
+                Ext.Msg.alert('알림', '자동 인쇄를 실행하지 못했습니다. 다운로드된 PDF를 확인하세요.');
+            }
+        };
+
+        iframe.src = url; // 로드 시작
+
     }
 
 
