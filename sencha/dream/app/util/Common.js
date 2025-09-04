@@ -8,6 +8,9 @@ Ext.define('dream.util.Common', {
     LOGIN_USER_TYPE: null,
     LOGIN_USER_COURSE: null,
     LOGIN_USER_CET_CD: null,
+    LOGIN_CUST_DIV_GB: null,
+    LOGIN_CUST_NAME: null,
+    LOGIN_CUST_CD: null,
     ENV_MODE: 'dev',
     resetSession: function () {
         this.LOGIN_USER = null;

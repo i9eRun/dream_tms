@@ -1,0 +1,246 @@
+{
+    "type": "Ext.container.Viewport",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|initialView": true,
+        "designer|userAlias": "loginview",
+        "designer|userClassName": "LoginView",
+        "height": 250,
+        "layout": "center",
+        "requires": [
+            "TmsLabel.util.Common"
+        ],
+        "width": 400
+    },
+    "configAlternates": {
+        "designer|initialView": "boolean",
+        "designer|userAlias": "string",
+        "designer|userClassName": "string",
+        "height": "auto",
+        "layout": "string",
+        "requires": "typedarray",
+        "width": "auto"
+    },
+    "name": "MyViewport",
+    "designerId": "c3d25292-cbed-4f23-95f5-e90f5d351728",
+    "viewControllerInstanceId": "91a03257-8724-4bb0-aab3-2176afbf123f",
+    "viewModelInstanceId": "93a099fa-34bb-41de-95b3-680a14255664",
+    "cn": [
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyPadding": 10,
+                "designer|uiInterfaceName": "default-framed",
+                "frame": true,
+                "height": 250,
+                "margin": "10 10 10 10",
+                "reference": "login_form",
+                "title": "라벨지원 프로그램",
+                "width": 400
+            },
+            "configAlternates": {
+                "bodyPadding": "auto",
+                "designer|uiInterfaceName": "string",
+                "frame": "boolean",
+                "height": "auto",
+                "margin": "auto",
+                "reference": "string",
+                "title": "string",
+                "width": "auto"
+            },
+            "name": "MyForm",
+            "designerId": "82c88a9e-8ae8-4bdb-baac-e88a33bca9c8",
+            "cn": [
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "아이디",
+                        "layout|anchor": "100%",
+                        "margin": "5 5 20 5",
+                        "name": "userId"
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "layout|anchor": "string",
+                        "margin": "auto",
+                        "name": "string"
+                    },
+                    "name": "MyTextField",
+                    "designerId": "837ac97d-cb2a-4858-b407-045ce2a4d687"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "비밀번호",
+                        "layout|anchor": "100%",
+                        "margin": "5 5 30 5",
+                        "name": "password"
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "layout|anchor": "string",
+                        "margin": "auto",
+                        "name": "string"
+                    },
+                    "name": "MyTextField1",
+                    "designerId": "90568f46-013d-482b-ab72-3c0e4903d9b7",
+                    "cn": [
+                        {
+                            "type": "viewcontrollereventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onTextfieldAfterRender_password",
+                                "implHandler": [
+                                    "const button = this.lookupReference('login_button');",
+                                    "component.on('specialkey', function(component, e) {",
+                                    "    if (e.getKey() === e.ENTER) {",
+                                    "        if (button) {",
+                                    "            button.fireEvent('click', button);",
+                                    "        }",
+                                    "    }",
+                                    "});"
+                                ],
+                                "name": "afterrender",
+                                "scope": "me"
+                            },
+                            "configAlternates": {
+                                "fn": "string",
+                                "implHandler": "code",
+                                "name": "string",
+                                "scope": "string"
+                            },
+                            "name": "onTextfieldAfterRender_password",
+                            "designerId": "08fd566c-916f-479e-93fb-03c70d2c34e8"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "margin": "5 5 5 5",
+                        "reference": "login_button",
+                        "text": "로그인",
+                        "width": "100%"
+                    },
+                    "configAlternates": {
+                        "margin": "auto",
+                        "reference": "string",
+                        "text": "string",
+                        "width": "auto"
+                    },
+                    "name": "MyButton",
+                    "designerId": "0d09d13c-eedc-4569-9db6-a7c18d2956dc",
+                    "cn": [
+                        {
+                            "type": "viewcontrollereventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick_login_button",
+                                "implHandler": [
+                                    "const form = this.lookupReference('login_form');",
+                                    "const values = form.getValues();",
+                                    "const user_id = values.userId;",
+                                    "const user_pw = values.password;",
+                                    "",
+                                    "if (Ext.isEmpty(user_id) || Ext.isEmpty(user_pw) ) {",
+                                    "    Ext.Msg.alert('알림', '아이디 와 비밀번호를 입력해주세요.');",
+                                    "    return;",
+                                    "}",
+                                    "",
+                                    "",
+                                    "Ext.Ajax.request({",
+                                    "    url: TmsLabel.util.Common.BASE_URL + '/tmslabel/login',",
+                                    "    method: 'POST',",
+                                    "    withCredentials: true,",
+                                    "    jsonData: {",
+                                    "        userId: user_id,",
+                                    "        password: user_pw",
+                                    "    },",
+                                    "    success: function (response) {",
+                                    "        const res = Ext.decode(response.responseText);",
+                                    "        if (res.success) {",
+                                    "            Ext.Msg.alert('로그인 성공', res.custName + '님 환영합니다.');",
+                                    "            TmsLabel.util.Common.LOGIN_USER = user_id;",
+                                    "            TmsLabel.util.Common.LOGIN_CUST_NAME = res.custName;",
+                                    "            TmsLabel.util.Common.LOGIN_CUST_CD = res.custCode;",
+                                    "            TmsLabel.util.Common.LOGIN_CUST_DIV_GB = res.custDivGb;",
+                                    "            TmsLabel.util.Common.LOGIN_USER_CET_CD = res.userCetCd;",
+                                    "",
+                                    "            const loginWindow = button.up('window') || button.up('viewport');",
+                                    "",
+                                    "            loginWindow.destroy();",
+                                    "            Ext.create('TmsLabel.view.MainView');",
+                                    "        } else {",
+                                    "            Ext.Msg.alert('로그인 오류', res.message);",
+                                    "        }",
+                                    "    },",
+                                    "    failure: function () {",
+                                    "        Ext.Msg.alert('오류', '서버와 통신 중 오류가 발생했습니다.');",
+                                    "    }",
+                                    "});",
+                                    "",
+                                    "",
+                                    "",
+                                    "",
+                                    "// TmsLabel.util.Common.LOGIN_USER = '20250304';",
+                                    "// TmsLabel.util.Common.LOGIN_USER_NAME = '테스트 출판사';",
+                                    "// TmsLabel.util.Common.LOGIN_USER_CET_CD = '00001';",
+                                    "// TmsLabel.util.Common.LOGIN_CUST_DIV_GB = '1';",
+                                    "",
+                                    "// const loginWindow = button.up('window') || button.up('viewport');",
+                                    "",
+                                    "// loginWindow.destroy();",
+                                    "// Ext.create('TmsLabel.view.MainView');",
+                                    "",
+                                    ""
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "configAlternates": {
+                                "fn": "string",
+                                "implHandler": "code",
+                                "name": "string",
+                                "scope": "string"
+                            },
+                            "name": "onButtonClick_login_button",
+                            "designerId": "05b7dfe1-41cb-4224-981c-9e48aa8746bc"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,58 @@
+{
+    "name": "TmsLabel",
+    "settings": {
+        "cmd": {
+            "license": "commercial",
+            "cmdVersion": "7.9.0.35",
+            "frameworkVersion": "7.9.0.20"
+        },
+        "urlPrefixTemplate": "http://localhost:61112",
+        "urlPrefix": "http://localhost:61112",
+        "canvasControls": {
+            "viewportSize": {
+                "name": "Auto Expand",
+                "builtIn": true,
+                "height": null,
+                "width": null
+            }
+        },
+        "exportPath": "",
+        "spacesToIndent": 4,
+        "sdkPath": "",
+        "lineEnding": "CRLF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "buildShouldOverwriteIndex": true,
+        "generateArchitectVersion": true
+    },
+    "xdsVersion": "4.3.7",
+    "xdsBuild": 9,
+    "schemaVersion": 1,
+    "upgradeVersion": 310000000001,
+    "framework": "ext79",
+    "viewOrderMap": {
+        "view": [
+            "c3d25292-cbed-4f23-95f5-e90f5d351728",
+            "93a099fa-34bb-41de-95b3-680a14255664",
+            "91a03257-8724-4bb0-aab3-2176afbf123f",
+            "8550e58d-bea8-415b-87e2-a959e1d7478c",
+            "bf2e41e4-b1c8-4312-96ab-cead5180226e",
+            "8f527007-0e8c-47fb-b1d3-026c8036cfbc"
+        ],
+        "store": [
+            "e61d9e0a-b824-4eb1-a725-a40938ac2d58"
+        ],
+        "controller": [],
+        "model": [
+            "9c39d4ae-c449-432c-bf3e-10e5bf2763f9"
+        ],
+        "resource": [
+            "86fc7917-92e4-4f23-bf71-834d1c8ba8c8",
+            "3d455645-8f43-4bc8-b418-d78592685305",
+            "cbcdf7a5-dec5-43de-824e-25b10027c56f"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}

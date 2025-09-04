@@ -47,3 +47,16 @@ yarn-error.log
 *.zip
 *.tar
 *.tar.gz
+
+# --- Sencha Architect projects (generic rule: sencha/dream, TmsLabel, etc) ---
+/*/build/
+/*/classic/build/
+/*/modern/build/
+/*/resources/sass/.sass-cache/
+/*/.sass-cache/
+/*/.sencha/**/temp/
+/*/.sencha/**/.cache/
+/*/.architect/backup/
+/*/ext/build/
+/*/ext/**/.sencha_temp/
+/*/ext/**/.cache/

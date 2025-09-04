@@ -1,0 +1,29 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "models": [
+            "TMS_DUNGE_MST"
+        ],
+        "name": "TmsLabel",
+        "stores": [
+            "TMS_DUNGE_MST"
+        ],
+        "views": [
+            "LoginView",
+            "MainView"
+        ]
+    },
+    "configAlternates": {
+        "name": "string",
+        "views": "typedarray",
+        "models": "typedarray",
+        "stores": "typedarray"
+    },
+    "name": "Application",
+    "designerId": "application"
+}
