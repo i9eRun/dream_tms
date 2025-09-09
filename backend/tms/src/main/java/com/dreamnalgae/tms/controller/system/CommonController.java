@@ -357,14 +357,14 @@ public class CommonController {
     }
 
 
-
+    // 출고증 출력 get방식 사용 안함.
     @GetMapping("/print/pdf/chulgo")
     public void exportChulgoPdf(HttpServletResponse response,
                                 @RequestParam String chooseDate,
                                 @RequestParam String userCetCd) throws Exception {
 
         // 데이터 조회
-        List<TmsDungeMstVO> all = tchu1001Service.selectList(chooseDate, userCetCd, null, null);
+        List<TmsDungeMstVO> all = tchu1001Service.selectList(chooseDate, userCetCd, null, null, null);
 
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=chulgo.pdf");
@@ -407,7 +407,7 @@ public class CommonController {
                 int pageDungeSum = page.stream().mapToInt(v -> v.getDunge() == null ? 0 : v.getDunge().intValue()).sum();
 
                 boolean isLast = (p == pages.size() - 1);
-                boolean showGrandTotal = multiPage && isLast;  // ✅ 한 페이지면 false
+                boolean showGrandTotal = multiPage && isLast;  // 한 페이지면 false
 
                 addFooterBox(document, baseFont, pageQtySum, pageDungeSum,
                             showGrandTotal, totalQtySum, totalDungeSum);
@@ -418,6 +418,8 @@ public class CommonController {
             document.close();
         }
     }
+
+    
 
 
 

@@ -1,0 +1,707 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "container|align": "stretch",
+        "designer|userAlias": "popup.cust",
+        "designer|userClassName": "popup.cust",
+        "height": 500,
+        "layout": "vbox",
+        "title": "거래처 조회",
+        "width": 800
+    },
+    "configAlternates": {
+        "container|align": "string",
+        "designer|userAlias": "string",
+        "designer|userClassName": "string",
+        "height": "auto",
+        "layout": "string",
+        "title": "string",
+        "width": "auto"
+    },
+    "name": "MyWindow1",
+    "designerId": "d7882c31-0b92-4a1f-97f9-6c5bc9ac062f",
+    "viewControllerInstanceId": "fc6c9c5c-6c96-428d-80f3-52eeeed084ac",
+    "viewModelInstanceId": "d3dbc591-861c-4b68-9160-543c0b824ac3",
+    "cn": [
+        {
+            "type": "Ext.container.Container",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "container|align": "stretch",
+                "layout": "vbox",
+                "layout|flex": 1,
+                "reference": "con_header"
+            },
+            "configAlternates": {
+                "container|align": "string",
+                "layout": "string",
+                "layout|flex": "number",
+                "reference": "string"
+            },
+            "name": "MyContainer4",
+            "designerId": "76217689-3f52-4628-a832-4300460153e3",
+            "cn": [
+                {
+                    "type": "Ext.container.Container",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "middle",
+                        "layout": "hbox",
+                        "layout|flex": 1,
+                        "reference": "row_top"
+                    },
+                    "configAlternates": {
+                        "container|align": "string",
+                        "layout": "string",
+                        "layout|flex": "number",
+                        "reference": "string"
+                    },
+                    "name": "MyContainer5",
+                    "designerId": "d85dbb21-b61e-4255-a2c5-83c12705a9de",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.ComboBox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "displayField": "codeNm",
+                                "fieldLabel": "거래처분류",
+                                "labelWidth": 70,
+                                "layout|margins": "",
+                                "margin": "0 30 0 5",
+                                "reference": "cust_gb",
+                                "valueField": "codeCd",
+                                "width": 170
+                            },
+                            "configAlternates": {
+                                "displayField": "datafield",
+                                "fieldLabel": "string",
+                                "labelWidth": "number",
+                                "layout|margins": "string",
+                                "margin": "auto",
+                                "reference": "string",
+                                "valueField": "datafield",
+                                "width": "auto"
+                            },
+                            "name": "MyComboBox3",
+                            "designerId": "67ad5167-7a8d-4793-b0ea-e3ed42adc21a",
+                            "cn": [
+                                {
+                                    "type": "viewcontrollereventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onComboboxAfterRender_cust_gb",
+                                        "implHandler": [
+                                            "TmsLabel.util.Common.setComboCode(component,168);",
+                                            "// store가 로드된 후 setValue 실행",
+                                            "component.getStore().on('load', function(store) {",
+                                            "    const defaultVal = component.defaultValue || \"1\"; // 외부에서 지정 가능",
+                                            "    component.setValue(defaultVal);",
+                                            "});"
+                                        ],
+                                        "name": "afterrender",
+                                        "scope": "me"
+                                    },
+                                    "configAlternates": {
+                                        "fn": "string",
+                                        "implHandler": "code",
+                                        "name": "string",
+                                        "scope": "string"
+                                    },
+                                    "name": "onComboboxAfterRender_cust_gb",
+                                    "designerId": "422fc415-fa9a-47ea-9b8c-46294ab6a5ff"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.field.ComboBox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "displayField": "codeNm",
+                                "fieldLabel": "사용여부",
+                                "labelWidth": 60,
+                                "reference": "use_yn",
+                                "valueField": "codeCd",
+                                "width": 160
+                            },
+                            "configAlternates": {
+                                "displayField": "datafield",
+                                "fieldLabel": "string",
+                                "labelWidth": "number",
+                                "reference": "string",
+                                "valueField": "datafield",
+                                "width": "auto"
+                            },
+                            "name": "MyComboBox4",
+                            "designerId": "0f5889d2-14ad-4aa9-82ca-e46b0781602d",
+                            "cn": [
+                                {
+                                    "type": "viewcontrollereventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onComboboxAfterRender_use_yn",
+                                        "implHandler": [
+                                            "TmsLabel.util.Common.setComboCode(component,183);",
+                                            "// store가 로드된 후 setValue 실행",
+                                            "component.getStore().on('load', function(store) {",
+                                            "    component.setValue(\"1\");",
+                                            "});"
+                                        ],
+                                        "name": "afterrender",
+                                        "scope": "me"
+                                    },
+                                    "configAlternates": {
+                                        "fn": "string",
+                                        "implHandler": "code",
+                                        "name": "string",
+                                        "scope": "string"
+                                    },
+                                    "name": "onComboboxAfterRender_use_yn",
+                                    "designerId": "3a06c122-6220-49d4-b032-5d5d4806f555"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.container.Container",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "middle",
+                        "layout": "hbox",
+                        "layout|flex": 1,
+                        "reference": "row_bottom"
+                    },
+                    "configAlternates": {
+                        "container|align": "string",
+                        "layout": "string",
+                        "layout|flex": "number",
+                        "reference": "string"
+                    },
+                    "name": "MyContainer6",
+                    "designerId": "07f98848-7876-4205-b956-e61a603d60f6",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "검색어",
+                                "labelWidth": 70,
+                                "margin": "0 0 0 5",
+                                "reference": "search_keyword"
+                            },
+                            "configAlternates": {
+                                "fieldLabel": "string",
+                                "labelWidth": "number",
+                                "margin": "auto",
+                                "reference": "string"
+                            },
+                            "name": "MyTextField4",
+                            "designerId": "7d710fb0-2db2-4391-8592-f50cf2f0abff",
+                            "cn": [
+                                {
+                                    "type": "viewcontrollereventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onTextfieldAfterRender_search_keyword",
+                                        "implHandler": [
+                                            "const button = this.lookupReference('search_button');",
+                                            "component.on('specialkey', function(component, e) {",
+                                            "    if (e.getKey() === e.ENTER) {",
+                                            "        if (button) {",
+                                            "            button.fireEvent('click', button);",
+                                            "        }",
+                                            "    }",
+                                            "});"
+                                        ],
+                                        "name": "afterrender",
+                                        "scope": "me"
+                                    },
+                                    "configAlternates": {
+                                        "fn": "string",
+                                        "implHandler": "code",
+                                        "name": "string",
+                                        "scope": "string"
+                                    },
+                                    "name": "onTextfieldAfterRender_search_keyword",
+                                    "designerId": "91a2ad86-fe33-460b-8a1a-e90f86bb6d4b"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "reference": "search_button",
+                                "text": "조회",
+                                "width": 80
+                            },
+                            "configAlternates": {
+                                "reference": "string",
+                                "text": "string",
+                                "width": "auto"
+                            },
+                            "name": "MyButton10",
+                            "designerId": "33db2ab9-bcda-4a0c-98ea-475411c10278",
+                            "cn": [
+                                {
+                                    "type": "viewcontrollereventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick_search_button",
+                                        "implHandler": [
+                                            "const grid = this.lookupReference('list_grid');",
+                                            "const store = grid.getStore();",
+                                            "const keyword = this.lookupReference('search_keyword').getValue();",
+                                            "const useYn = this.lookupReference('use_yn').getValue();",
+                                            "const cust_gb = this.lookupReference('cust_gb').getValue();",
+                                            "",
+                                            "",
+                                            "store.getProxy().setExtraParams({",
+                                            "    userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,",
+                                            "    keyword: keyword,",
+                                            "    useYn: useYn,",
+                                            "    custDivGb: cust_gb",
+                                            "",
+                                            "});",
+                                            "",
+                                            "store.load();"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "configAlternates": {
+                                        "fn": "string",
+                                        "implHandler": "code",
+                                        "name": "string",
+                                        "scope": "string"
+                                    },
+                                    "name": "onButtonClick_search_button",
+                                    "designerId": "a3d765e0-1607-4e20-a297-b4b48cc12a08"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "margin": "0 10 0 200",
+                                "reference": "confirm_button",
+                                "text": "확인",
+                                "width": 80
+                            },
+                            "configAlternates": {
+                                "margin": "auto",
+                                "reference": "string",
+                                "text": "string",
+                                "width": "auto"
+                            },
+                            "name": "MyButton11",
+                            "designerId": "e21a420b-7346-4b08-a6f6-31c3ef035f9c",
+                            "cn": [
+                                {
+                                    "type": "viewcontrollereventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick_confirm_button",
+                                        "implHandler": [
+                                            "const view = this.getView();",
+                                            "const grid = this.lookupReference('list_grid');",
+                                            "const selection = grid.getSelectionModel().getSelection();",
+                                            "",
+                                            "if (selection.length === 0) {",
+                                            "    Ext.Msg.alert('알림', '거래처를 선택해주세요.');",
+                                            "    return;",
+                                            "}",
+                                            "",
+                                            "const record = selection[0];",
+                                            "",
+                                            "// 부모에게 사용자 정보 전달 (이벤트 방식)",
+                                            "view.fireEvent('selectRow', view, record);",
+                                            "",
+                                            "// 팝업 닫기",
+                                            "view.close();"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "configAlternates": {
+                                        "fn": "string",
+                                        "implHandler": "code",
+                                        "name": "string",
+                                        "scope": "string"
+                                    },
+                                    "name": "onButtonClick_confirm_button",
+                                    "designerId": "b4da79ee-3d89-462f-86ff-ceebbf175f0f"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "reference": "cancel_button",
+                                "text": "취소",
+                                "width": 80
+                            },
+                            "configAlternates": {
+                                "reference": "string",
+                                "text": "string",
+                                "width": "auto"
+                            },
+                            "name": "MyButton12",
+                            "designerId": "9d048806-d887-4577-970e-caad8b3a0fea",
+                            "cn": [
+                                {
+                                    "type": "viewcontrollereventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick_cancel_button",
+                                        "implHandler": [
+                                            "button.up('window').close();"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "configAlternates": {
+                                        "fn": "string",
+                                        "implHandler": "code",
+                                        "name": "string",
+                                        "scope": "string"
+                                    },
+                                    "name": "onButtonClick_cancel_button",
+                                    "designerId": "2546ffe3-1c4b-4dbe-9bdd-810ddc6ce7e8"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|uiInterfaceName": "default-framed",
+                "frame": true,
+                "layout|flex": 5,
+                "reference": "list_grid",
+                "store": "popup.custStore",
+                "title": ""
+            },
+            "configAlternates": {
+                "designer|uiInterfaceName": "string",
+                "frame": "boolean",
+                "layout|flex": "number",
+                "reference": "string",
+                "store": "store",
+                "title": "string"
+            },
+            "name": "MyGridPanel1",
+            "designerId": "cecc6d87-bd56-4e47-b52d-ec8f36248a97",
+            "cn": [
+                {
+                    "type": "Ext.grid.column.RowNumberer",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "text": "NO",
+                        "width": 60
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "width": "auto"
+                    },
+                    "name": "MyRowNumberer1",
+                    "designerId": "0df4d98a-4be4-4b90-a3a7-2aad2ace52dc"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "CUST_CD",
+                        "text": "거래처코드",
+                        "width": 90
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "dataIndex": "datafield",
+                        "width": "auto"
+                    },
+                    "name": "MyColumn11",
+                    "designerId": "2e2905d9-6547-4d2e-b73a-58c6cea60e31"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "CUST_NM",
+                        "text": "거래처명",
+                        "width": 150
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "dataIndex": "datafield",
+                        "width": "auto"
+                    },
+                    "name": "MyColumn13",
+                    "designerId": "ca438186-b0ee-4b35-a14a-648dac4469a9"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "JIYUK_NM",
+                        "text": "지역"
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "dataIndex": "datafield"
+                    },
+                    "name": "MyColumn14",
+                    "designerId": "21261749-e698-4450-b28a-9ebac767b7ae"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "TEL_NO",
+                        "text": "전화번호"
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "dataIndex": "datafield"
+                    },
+                    "name": "MyColumn15",
+                    "designerId": "3faadbbc-c7e2-47df-bf35-1cbf852566d7"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "FAX_NO",
+                        "text": "팩스번호"
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "dataIndex": "datafield"
+                    },
+                    "name": "MyColumn16",
+                    "designerId": "de903358-908d-443e-a600-a67a263e117e"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "BIGO",
+                        "text": "비고사항"
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "dataIndex": "datafield"
+                    },
+                    "name": "MyColumn17",
+                    "designerId": "b1e199e7-4c55-42b0-9923-7747633e28c4"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "USE_YN",
+                        "text": "사용여부"
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "dataIndex": "datafield"
+                    },
+                    "name": "MyColumn18",
+                    "designerId": "6551e6c1-b6e2-4633-8582-2192717568f5"
+                },
+                {
+                    "type": "viewcontrollereventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onGridpanelAfterRender_list_grid",
+                        "implHandler": [
+                            "const store = component.getStore();",
+                            "store.getProxy().setUrl(TmsLabel.util.Common.BASE_URL + '/tmslabel/popup/cust/list');"
+                        ],
+                        "name": "afterrender",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onGridpanelAfterRender_list_grid",
+                    "designerId": "f468f3eb-750d-449a-b05f-7761dc78598b"
+                },
+                {
+                    "type": "viewcontrollereventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onGridpanelItemDblClick_list_grid",
+                        "implHandler": [
+                            "const view = this.getView();",
+                            "",
+                            "// 부모에게 사용자 정보 전달 (이벤트 방식)",
+                            "view.fireEvent('selectRow', view, record);",
+                            "",
+                            "// 팝업 닫기",
+                            "view.close();"
+                        ],
+                        "name": "itemdblclick",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onGridpanelItemDblClick_list_grid",
+                    "designerId": "6d491495-29c7-4882-a725-d4c044f0e7a9"
+                },
+                {
+                    "type": "viewcontrollereventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onGridpanelRowkeydown_teset123",
+                        "implHandler": [
+                            "const button = this.lookupReference('confirm_button');",
+                            "    if (e.getKey() === e.ENTER) {",
+                            "        ",
+                            "        if (button) {",
+                            "            button.fireEvent('click', button);",
+                            "        }",
+                            "    }"
+                        ],
+                        "name": "rowkeydown",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onGridpanelRowkeydown_teset123",
+                    "designerId": "5f2c9951-7d47-40ec-a1cf-b894b4eebc57"
+                }
+            ]
+        }
+    ]
+}

@@ -79,7 +79,7 @@ Ext.define('TmsLabel.model.TMS_DUNGE_MST', {
             name: 'dreamUpdate'
         },
         {
-            name: 'daeCd'
+            name: 'cetCd'
         },
         {
             name: 'daeNo'

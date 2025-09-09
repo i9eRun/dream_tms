@@ -19,17 +19,84 @@ Ext.define('TmsLabel.view.MainViewViewController', {
 
     onDatefieldAfterRender_choose_date: function(component, eOpts) {
         component.setValue(new Date());
+
+        const button = this.lookupReference('search_button');
+        component.on('specialkey', function(component, e) {
+            if (e.getKey() === e.ENTER) {
+                if (button) {
+                    button.fireEvent('click', button);
+                }
+            }
+        });
+    },
+
+    onDatefieldChange_choose_date: function(field, newValue, oldValue, eOpts) {
+        // 로그인 아이디가 드림이 아닐경우는 로직 실행될 필요없음
+        if (TmsLabel.util.Common.LOGIN_USER !== 'dream') return;
+
+        const combo = this.lookupReference('combo_chulpan');
+        if (!combo) return;
+
+        let store = combo.getStore();
+
+        // 아직 콤보에 Ajax 스토어가 바인딩되지 않았다면 안전하게 생성/바인딩
+        if (!store || !store.getProxy || store.getProxy().type !== 'ajax') {
+            store = Ext.create('Ext.data.Store', {
+                fields: ['custCd','custNm'],
+                proxy: {
+                    type: 'ajax',
+                    url: TmsLabel.util.Common.BASE_URL + '/tmslabel/chulpan-list',
+                    reader: { type: 'json' },
+                    extraParams: {}
+                },
+                autoLoad: false
+            });
+            combo.bindStore(store);
+        }
+
+        const proxy = store.getProxy();
+        proxy.setExtraParam('userCetCd', TmsLabel.util.Common.LOGIN_USER_CET_CD);
+        proxy.setExtraParam('chooseDate', Ext.Date.format(newValue, 'Ymd'));
+
+        store.load({
+            callback: function(recs, op, ok) {
+                if (!ok) { Ext.Msg.alert('알림','출판사 목록을 불러오지 못했습니다.'); return; }
+                if (recs.length > 0) combo.setValue(recs[0].get('custCd'));
+                else combo.reset();
+                if (combo.getPicker) combo.getPicker().refresh();
+            }
+        });
     },
 
     onButtonClick_search_button: function(button, e, eOpts) {
+        const login_cust_cd = TmsLabel.util.Common.LOGIN_CUST_CD;
+
+        if (Ext.isEmpty(login_cust_cd)) return;
+
         const grid = this.lookupReference('list_grid');
         const store = grid.getStore();
         const choose_date = this.lookupReference('choose_date').getSubmitValue();
+        const chulgo_gb = this.lookupReference('chulgo_gb').getValue();
+        const chulpan_code = this.lookupReference('chulpan_code').getValue();
 
-        store.getProxy().setExtraParams({
-            userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,
-            chooseDate: choose_date
-        });
+        if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '1') {
+            store.getProxy().setExtraParams({
+                userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,
+                chooseDate: choose_date,
+                chulpanCd: login_cust_cd,
+                chulgoGb: chulgo_gb
+            });
+
+        } else if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '10') {
+            store.getProxy().setExtraParams({
+                userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,
+                chooseDate: choose_date,
+                cetCd: login_cust_cd,
+                chulgoGb: chulgo_gb,
+                chulpanCd: chulpan_code
+            });
+
+        }
 
         store.load();
     },
@@ -39,7 +106,11 @@ Ext.define('TmsLabel.view.MainViewViewController', {
     },
 
     onComboboxAfterRender_combo_agency: function(component, eOpts) {
-        if (TmsLabel.util.Common.LOGIN_USER !== 'dream') component.hide();
+        if (TmsLabel.util.Common.LOGIN_USER !== 'dream') {
+            component.hide();
+            return;
+        }
+
 
         // 캐시 없는 기본 스토어 로딩 구성
         // const store = Ext.create('Ext.data.Store', {
@@ -100,10 +171,61 @@ Ext.define('TmsLabel.view.MainViewViewController', {
 
     onButtonClick_agency_search_button: function(button, e, eOpts) {
 
+
+
+
+        const login_cust_cd = TmsLabel.util.Common.LOGIN_CUST_CD;
+
+        if (Ext.isEmpty(login_cust_cd)) return;
+
+        const grid = this.lookupReference('list_grid');
+        const store = grid.getStore();
+        const choose_date = this.lookupReference('choose_date').getSubmitValue();
+        const chulgo_gb = this.lookupReference('chulgo_gb').getValue();
+        const combo_agency = this.lookupReference('combo_agency').getValue();
+
+        store.getProxy().setExtraParams({
+            userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,
+            chooseDate: choose_date,
+            chulgoGb: chulgo_gb,
+            cetCd: combo_agency
+        });
+
+        store.load();
     },
 
     onButtonAfterRender_agency_search_button: function(component, eOpts) {
         if (TmsLabel.util.Common.LOGIN_USER !== 'dream') component.hide();
+    },
+
+    onComboboxAfterRender_combo_chulpan: function(component, eOpts) {
+        if (TmsLabel.util.Common.LOGIN_USER !== 'dream') component.hide();
+    },
+
+    onButtonAfterRender_chulpan_search_button2: function(component, eOpts) {
+        if (TmsLabel.util.Common.LOGIN_USER !== 'dream') component.hide();
+    },
+
+    onButtonClick_chulpan_button: function(button, e, eOpts) {
+
+        const login_cust_cd = TmsLabel.util.Common.LOGIN_CUST_CD;
+
+        if (Ext.isEmpty(login_cust_cd)) return;
+
+        const grid = this.lookupReference('list_grid');
+        const store = grid.getStore();
+        const choose_date = this.lookupReference('choose_date').getSubmitValue();
+        const chulgo_gb = this.lookupReference('chulgo_gb').getValue();
+        const combo_chulpan = this.lookupReference('combo_chulpan').getValue();
+
+        store.getProxy().setExtraParams({
+            userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,
+            chooseDate: choose_date,
+            chulgoGb: chulgo_gb,
+            chulpanCd: combo_chulpan
+        });
+
+        store.load();
     },
 
     onButtonAfterRender_insert_button: function(component, eOpts) {
@@ -123,13 +245,81 @@ Ext.define('TmsLabel.view.MainViewViewController', {
         if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '1' || TmsLabel.util.Common.LOGIN_USER === 'dream') component.hide();
     },
 
+    onButtonClick_chulpan_search_button: function(button, e, eOpts) {
+        const popup = Ext.create('TmsLabel.view.popup.cust');
+        const me = this;
+
+        popup.on('selectRow', function(win, record) {
+            const form = me.lookupReference('list_grid');
+
+            me.lookupReference('chulpan_code').setValue(record.get('CUST_CD'));
+            me.lookupReference('chulpan_name').setValue(record.get('CUST_ABBR_NM'));
+
+            console.log(record);
+
+        });
+
+        popup.show();
+
+
+
+    },
+
+    onButtonClick_delete_button: function(button, e, eOpts) {
+        const grid = this.lookupReference('list_grid');
+        if (!grid) {
+            Ext.Msg.alert('오류', '그리드를 찾을 수 없습니다.');
+            return;
+        }
+
+        const store = grid.getStore();
+
+        const rec = grid.getSelection()[0];
+        if (!rec) {
+            Ext.Msg.alert('알림', '삭제할 행을 선택하세요.');
+            return;
+        }
+
+        const transGb = String(!Ext.isEmpty(rec.get('transGb')) ? rec.get('transGb') : '').trim();
+        if (transGb === '1') {
+            Ext.Msg.alert('알림', '전송된 데이터는 삭제가 불가합니다.');
+            return;
+        }
+
+        Ext.Msg.confirm('확인', '선택된 데이터를 삭제하시겠습니까?', function (btn) {
+            if (btn !== 'yes') return;
+
+            Ext.Ajax.request({
+                url: TmsLabel.util.Common.BASE_URL + '/tmslabel/delete',
+                method: 'DELETE', // 서버가 DELETE+body를 막으면 POST 사용
+                jsonData: {
+                    userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,
+                    rowSeq   : rec.get('rowSeq'),
+                    ordNo    : rec.get('ordNo')
+                },
+                success: function () {
+                    Ext.toast('삭제되었습니다.');
+                    store.reload();
+                },
+                failure: function () {
+                    Ext.Msg.alert('오류', '삭제 중 오류가 발생했습니다.');
+                }
+            });
+
+        });
+
+
+
+
+    },
+
     onGridcolumnAfterRender_grid_col_chulpanNm: function(component, eOpts) {
         if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '1') component.hide();
     },
 
     onGridpanelAfterRender_list_grid: function(component, eOpts) {
         const store = component.getStore();
-        store.getProxy().setUrl(TmsLabel.util.Common.BASE_URL + '/tchu/1001/list');
+        store.getProxy().setUrl(TmsLabel.util.Common.BASE_URL + '/tmslabel/list');
         store.getProxy().setExtraParams({
             userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD
         });
@@ -137,35 +327,345 @@ Ext.define('TmsLabel.view.MainViewViewController', {
         // store.reload();
     },
 
-    onButtonClick_print_chulgo: function(button, e, eOpts) {
-        const chooseDateCmp = this.lookupReference('choose_date');
-        const chooseDate = chooseDateCmp ? chooseDateCmp.getSubmitValue() : null;
-        if (!chooseDate) {
-            Ext.Msg.alert('알림', '일자를 선택하세요.');
+    onButtonClick_trans_button: function(button, e, eOpts) {
+        var me    = this;
+        var grid  = me.lookupReference('list_grid');
+
+        if (!grid) {
+            Ext.Msg.alert('오류', '그리드를 찾을 수 없습니다.');
             return;
         }
 
+        var store   = grid.getStore();
+        var records = store.getRange();
+        var targets = [];
+
+        // 미전송(transGb !== '1')만 수집
+        Ext.Array.each(records, function (r) {
+            var transGb = Ext.String.trim(String(r.get('transGb') || ''));
+            if (transGb !== '1') {
+                targets.push({
+                    userCetCd: r.get('userCetCd') || TmsLabel.util.Common.LOGIN_USER_CET_CD,
+                    rowSeq   : r.get('rowSeq'),
+                    ordNo    : r.get('ordNo'),
+                    updateId : TmsLabel.util.Common.LOGIN_USER
+                });
+            }
+        });
+
+        if (targets.length === 0) {
+            Ext.Msg.alert('알림', '전송할 데이터가 없습니다. (모두 전송 상태)');
+            return;
+        }
+
+        Ext.Msg.confirm('확인', '미전송 ' + targets.length + '건을 전송 상태로 변경하시겠습니까?', function (btn) {
+            if (btn !== 'yes') return;
+
+            var btnTransfer = me.lookupReference('transfer_button');
+            if (btnTransfer) { btnTransfer.setDisabled(true); }
+            grid.setLoading('전송 중...');
+
+            Ext.Ajax.request({
+                url    : TmsLabel.util.Common.BASE_URL + '/tmslabel/transfer',
+                method : 'POST',
+                jsonData: { items: targets },
+                timeout: 30000,
+                success: function (resp) {
+                    var res = Ext.decode(resp.responseText || '{}', true) || {};
+                    var updated = res.updated || 0;
+                    var failed  = res.failed  || 0;
+
+                    if (Ext.isArray(res.successKeys)) {
+                        // 성공 키로 화면만 부분 갱신
+                        var keyMap = {};
+                        Ext.Array.each(res.successKeys, function (k) {
+                            var key = (k.userCetCd || '') + '|' + (k.rowSeq || '') + '|' + (k.ordNo || '');
+                            keyMap[key] = true;
+                        });
+                        Ext.Array.each(store.getRange(), function (rec) {
+                            var key = (rec.get('userCetCd') || '') + '|' + (rec.get('rowSeq') || '') + '|' + (rec.get('ordNo') || '');
+                            if (keyMap[key]) {
+                                rec.set('transGb', '1');
+                            }
+                        });
+                        store.commitChanges();
+                    } else {
+                        // 성공 키를 안 내려주면 전체 재조회
+                        store.reload();
+                    }
+
+                    Ext.toast('전송 완료: ' + updated + '건' + (failed ? ', 실패 ' + failed + '건' : ''));
+                },
+                failure: function (resp) {
+                    var obj = Ext.decode(resp.responseText || '{}', true) || {};
+                    Ext.Msg.alert('오류', obj.message || '전송 중 오류가 발생했습니다.');
+                },
+                callback: function () {
+                    grid.setLoading(false);
+                    if (btnTransfer) { btnTransfer.setDisabled(false); }
+                }
+            });
+        });
+    },
+
+    onButtonClick_print_chulgo: function(button, e, eOpts) {
+        const grid  = this.lookupReference('list_grid');
+        const store = grid.getStore();
+
+        if (!store || store.getCount() === 0) {
+            Ext.Msg.alert('알림', '출고증을 출력할 데이터가 없습니다.');
+            return;
+        }
+
+        const ordNos = [];
+        store.each(function(rec) {
+            ordNos.push(rec.get('ordNo'));
+        });
+
+
         const userCetCd = TmsLabel.util.Common.LOGIN_USER_CET_CD;
         const baseUrl   = TmsLabel.util.Common.BASE_URL || '';
-        const url = baseUrl+ '/system/print/pdf/chulgo?chooseDate=' + encodeURIComponent(chooseDate)+ '&userCetCd=' + encodeURIComponent(userCetCd)+ '&_=' + Date.now(); // 캐시 방지
+        const url       = baseUrl + '/tmslabel/print/chulgo';
 
-        // 새탭으로 열기 (사용자가 직접 인쇄)
-        const win = window.open(url, '_blank');
-        if (win) return;
+        Ext.Msg.confirm('확인', '출고증을 출력하시겠습니까?', function(btn) {
+            if (btn === 'yes') {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = url;
+                form.target = '_blank';
 
-        // 팝업 차단시: iframe으로 로드해서 자동 인쇄 시도
-        this.printPdfInHiddenIframe(url);
+                const inputOrdNos = document.createElement('input');
+                inputOrdNos.type = 'hidden';
+                inputOrdNos.name = 'ordNos';
+                inputOrdNos.value = JSON.stringify(ordNos);
+                form.appendChild(inputOrdNos);
+
+                const inputUser = document.createElement('input');
+                inputUser.type = 'hidden';
+                inputUser.name = 'userCetCd';
+                inputUser.value = userCetCd;
+                form.appendChild(inputUser);
+
+                document.body.appendChild(form);
+                form.submit();
+                document.body.removeChild(form);
+            }
+        });
 
     },
 
     onButtonClick_print_label: function(button, e, eOpts) {
-        const chk = this.lookupReference('chk_select_print');
+        /*
+        const view = this.getView();
+        const grid = view.lookupReference('list_grid');
+        const chkSelect = view.lookupReference('chk_select_print');
+        const store = grid.getStore();
 
-        if (chk && chk.getValue()) {
-            Ext.Msg.alert('알림', '체크박스가 선택되었습니다.');
+        // 출력할 아이템 데이터 수집
+        let recs = [];
+        if (chkSelect && chkSelect.getValue()) {
+            recs = grid.getSelection();
+            if (!recs || recs.length === 0) {
+                Ext.Msg.alert('알림', '선택 출력이 체크되어 있습니다. 그리드에서 데이터를 선택하세요.');
+                return;
+            }
         } else {
-            Ext.Msg.alert('알림', '체크박스가 선택되지 않았습니다.');
+            recs = store.getRange();
+            if (!recs || recs.length === 0) {
+                Ext.Msg.alert('알림', '출력할 데이터가 없습니다.');
+                return;
+            }
         }
+
+
+        // 서버로 전송할 페이로드 구성
+        const payload = {
+            userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,
+            updateId:  TmsLabel.util.Common.LOGIN_USER,
+            copiesPerItem: 2,          // 한 쌍(2부)
+            updateOutYn: true,         // 출력 후 OUT_YN=1 업데이트
+            items: recs.map(r => ({
+                rowSeq:   r.get('rowSeq'),
+                ordNo:    r.get('ordNo'),
+                sujumCd:  r.get('sujumCd'),
+                sujumNm:  r.get('sujumNm')
+            }))
+        };
+
+        Ext.Ajax.request({
+            url: TmsLabel.util.Common.BASE_URL + '/tmslabel/label/print',
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            jsonData: payload,
+
+            binary: true,
+
+            success: function (resp) {
+                var bytes = resp.responseBytes || resp.response; // Ext 버전에 따라 다름
+                if (!bytes) {
+                    Ext.Msg.alert('오류', 'PDF 응답이 비어있습니다.');
+                    return;
+                }
+                var blob = new Blob([bytes], { type: 'application/pdf' });
+                var url  = URL.createObjectURL(blob);
+
+                var win = window.open(url, '_blank');
+                if (!win) {
+                    var iframe = document.getElementById('hidden_pdf_iframe_for_labels') || (function(){
+                        var f = document.createElement('iframe');
+                        f.id = 'hidden_pdf_iframe_for_labels';
+                        f.style.position = 'fixed'; f.style.right = '-10000px'; f.style.bottom = '-10000px';
+                        document.body.appendChild(f);
+                        return f;
+                    })();
+                    iframe.onload = function(){ try{ iframe.contentWindow.focus(); iframe.contentWindow.print(); }catch(e){} };
+                    iframe.src = url;
+                }
+
+                grid.getStore().reload();
+                Ext.toast('라벨 PDF 생성 완료 (OUT_YN=1 반영)');
+            },
+
+            failure: function (resp) {
+                // 500일 때도 여기로 들어옵니다. 바이너리 모드에서도 안전하게 에러 메시지 추출
+                var msg = '';
+                try {
+                    if (resp.responseText) msg = resp.responseText;
+                    else if (resp.responseBytes) msg = new TextDecoder().decode(new Uint8Array(resp.responseBytes));
+                } catch(e){}
+                    Ext.Msg.alert('서버 오류', '라벨 생성 실패 (HTTP '+resp.status+'). ' + (msg ? msg.substring(0,300) : ''));
+                }
+            });
+
+            */
+
+
+
+            const view = this.getView();
+            const grid = view.lookupReference('list_grid');
+            const chkSelect = view.lookupReference('chk_select_print');
+            const store = grid.getStore();
+
+            // 출력데이터 수집
+            let recs = [];
+            if (chkSelect && chkSelect.getValue()) {
+                recs = grid.getSelection();
+                if (!recs || recs.length === 0) {
+                    Ext.Msg.alert('알림', '선택 출력이 체크되어 있습니다. 그리드에서 데이터를 선택하세요.');
+                    return;
+                }
+            } else {
+                recs = store.getRange();
+                if (!recs || recs.length === 0) {
+                    Ext.Msg.alert('알림', '출력할 데이터가 없습니다.');
+                    return;
+                }
+            }
+
+
+            // 총 출력 매수(= 각 행의 dunge 합, 최소 1)
+            const sumCopies = recs.reduce((acc, r) => {
+                const d = parseInt(r.get('dunge'), 10);
+                return acc + (isNaN(d) || d < 1 ? 1 : d);
+            }, 0);
+
+            const isSelectMode = !!(chkSelect && chkSelect.getValue());
+            const modeText = isSelectMode ? '선택한' : '그리드 전체';
+            const msg = `${modeText} <b>${recs.length}</b>건의 라벨을 <b>덩이 개수</b>만큼 출력합니다.<br>` + `<br>진행하시겠습니까?`;
+
+            Ext.Msg.confirm('라벨 출력 확인', msg, (btn) => {
+                if (btn !== 'yes') return;
+
+                const payload = {
+                    userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,
+                    updateId: TmsLabel.util.Common.LOGIN_USER,
+                    updateOutYn: true,
+                    items: recs.map(r => ({
+                        rowSeq: r.get('rowSeq'),
+                        ordNo: r.get('ordNo'),
+                        sujumCd: r.get('sujumCd'),
+                        sujumNm: r.get('sujumNm'),
+                        courseCd: r.get('courseCd'),
+                        dunge: r.get('dunge'),
+                        qty: r.get('qty'),
+                        chulpanNm: r.get('chulpanNm'),
+                        jiyukNm:r.get('jiyukNm')
+                    }))
+                };
+
+                Ext.Ajax.request({
+                    url: TmsLabel.util.Common.BASE_URL + '/tmslabel/label/print',
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json'},
+                    jsonData: payload,
+                    binary: true,
+
+                    success: function (resp) {
+                        var bytes = resp.responseBytes || resp.response;
+                        if (!bytes) {
+                            Ext.Msg.alert('오류', 'PDF 응답이 비어있습니다.');
+                            return;
+                        }
+                        var blob = new Blob([bytes], { type: 'application/pdf' });
+                        var url  = URL.createObjectURL(blob);
+
+                        var win = window.open(url, '_blank');
+                        if (!win) {
+                            var iframe = document.getElementById('hidden_pdf_iframe_for_labels') || (function(){
+                                var f = document.createElement('iframe');
+                                f.id = 'hidden_pdf_iframe_for_labels';
+                                f.style.position = 'fixed';
+                                f.style.right = '-10000px';
+                                f.style.bottom = '-10000px';
+                                document.body.appendChild(f);
+                                return f;
+                            })();
+                            iframe.onload = function(){ try{ iframe.contentWindow.focus(); iframe.contentWindow.print(); }catch(e){} };
+                            iframe.src = url;
+                        }
+                        grid.getStore().reload();
+                        Ext.toast('라벨 PDF 생성 완료 (OUT_YN=1 반영)');
+                    },
+
+                    failure: function (resp) {
+                        var m = '';
+                        try {
+                            if (resp.responseText) m = resp.responseText;
+                            else if (resp.responseBytes) m = new TextDecoder().decode(new Uint8Array(resp.responseBytes));
+                        } catch(e){}
+                            Ext.Msg.alert('서버 오류', '라벨 생성 실패 (HTTP '+resp.status+'). ' + (m ? m.substring(0,300) : ''));
+                        }
+
+                    });
+
+                });
+
+
+
+
+
+
+
+
+
+
+
+    },
+
+    onPanelAfterRender_chulgo: function(component, eOpts) {
+        if (TmsLabel.util.Common.LOGIN_USER === 'dream') {
+            const btnTrans   = this.lookupReference('trans_button');
+            const btnChulgo  = this.lookupReference('print_chulgo');
+            const btnLabel   = this.lookupReference('print_label');
+
+            if (btnTrans)  btnTrans.setHidden(true);
+            if (btnChulgo) btnChulgo.setHidden(true);
+            if (btnLabel)  btnLabel.setHidden(true);
+        }
+    },
+
+    onLabelAfterRender_welcome: function(component, eOpts) {
+        component.setText(TmsLabel.util.Common.LOGIN_CUST_NAME + '님 안녕하세요!');
     }
 
 });

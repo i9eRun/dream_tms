@@ -191,7 +191,16 @@
                                                     "userConfig": {
                                                         "fn": "onDatefieldAfterRender_choose_date",
                                                         "implHandler": [
-                                                            "component.setValue(new Date());"
+                                                            "component.setValue(new Date());",
+                                                            "",
+                                                            "const button = this.lookupReference('search_button');",
+                                                            "component.on('specialkey', function(component, e) {",
+                                                            "    if (e.getKey() === e.ENTER) {",
+                                                            "        if (button) {",
+                                                            "            button.fireEvent('click', button);",
+                                                            "        }",
+                                                            "    }",
+                                                            "});"
                                                         ],
                                                         "name": "afterrender",
                                                         "scope": "me"
@@ -204,6 +213,64 @@
                                                     },
                                                     "name": "onDatefieldAfterRender_choose_date",
                                                     "designerId": "9e00cb57-8bcc-423b-86fd-f5bd3f6f8dbb"
+                                                },
+                                                {
+                                                    "type": "viewcontrollereventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onDatefieldChange_choose_date",
+                                                        "implHandler": [
+                                                            "// 로그인 아이디가 드림이 아닐경우는 로직 실행될 필요없음",
+                                                            "if (TmsLabel.util.Common.LOGIN_USER !== 'dream') return;",
+                                                            "",
+                                                            "const combo = this.lookupReference('combo_chulpan');",
+                                                            "if (!combo) return;",
+                                                            "",
+                                                            "let store = combo.getStore();",
+                                                            "",
+                                                            "// 아직 콤보에 Ajax 스토어가 바인딩되지 않았다면 안전하게 생성/바인딩",
+                                                            "if (!store || !store.getProxy || store.getProxy().type !== 'ajax') {",
+                                                            "    store = Ext.create('Ext.data.Store', {",
+                                                            "        fields: ['custCd','custNm'],",
+                                                            "        proxy: {",
+                                                            "            type: 'ajax',",
+                                                            "            url: TmsLabel.util.Common.BASE_URL + '/tmslabel/chulpan-list',",
+                                                            "            reader: { type: 'json' },",
+                                                            "            extraParams: {}",
+                                                            "        },",
+                                                            "        autoLoad: false",
+                                                            "    });",
+                                                            "    combo.bindStore(store);",
+                                                            "}",
+                                                            "",
+                                                            "const proxy = store.getProxy();",
+                                                            "proxy.setExtraParam('userCetCd', TmsLabel.util.Common.LOGIN_USER_CET_CD);",
+                                                            "proxy.setExtraParam('chooseDate', Ext.Date.format(newValue, 'Ymd'));",
+                                                            "",
+                                                            "store.load({",
+                                                            "    callback: function(recs, op, ok) {",
+                                                            "        if (!ok) { Ext.Msg.alert('알림','출판사 목록을 불러오지 못했습니다.'); return; }",
+                                                            "        if (recs.length > 0) combo.setValue(recs[0].get('custCd'));",
+                                                            "        else combo.reset();",
+                                                            "        if (combo.getPicker) combo.getPicker().refresh();",
+                                                            "    }",
+                                                            "});"
+                                                        ],
+                                                        "name": "change",
+                                                        "scope": "me"
+                                                    },
+                                                    "configAlternates": {
+                                                        "fn": "string",
+                                                        "implHandler": "code",
+                                                        "name": "string",
+                                                        "scope": "string"
+                                                    },
+                                                    "name": "onDatefieldChange_choose_date",
+                                                    "designerId": "c3907fe8-1409-4f7d-b60f-8d9654bf2a95"
                                                 }
                                             ]
                                         },
@@ -237,14 +304,34 @@
                                                     "userConfig": {
                                                         "fn": "onButtonClick_search_button",
                                                         "implHandler": [
+                                                            "const login_cust_cd = TmsLabel.util.Common.LOGIN_CUST_CD;",
+                                                            "",
+                                                            "if (Ext.isEmpty(login_cust_cd)) return;",
+                                                            "",
                                                             "const grid = this.lookupReference('list_grid');",
                                                             "const store = grid.getStore();",
                                                             "const choose_date = this.lookupReference('choose_date').getSubmitValue();",
+                                                            "const chulgo_gb = this.lookupReference('chulgo_gb').getValue();",
+                                                            "const chulpan_code = this.lookupReference('chulpan_code').getValue();",
                                                             "",
-                                                            "store.getProxy().setExtraParams({",
-                                                            "    userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,",
-                                                            "    chooseDate: choose_date",
-                                                            "});",
+                                                            "if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '1') {",
+                                                            "    store.getProxy().setExtraParams({",
+                                                            "        userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,",
+                                                            "        chooseDate: choose_date,",
+                                                            "        chulpanCd: login_cust_cd,",
+                                                            "        chulgoGb: chulgo_gb",
+                                                            "    });",
+                                                            "",
+                                                            "} else if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '10') {",
+                                                            "    store.getProxy().setExtraParams({",
+                                                            "        userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,",
+                                                            "        chooseDate: choose_date,",
+                                                            "        cetCd: login_cust_cd,",
+                                                            "        chulgoGb: chulgo_gb,",
+                                                            "        chulpanCd: chulpan_code",
+                                                            "    });",
+                                                            "",
+                                                            "}",
                                                             "",
                                                             "store.load();"
                                                         ],
@@ -322,7 +409,11 @@
                                                     "userConfig": {
                                                         "fn": "onComboboxAfterRender_combo_agency",
                                                         "implHandler": [
-                                                            "if (TmsLabel.util.Common.LOGIN_USER !== 'dream') component.hide();",
+                                                            "if (TmsLabel.util.Common.LOGIN_USER !== 'dream') {",
+                                                            "    component.hide();",
+                                                            "    return;",
+                                                            "}",
+                                                            "    ",
                                                             "",
                                                             "// 캐시 없는 기본 스토어 로딩 구성",
                                                             "// const store = Ext.create('Ext.data.Store', {",
@@ -423,13 +514,38 @@
                                                     "codeClass": null,
                                                     "userConfig": {
                                                         "fn": "onButtonClick_agency_search_button",
+                                                        "implHandler": [
+                                                            "",
+                                                            "",
+                                                            "",
+                                                            "",
+                                                            "const login_cust_cd = TmsLabel.util.Common.LOGIN_CUST_CD;",
+                                                            "",
+                                                            "if (Ext.isEmpty(login_cust_cd)) return;",
+                                                            "",
+                                                            "const grid = this.lookupReference('list_grid');",
+                                                            "const store = grid.getStore();",
+                                                            "const choose_date = this.lookupReference('choose_date').getSubmitValue();",
+                                                            "const chulgo_gb = this.lookupReference('chulgo_gb').getValue();",
+                                                            "const combo_agency = this.lookupReference('combo_agency').getValue();",
+                                                            "",
+                                                            "store.getProxy().setExtraParams({",
+                                                            "    userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,",
+                                                            "    chooseDate: choose_date,",
+                                                            "    chulgoGb: chulgo_gb,",
+                                                            "    cetCd: combo_agency",
+                                                            "});",
+                                                            "",
+                                                            "store.load();"
+                                                        ],
                                                         "name": "click",
                                                         "scope": "me"
                                                     },
                                                     "configAlternates": {
                                                         "fn": "string",
                                                         "name": "string",
-                                                        "scope": "string"
+                                                        "scope": "string",
+                                                        "implHandler": "code"
                                                     },
                                                     "name": "onButtonClick_agency_search_button",
                                                     "designerId": "bf6acf60-b412-45dc-abc7-6cb4267805a1"
@@ -484,7 +600,33 @@
                                                 "valueField": "datafield"
                                             },
                                             "name": "MyComboBox2",
-                                            "designerId": "e4652484-7b2b-4ec9-ae02-7e69f3eb75a2"
+                                            "designerId": "e4652484-7b2b-4ec9-ae02-7e69f3eb75a2",
+                                            "cn": [
+                                                {
+                                                    "type": "viewcontrollereventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onComboboxAfterRender_combo_chulpan",
+                                                        "implHandler": [
+                                                            "if (TmsLabel.util.Common.LOGIN_USER !== 'dream') component.hide();"
+                                                        ],
+                                                        "name": "afterrender",
+                                                        "scope": "me"
+                                                    },
+                                                    "configAlternates": {
+                                                        "fn": "string",
+                                                        "implHandler": "code",
+                                                        "name": "string",
+                                                        "scope": "string"
+                                                    },
+                                                    "name": "onComboboxAfterRender_combo_chulpan",
+                                                    "designerId": "55fa7996-8c45-4d72-ae74-013e6cb7a484"
+                                                }
+                                            ]
                                         },
                                         {
                                             "type": "Ext.button.Button",
@@ -494,7 +636,7 @@
                                             },
                                             "codeClass": null,
                                             "userConfig": {
-                                                "reference": "chulpan_search_button",
+                                                "reference": "chulpan_button",
                                                 "text": "출판사조회",
                                                 "width": 100
                                             },
@@ -504,7 +646,75 @@
                                                 "width": "auto"
                                             },
                                             "name": "MyButton9",
-                                            "designerId": "ae8b1ba0-55c2-4c4a-b5be-08a15ec65594"
+                                            "designerId": "ae8b1ba0-55c2-4c4a-b5be-08a15ec65594",
+                                            "cn": [
+                                                {
+                                                    "type": "viewcontrollereventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onButtonAfterRender_chulpan_search_button2",
+                                                        "implHandler": [
+                                                            "if (TmsLabel.util.Common.LOGIN_USER !== 'dream') component.hide();"
+                                                        ],
+                                                        "name": "afterrender",
+                                                        "scope": "me"
+                                                    },
+                                                    "configAlternates": {
+                                                        "fn": "string",
+                                                        "implHandler": "code",
+                                                        "name": "string",
+                                                        "scope": "string"
+                                                    },
+                                                    "name": "onButtonAfterRender_chulpan_search_button2",
+                                                    "designerId": "a7727543-111f-4473-b51e-b43411b6fa23"
+                                                },
+                                                {
+                                                    "type": "viewcontrollereventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onButtonClick_chulpan_button",
+                                                        "implHandler": [
+                                                            "",
+                                                            "const login_cust_cd = TmsLabel.util.Common.LOGIN_CUST_CD;",
+                                                            "",
+                                                            "if (Ext.isEmpty(login_cust_cd)) return;",
+                                                            "",
+                                                            "const grid = this.lookupReference('list_grid');",
+                                                            "const store = grid.getStore();",
+                                                            "const choose_date = this.lookupReference('choose_date').getSubmitValue();",
+                                                            "const chulgo_gb = this.lookupReference('chulgo_gb').getValue();",
+                                                            "const combo_chulpan = this.lookupReference('combo_chulpan').getValue();",
+                                                            "",
+                                                            "store.getProxy().setExtraParams({",
+                                                            "    userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,",
+                                                            "    chooseDate: choose_date,",
+                                                            "    chulgoGb: chulgo_gb,",
+                                                            "    chulpanCd: combo_chulpan",
+                                                            "});",
+                                                            "",
+                                                            "store.load();"
+                                                        ],
+                                                        "name": "click",
+                                                        "scope": "me"
+                                                    },
+                                                    "configAlternates": {
+                                                        "fn": "string",
+                                                        "implHandler": "code",
+                                                        "name": "string",
+                                                        "scope": "string"
+                                                    },
+                                                    "name": "onButtonClick_chulpan_button",
+                                                    "designerId": "930def87-9714-47dc-9b1b-fb296189b5d3"
+                                                }
+                                            ]
                                         },
                                         {
                                             "type": "Ext.button.Button",
@@ -714,6 +924,46 @@
                                                     },
                                                     "name": "onButtonAfterRender_chulpan_search_button",
                                                     "designerId": "6d342e63-e12f-4b40-b063-ed1fbdd4df3e"
+                                                },
+                                                {
+                                                    "type": "viewcontrollereventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onButtonClick_chulpan_search_button",
+                                                        "implHandler": [
+                                                            "const popup = Ext.create('TmsLabel.view.popup.cust');",
+                                                            "const me = this;",
+                                                            "",
+                                                            "popup.on('selectRow', function(win, record) {",
+                                                            "    const form = me.lookupReference('list_grid');",
+                                                            "",
+                                                            "    me.lookupReference('chulpan_code').setValue(record.get('CUST_CD'));",
+                                                            "    me.lookupReference('chulpan_name').setValue(record.get('CUST_ABBR_NM'));",
+                                                            "",
+                                                            "    console.log(record);",
+                                                            "",
+                                                            "});",
+                                                            "",
+                                                            "popup.show();",
+                                                            "",
+                                                            "",
+                                                            ""
+                                                        ],
+                                                        "name": "click",
+                                                        "scope": "me"
+                                                    },
+                                                    "configAlternates": {
+                                                        "fn": "string",
+                                                        "implHandler": "code",
+                                                        "name": "string",
+                                                        "scope": "string"
+                                                    },
+                                                    "name": "onButtonClick_chulpan_search_button",
+                                                    "designerId": "cc7272f2-9bce-4c12-a3a1-1764900010ff"
                                                 }
                                             ]
                                         },
@@ -783,7 +1033,77 @@
                                                 "width": "auto"
                                             },
                                             "name": "MyButton3",
-                                            "designerId": "f52f0828-a2a0-482f-9668-907d581364bb"
+                                            "designerId": "f52f0828-a2a0-482f-9668-907d581364bb",
+                                            "cn": [
+                                                {
+                                                    "type": "viewcontrollereventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onButtonClick_delete_button",
+                                                        "implHandler": [
+                                                            "const grid = this.lookupReference('list_grid');",
+                                                            "if (!grid) {",
+                                                            "    Ext.Msg.alert('오류', '그리드를 찾을 수 없습니다.');",
+                                                            "    return;",
+                                                            "}",
+                                                            "",
+                                                            "const store = grid.getStore();",
+                                                            "",
+                                                            "const rec = grid.getSelection()[0];",
+                                                            "if (!rec) {",
+                                                            "    Ext.Msg.alert('알림', '삭제할 행을 선택하세요.');",
+                                                            "    return;",
+                                                            "}",
+                                                            "",
+                                                            "const transGb = String(!Ext.isEmpty(rec.get('transGb')) ? rec.get('transGb') : '').trim();",
+                                                            "if (transGb === '1') {",
+                                                            "    Ext.Msg.alert('알림', '전송된 데이터는 삭제가 불가합니다.');",
+                                                            "    return;",
+                                                            "}",
+                                                            "",
+                                                            "Ext.Msg.confirm('확인', '선택된 데이터를 삭제하시겠습니까?', function (btn) {",
+                                                            "    if (btn !== 'yes') return;",
+                                                            "",
+                                                            "    Ext.Ajax.request({",
+                                                            "        url: TmsLabel.util.Common.BASE_URL + '/tmslabel/delete',",
+                                                            "        method: 'DELETE', // 서버가 DELETE+body를 막으면 POST 사용",
+                                                            "        jsonData: {",
+                                                            "            userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,",
+                                                            "            rowSeq   : rec.get('rowSeq'),",
+                                                            "            ordNo    : rec.get('ordNo')",
+                                                            "        },",
+                                                            "        success: function () {",
+                                                            "            Ext.toast('삭제되었습니다.');",
+                                                            "            store.reload();",
+                                                            "        },",
+                                                            "        failure: function () {",
+                                                            "            Ext.Msg.alert('오류', '삭제 중 오류가 발생했습니다.');",
+                                                            "        }",
+                                                            "    });",
+                                                            "",
+                                                            "});",
+                                                            "",
+                                                            "",
+                                                            "",
+                                                            ""
+                                                        ],
+                                                        "name": "click",
+                                                        "scope": "me"
+                                                    },
+                                                    "configAlternates": {
+                                                        "fn": "string",
+                                                        "implHandler": "code",
+                                                        "name": "string",
+                                                        "scope": "string"
+                                                    },
+                                                    "name": "onButtonClick_delete_button",
+                                                    "designerId": "dd804187-99d9-4938-827d-2d651223c845"
+                                                }
+                                            ]
                                         }
                                     ]
                                 }
@@ -842,11 +1162,13 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "dataIndex": "ordNo",
-                                        "text": "전표번호"
+                                        "text": "전표번호",
+                                        "width": 160
                                     },
                                     "configAlternates": {
                                         "text": "string",
-                                        "dataIndex": "datafield"
+                                        "dataIndex": "datafield",
+                                        "width": "auto"
                                     },
                                     "name": "MyColumn10",
                                     "designerId": "a5bad4f2-6a76-4e9f-8bdd-886329ef4ff5"
@@ -860,11 +1182,13 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "dataIndex": "chulpanNm",
-                                        "text": "출판사명"
+                                        "text": "출판사명",
+                                        "width": 200
                                     },
                                     "configAlternates": {
                                         "text": "string",
-                                        "dataIndex": "datafield"
+                                        "dataIndex": "datafield",
+                                        "width": "auto"
                                     },
                                     "name": "MyColumn9",
                                     "designerId": "3bed712f-bc66-4f46-bebd-5f87d6b6a1ab",
@@ -922,11 +1246,13 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "dataIndex": "jiyukNm",
-                                        "text": "지역명"
+                                        "text": "지역명",
+                                        "width": 150
                                     },
                                     "configAlternates": {
                                         "text": "string",
-                                        "dataIndex": "datafield"
+                                        "dataIndex": "datafield",
+                                        "width": "auto"
                                     },
                                     "name": "MyColumn7",
                                     "designerId": "bc5edb9b-cfa1-4cd9-b782-72371eefcf76"
@@ -940,11 +1266,13 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "dataIndex": "sujumNm",
-                                        "text": "거래처명"
+                                        "text": "거래처명",
+                                        "width": 200
                                     },
                                     "configAlternates": {
                                         "text": "string",
-                                        "dataIndex": "datafield"
+                                        "dataIndex": "datafield",
+                                        "width": "auto"
                                     },
                                     "name": "MyColumn6",
                                     "designerId": "c3bd2a80-9fe8-456c-8ac7-14f85991f35d"
@@ -994,14 +1322,54 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "dataIndex": "chulgoGb",
-                                        "text": "구분"
+                                        "text": "구분",
+                                        "width": 60
                                     },
                                     "configAlternates": {
                                         "text": "string",
-                                        "dataIndex": "datafield"
+                                        "dataIndex": "datafield",
+                                        "width": "auto"
                                     },
                                     "name": "MyColumn3",
-                                    "designerId": "78e3b86c-4d4e-4ba9-a507-3699a123d78b"
+                                    "designerId": "78e3b86c-4d4e-4ba9-a507-3699a123d78b",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value",
+                                                    "metaData",
+                                                    "record",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "store",
+                                                    "view"
+                                                ],
+                                                "fn": "renderer",
+                                                "implHandler": [
+                                                    "if (value === '01') {",
+                                                    "    return '시내';",
+                                                    "} else if (value === '02') {",
+                                                    "    return '지방';",
+                                                    "} else {",
+                                                    "    return value;",
+                                                    "}"
+                                                ]
+                                            },
+                                            "configAlternates": {
+                                                "designer|params": "typedarray",
+                                                "fn": "string",
+                                                "implHandler": "code"
+                                            },
+                                            "name": "renderer",
+                                            "designerId": "c45b5bad-6a95-4aae-946c-b0e73e4ed75e"
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.grid.column.Column",
@@ -1012,14 +1380,54 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "dataIndex": "transGb",
-                                        "text": "전송"
+                                        "text": "전송",
+                                        "width": 60
                                     },
                                     "configAlternates": {
                                         "text": "string",
-                                        "dataIndex": "datafield"
+                                        "dataIndex": "datafield",
+                                        "width": "auto"
                                     },
                                     "name": "MyColumn2",
-                                    "designerId": "e58256cd-61ea-43de-ba35-18bce23568b8"
+                                    "designerId": "e58256cd-61ea-43de-ba35-18bce23568b8",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value",
+                                                    "metaData",
+                                                    "record",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "store",
+                                                    "view"
+                                                ],
+                                                "fn": "renderer",
+                                                "implHandler": [
+                                                    "if (value === '1') {",
+                                                    "    return '전송';",
+                                                    "} else if (value === '0') {",
+                                                    "    return '미전송';",
+                                                    "} else {",
+                                                    "    return value;",
+                                                    "}"
+                                                ]
+                                            },
+                                            "configAlternates": {
+                                                "designer|params": "typedarray",
+                                                "fn": "string",
+                                                "implHandler": "code"
+                                            },
+                                            "name": "renderer",
+                                            "designerId": "d5c4e8f5-c6b2-4403-91c3-82a16755618d"
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.grid.column.Column",
@@ -1030,14 +1438,54 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "dataIndex": "outYn",
-                                        "text": "출력유무"
+                                        "text": "출력유무",
+                                        "width": 80
                                     },
                                     "configAlternates": {
                                         "text": "string",
-                                        "dataIndex": "datafield"
+                                        "dataIndex": "datafield",
+                                        "width": "auto"
                                     },
                                     "name": "MyColumn",
-                                    "designerId": "46a5b8b3-bc03-4649-b81d-a6c5c134755f"
+                                    "designerId": "46a5b8b3-bc03-4649-b81d-a6c5c134755f",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value",
+                                                    "metaData",
+                                                    "record",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "store",
+                                                    "view"
+                                                ],
+                                                "fn": "renderer",
+                                                "implHandler": [
+                                                    "if (value === '1') {",
+                                                    "    return '출력';",
+                                                    "} else if (value === '0') {",
+                                                    "    return '미출력';",
+                                                    "} else {",
+                                                    "    return value;",
+                                                    "}"
+                                                ]
+                                            },
+                                            "configAlternates": {
+                                                "designer|params": "typedarray",
+                                                "fn": "string",
+                                                "implHandler": "code"
+                                            },
+                                            "name": "renderer",
+                                            "designerId": "7ed81b16-59dc-4494-b8a6-c869ff37827f"
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.grid.column.Column",
@@ -1068,7 +1516,7 @@
                                         "fn": "onGridpanelAfterRender_list_grid",
                                         "implHandler": [
                                             "const store = component.getStore();",
-                                            "store.getProxy().setUrl(TmsLabel.util.Common.BASE_URL + '/tchu/1001/list');",
+                                            "store.getProxy().setUrl(TmsLabel.util.Common.BASE_URL + '/tmslabel/list');",
                                             "store.getProxy().setExtraParams({",
                                             "     userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD",
                                             "});",
@@ -1125,13 +1573,118 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "reference": "trans_button",
                                         "text": "자료전송"
                                     },
                                     "configAlternates": {
-                                        "text": "string"
+                                        "text": "string",
+                                        "reference": "string"
                                     },
                                     "name": "MyButton4",
-                                    "designerId": "2214fa35-b03f-4b0f-a059-0e249e225bbe"
+                                    "designerId": "2214fa35-b03f-4b0f-a059-0e249e225bbe",
+                                    "cn": [
+                                        {
+                                            "type": "viewcontrollereventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onButtonClick_trans_button",
+                                                "implHandler": [
+                                                    "var me    = this;",
+                                                    "var grid  = me.lookupReference('list_grid');",
+                                                    "",
+                                                    "if (!grid) {",
+                                                    "    Ext.Msg.alert('오류', '그리드를 찾을 수 없습니다.');",
+                                                    "    return;",
+                                                    "}",
+                                                    "",
+                                                    "var store   = grid.getStore();",
+                                                    "var records = store.getRange();",
+                                                    "var targets = [];",
+                                                    "",
+                                                    "// 미전송(transGb !== '1')만 수집",
+                                                    "Ext.Array.each(records, function (r) {",
+                                                    "    var transGb = Ext.String.trim(String(r.get('transGb') || ''));",
+                                                    "    if (transGb !== '1') {",
+                                                    "        targets.push({",
+                                                    "            userCetCd: r.get('userCetCd') || TmsLabel.util.Common.LOGIN_USER_CET_CD,",
+                                                    "            rowSeq   : r.get('rowSeq'),",
+                                                    "            ordNo    : r.get('ordNo'),",
+                                                    "            updateId : TmsLabel.util.Common.LOGIN_USER",
+                                                    "        });",
+                                                    "    }",
+                                                    "});",
+                                                    "",
+                                                    "if (targets.length === 0) {",
+                                                    "    Ext.Msg.alert('알림', '전송할 데이터가 없습니다. (모두 전송 상태)');",
+                                                    "    return;",
+                                                    "}",
+                                                    "",
+                                                    "Ext.Msg.confirm('확인', '미전송 ' + targets.length + '건을 전송 상태로 변경하시겠습니까?', function (btn) {",
+                                                    "    if (btn !== 'yes') return;",
+                                                    "",
+                                                    "    var btnTransfer = me.lookupReference('transfer_button');",
+                                                    "    if (btnTransfer) { btnTransfer.setDisabled(true); }",
+                                                    "    grid.setLoading('전송 중...');",
+                                                    "",
+                                                    "    Ext.Ajax.request({",
+                                                    "        url    : TmsLabel.util.Common.BASE_URL + '/tmslabel/transfer',",
+                                                    "        method : 'POST',",
+                                                    "        jsonData: { items: targets },",
+                                                    "        timeout: 30000,",
+                                                    "        success: function (resp) {",
+                                                    "            var res = Ext.decode(resp.responseText || '{}', true) || {};",
+                                                    "            var updated = res.updated || 0;",
+                                                    "            var failed  = res.failed  || 0;",
+                                                    "",
+                                                    "            if (Ext.isArray(res.successKeys)) {",
+                                                    "                // 성공 키로 화면만 부분 갱신",
+                                                    "                var keyMap = {};",
+                                                    "                Ext.Array.each(res.successKeys, function (k) {",
+                                                    "                    var key = (k.userCetCd || '') + '|' + (k.rowSeq || '') + '|' + (k.ordNo || '');",
+                                                    "                    keyMap[key] = true;",
+                                                    "                });",
+                                                    "                Ext.Array.each(store.getRange(), function (rec) {",
+                                                    "                    var key = (rec.get('userCetCd') || '') + '|' + (rec.get('rowSeq') || '') + '|' + (rec.get('ordNo') || '');",
+                                                    "                    if (keyMap[key]) {",
+                                                    "                        rec.set('transGb', '1');",
+                                                    "                    }",
+                                                    "                });",
+                                                    "                store.commitChanges();",
+                                                    "            } else {",
+                                                    "                // 성공 키를 안 내려주면 전체 재조회",
+                                                    "                store.reload();",
+                                                    "            }",
+                                                    "",
+                                                    "            Ext.toast('전송 완료: ' + updated + '건' + (failed ? ', 실패 ' + failed + '건' : ''));",
+                                                    "        },",
+                                                    "        failure: function (resp) {",
+                                                    "            var obj = Ext.decode(resp.responseText || '{}', true) || {};",
+                                                    "            Ext.Msg.alert('오류', obj.message || '전송 중 오류가 발생했습니다.');",
+                                                    "        },",
+                                                    "        callback: function () {",
+                                                    "            grid.setLoading(false);",
+                                                    "            if (btnTransfer) { btnTransfer.setDisabled(false); }",
+                                                    "        }",
+                                                    "    });",
+                                                    "});"
+                                                ],
+                                                "name": "click",
+                                                "scope": "me"
+                                            },
+                                            "configAlternates": {
+                                                "fn": "string",
+                                                "name": "string",
+                                                "scope": "string",
+                                                "implHandler": "code"
+                                            },
+                                            "name": "onButtonClick_trans_button",
+                                            "designerId": "222fbd55-95f7-4f33-bd38-b995f0d7b608"
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.button.Button",
@@ -1161,23 +1714,48 @@
                                             "userConfig": {
                                                 "fn": "onButtonClick_print_chulgo",
                                                 "implHandler": [
-                                                    "const chooseDateCmp = this.lookupReference('choose_date');",
-                                                    "const chooseDate = chooseDateCmp ? chooseDateCmp.getSubmitValue() : null;",
-                                                    "if (!chooseDate) {",
-                                                    "    Ext.Msg.alert('알림', '일자를 선택하세요.');",
+                                                    "const grid  = this.lookupReference('list_grid');",
+                                                    "const store = grid.getStore();",
+                                                    "",
+                                                    "if (!store || store.getCount() === 0) {",
+                                                    "    Ext.Msg.alert('알림', '출고증을 출력할 데이터가 없습니다.');",
                                                     "    return;",
                                                     "}",
                                                     "",
+                                                    "const ordNos = [];",
+                                                    "store.each(function(rec) {",
+                                                    "    ordNos.push(rec.get('ordNo'));",
+                                                    "});",
+                                                    "",
+                                                    "",
                                                     "const userCetCd = TmsLabel.util.Common.LOGIN_USER_CET_CD;",
                                                     "const baseUrl   = TmsLabel.util.Common.BASE_URL || '';",
-                                                    "const url = baseUrl+ '/system/print/pdf/chulgo?chooseDate=' + encodeURIComponent(chooseDate)+ '&userCetCd=' + encodeURIComponent(userCetCd)+ '&_=' + Date.now(); // 캐시 방지",
+                                                    "const url       = baseUrl + '/tmslabel/print/chulgo';",
                                                     "",
-                                                    "// 새탭으로 열기 (사용자가 직접 인쇄)",
-                                                    "const win = window.open(url, '_blank');",
-                                                    "if (win) return;",
+                                                    "Ext.Msg.confirm('확인', '출고증을 출력하시겠습니까?', function(btn) {",
+                                                    "    if (btn === 'yes') {",
+                                                    "        const form = document.createElement('form');",
+                                                    "        form.method = 'POST';",
+                                                    "        form.action = url;",
+                                                    "        form.target = '_blank';",
                                                     "",
-                                                    "// 팝업 차단시: iframe으로 로드해서 자동 인쇄 시도",
-                                                    "this.printPdfInHiddenIframe(url);",
+                                                    "        const inputOrdNos = document.createElement('input');",
+                                                    "        inputOrdNos.type = 'hidden';",
+                                                    "        inputOrdNos.name = 'ordNos';",
+                                                    "        inputOrdNos.value = JSON.stringify(ordNos);",
+                                                    "        form.appendChild(inputOrdNos);",
+                                                    "",
+                                                    "        const inputUser = document.createElement('input');",
+                                                    "        inputUser.type = 'hidden';",
+                                                    "        inputUser.name = 'userCetCd';",
+                                                    "        inputUser.value = userCetCd;",
+                                                    "        form.appendChild(inputUser);",
+                                                    "",
+                                                    "        document.body.appendChild(form);",
+                                                    "        form.submit();",
+                                                    "        document.body.removeChild(form);",
+                                                    "    }",
+                                                    "});",
                                                     ""
                                                 ],
                                                 "name": "click",
@@ -1222,13 +1800,201 @@
                                             "userConfig": {
                                                 "fn": "onButtonClick_print_label",
                                                 "implHandler": [
-                                                    "const chk = this.lookupReference('chk_select_print');",
+                                                    "/*",
+                                                    "const view = this.getView();",
+                                                    "const grid = view.lookupReference('list_grid');",
+                                                    "const chkSelect = view.lookupReference('chk_select_print');",
+                                                    "const store = grid.getStore();",
                                                     "",
-                                                    "if (chk && chk.getValue()) {",
-                                                    "    Ext.Msg.alert('알림', '체크박스가 선택되었습니다.');",
+                                                    "// 출력할 아이템 데이터 수집",
+                                                    "let recs = [];",
+                                                    "if (chkSelect && chkSelect.getValue()) {",
+                                                    "    recs = grid.getSelection();",
+                                                    "    if (!recs || recs.length === 0) {",
+                                                    "        Ext.Msg.alert('알림', '선택 출력이 체크되어 있습니다. 그리드에서 데이터를 선택하세요.');",
+                                                    "        return;",
+                                                    "    }",
                                                     "} else {",
-                                                    "    Ext.Msg.alert('알림', '체크박스가 선택되지 않았습니다.');",
-                                                    "}"
+                                                    "    recs = store.getRange();",
+                                                    "    if (!recs || recs.length === 0) {",
+                                                    "        Ext.Msg.alert('알림', '출력할 데이터가 없습니다.');",
+                                                    "        return;",
+                                                    "    }",
+                                                    "}",
+                                                    "",
+                                                    "",
+                                                    "// 서버로 전송할 페이로드 구성",
+                                                    "const payload = {",
+                                                    "    userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,",
+                                                    "    updateId:  TmsLabel.util.Common.LOGIN_USER,",
+                                                    "    copiesPerItem: 2,          // 한 쌍(2부)",
+                                                    "    updateOutYn: true,         // 출력 후 OUT_YN=1 업데이트",
+                                                    "    items: recs.map(r => ({",
+                                                    "        rowSeq:   r.get('rowSeq'),",
+                                                    "        ordNo:    r.get('ordNo'),",
+                                                    "        sujumCd:  r.get('sujumCd'),",
+                                                    "        sujumNm:  r.get('sujumNm')",
+                                                    "    }))",
+                                                    "};",
+                                                    "",
+                                                    "Ext.Ajax.request({",
+                                                    "    url: TmsLabel.util.Common.BASE_URL + '/tmslabel/label/print',",
+                                                    "    method: 'POST',",
+                                                    "    headers: { 'Content-Type': 'application/json' },",
+                                                    "    jsonData: payload,",
+                                                    "",
+                                                    "    binary: true,",
+                                                    "",
+                                                    "    success: function (resp) {",
+                                                    "        var bytes = resp.responseBytes || resp.response; // Ext 버전에 따라 다름",
+                                                    "        if (!bytes) {",
+                                                    "            Ext.Msg.alert('오류', 'PDF 응답이 비어있습니다.');",
+                                                    "            return;",
+                                                    "        }",
+                                                    "        var blob = new Blob([bytes], { type: 'application/pdf' });",
+                                                    "        var url  = URL.createObjectURL(blob);",
+                                                    "",
+                                                    "        var win = window.open(url, '_blank');",
+                                                    "        if (!win) {",
+                                                    "            var iframe = document.getElementById('hidden_pdf_iframe_for_labels') || (function(){",
+                                                    "                var f = document.createElement('iframe');",
+                                                    "                f.id = 'hidden_pdf_iframe_for_labels';",
+                                                    "                f.style.position = 'fixed'; f.style.right = '-10000px'; f.style.bottom = '-10000px';",
+                                                    "                document.body.appendChild(f);",
+                                                    "                return f;",
+                                                    "            })();",
+                                                    "            iframe.onload = function(){ try{ iframe.contentWindow.focus(); iframe.contentWindow.print(); }catch(e){} };",
+                                                    "            iframe.src = url;",
+                                                    "        }",
+                                                    "",
+                                                    "        grid.getStore().reload();",
+                                                    "        Ext.toast('라벨 PDF 생성 완료 (OUT_YN=1 반영)');",
+                                                    "    },",
+                                                    "",
+                                                    "    failure: function (resp) {",
+                                                    "        // 500일 때도 여기로 들어옵니다. 바이너리 모드에서도 안전하게 에러 메시지 추출",
+                                                    "        var msg = '';",
+                                                    "        try {",
+                                                    "            if (resp.responseText) msg = resp.responseText;",
+                                                    "            else if (resp.responseBytes) msg = new TextDecoder().decode(new Uint8Array(resp.responseBytes));",
+                                                    "        } catch(e){}",
+                                                    "        Ext.Msg.alert('서버 오류', '라벨 생성 실패 (HTTP '+resp.status+'). ' + (msg ? msg.substring(0,300) : ''));",
+                                                    "    }",
+                                                    "});",
+                                                    "",
+                                                    "*/",
+                                                    "",
+                                                    "",
+                                                    "",
+                                                    "const view = this.getView();",
+                                                    "const grid = view.lookupReference('list_grid');",
+                                                    "const chkSelect = view.lookupReference('chk_select_print');",
+                                                    "const store = grid.getStore();",
+                                                    "",
+                                                    "// 출력데이터 수집",
+                                                    "let recs = [];",
+                                                    "if (chkSelect && chkSelect.getValue()) {",
+                                                    "    recs = grid.getSelection();",
+                                                    "    if (!recs || recs.length === 0) {",
+                                                    "        Ext.Msg.alert('알림', '선택 출력이 체크되어 있습니다. 그리드에서 데이터를 선택하세요.');",
+                                                    "        return;",
+                                                    "    }",
+                                                    "} else {",
+                                                    "    recs = store.getRange();",
+                                                    "    if (!recs || recs.length === 0) {",
+                                                    "        Ext.Msg.alert('알림', '출력할 데이터가 없습니다.');",
+                                                    "        return;",
+                                                    "    }",
+                                                    "}",
+                                                    "",
+                                                    "",
+                                                    "// 총 출력 매수(= 각 행의 dunge 합, 최소 1)",
+                                                    "const sumCopies = recs.reduce((acc, r) => {",
+                                                    "    const d = parseInt(r.get('dunge'), 10);",
+                                                    "    return acc + (isNaN(d) || d < 1 ? 1 : d);",
+                                                    "}, 0);",
+                                                    "",
+                                                    "const isSelectMode = !!(chkSelect && chkSelect.getValue());",
+                                                    "const modeText = isSelectMode ? '선택한' : '그리드 전체';",
+                                                    "const msg = `${modeText} <b>${recs.length}</b>건의 라벨을 <b>덩이 개수</b>만큼 출력합니다.<br>` + `<br>진행하시겠습니까?`;",
+                                                    "",
+                                                    "Ext.Msg.confirm('라벨 출력 확인', msg, (btn) => {",
+                                                    "    if (btn !== 'yes') return;",
+                                                    "",
+                                                    "    const payload = {",
+                                                    "        userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,",
+                                                    "        updateId: TmsLabel.util.Common.LOGIN_USER,",
+                                                    "        updateOutYn: true,",
+                                                    "        items: recs.map(r => ({",
+                                                    "            rowSeq: r.get('rowSeq'),",
+                                                    "            ordNo: r.get('ordNo'),",
+                                                    "            sujumCd: r.get('sujumCd'),",
+                                                    "            sujumNm: r.get('sujumNm'),",
+                                                    "            courseCd: r.get('courseCd'),",
+                                                    "            dunge: r.get('dunge'),",
+                                                    "            qty: r.get('qty'),",
+                                                    "            chulpanNm: r.get('chulpanNm'),",
+                                                    "            jiyukNm:r.get('jiyukNm')",
+                                                    "        }))",
+                                                    "    };",
+                                                    "",
+                                                    "    Ext.Ajax.request({",
+                                                    "        url: TmsLabel.util.Common.BASE_URL + '/tmslabel/label/print',",
+                                                    "        method: 'POST',",
+                                                    "        headers: { 'Content-Type': 'application/json'},",
+                                                    "        jsonData: payload,",
+                                                    "        binary: true,",
+                                                    "",
+                                                    "        success: function (resp) {",
+                                                    "            var bytes = resp.responseBytes || resp.response;",
+                                                    "            if (!bytes) {",
+                                                    "                Ext.Msg.alert('오류', 'PDF 응답이 비어있습니다.');",
+                                                    "                return;",
+                                                    "            }",
+                                                    "            var blob = new Blob([bytes], { type: 'application/pdf' });",
+                                                    "            var url  = URL.createObjectURL(blob);",
+                                                    "",
+                                                    "            var win = window.open(url, '_blank');",
+                                                    "            if (!win) {",
+                                                    "                var iframe = document.getElementById('hidden_pdf_iframe_for_labels') || (function(){",
+                                                    "                    var f = document.createElement('iframe');",
+                                                    "                    f.id = 'hidden_pdf_iframe_for_labels';",
+                                                    "                    f.style.position = 'fixed';",
+                                                    "                    f.style.right = '-10000px';",
+                                                    "                    f.style.bottom = '-10000px';",
+                                                    "                    document.body.appendChild(f);",
+                                                    "                    return f;",
+                                                    "                })();",
+                                                    "                iframe.onload = function(){ try{ iframe.contentWindow.focus(); iframe.contentWindow.print(); }catch(e){} };",
+                                                    "                iframe.src = url;",
+                                                    "            }",
+                                                    "            grid.getStore().reload();",
+                                                    "            Ext.toast('라벨 PDF 생성 완료 (OUT_YN=1 반영)');",
+                                                    "        },",
+                                                    "",
+                                                    "        failure: function (resp) {",
+                                                    "            var m = '';",
+                                                    "            try {",
+                                                    "                if (resp.responseText) m = resp.responseText;",
+                                                    "                else if (resp.responseBytes) m = new TextDecoder().decode(new Uint8Array(resp.responseBytes));",
+                                                    "            } catch(e){}",
+                                                    "            Ext.Msg.alert('서버 오류', '라벨 생성 실패 (HTTP '+resp.status+'). ' + (m ? m.substring(0,300) : ''));",
+                                                    "        }",
+                                                    "",
+                                                    "    });",
+                                                    "",
+                                                    "});",
+                                                    "",
+                                                    "",
+                                                    "",
+                                                    "",
+                                                    "",
+                                                    "",
+                                                    "",
+                                                    "",
+                                                    "",
+                                                    "",
+                                                    ""
                                                 ],
                                                 "name": "click",
                                                 "scope": "me"
@@ -1245,6 +2011,38 @@
                                     ]
                                 }
                             ]
+                        },
+                        {
+                            "type": "viewcontrollereventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onPanelAfterRender_chulgo",
+                                "implHandler": [
+                                    "    if (TmsLabel.util.Common.LOGIN_USER === 'dream') {",
+                                    "        const btnTrans   = this.lookupReference('trans_button');",
+                                    "        const btnChulgo  = this.lookupReference('print_chulgo');",
+                                    "        const btnLabel   = this.lookupReference('print_label');",
+                                    "",
+                                    "        if (btnTrans)  btnTrans.setHidden(true);",
+                                    "        if (btnChulgo) btnChulgo.setHidden(true);",
+                                    "        if (btnLabel)  btnLabel.setHidden(true);",
+                                    "    }"
+                                ],
+                                "name": "afterrender",
+                                "scope": "me"
+                            },
+                            "configAlternates": {
+                                "fn": "string",
+                                "implHandler": "code",
+                                "name": "string",
+                                "scope": "string"
+                            },
+                            "name": "onPanelAfterRender_chulgo",
+                            "designerId": "e3440b6d-c905-476f-8333-cf5d19e1e8ec"
                         }
                     ]
                 },
@@ -1295,6 +2093,88 @@
                             },
                             "name": "MyForm1",
                             "designerId": "de87a6ff-9727-41f5-922f-ead7cdde0320"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "",
+                        "dock": "top"
+                    },
+                    "configAlternates": {
+                        "designer|displayName": "string",
+                        "dock": "string"
+                    },
+                    "name": "MyToolbar",
+                    "designerId": "855969c5-847c-4205-9f87-fb0df1ded98c",
+                    "cn": [
+                        {
+                            "type": "Ext.form.Label",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "reference": "welcome",
+                                "text": "누구님 환영합니다."
+                            },
+                            "configAlternates": {
+                                "layout|flex": "number",
+                                "reference": "string",
+                                "text": "string"
+                            },
+                            "name": "MyLabel",
+                            "designerId": "87cb2b50-2032-4c71-9a9c-37e49702a220",
+                            "cn": [
+                                {
+                                    "type": "viewcontrollereventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onLabelAfterRender_welcome",
+                                        "implHandler": [
+                                            "component.setText(TmsLabel.util.Common.LOGIN_CUST_NAME + '님 안녕하세요!');"
+                                        ],
+                                        "name": "afterrender",
+                                        "scope": "me"
+                                    },
+                                    "configAlternates": {
+                                        "fn": "string",
+                                        "implHandler": "code",
+                                        "name": "string",
+                                        "scope": "string"
+                                    },
+                                    "name": "onLabelAfterRender_welcome",
+                                    "designerId": "7418720d-d718-4c6a-8aa7-7a2b5c2779d8"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.tab.Tab",
+                            "reference": {
+                                "name": "tabConfig",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null
+                            },
+                            "configAlternates": {
+                                "layout|flex": "number"
+                            },
+                            "name": "TabConfig2",
+                            "designerId": "ed7bac76-f671-4101-bd4e-c6e878994d1b"
                         }
                     ]
                 }

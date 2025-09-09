@@ -188,11 +188,11 @@ Ext.define('dream.view.tord.tord1002ViewController', {
             const publisher_name_field = form.down('[name=sujumNm]');
             publisher_code_field.setValue(record.get('custCd'));
             publisher_name_field.setValue(record.get('custAbbrNm'));
+            form.down('[name=itemGb]').focus(true, 100);
         });
 
         popup.show();
 
-        form.down('[name=itemGb]').focus(true, 100);
     },
 
     onFormAfterRender_order_form: function(component, eOpts) {

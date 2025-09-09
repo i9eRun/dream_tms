@@ -415,6 +415,36 @@
                     },
                     "name": "onGridpanelItemDblClick_tpop1003_cust_grid",
                     "designerId": "bc1f04de-679c-483b-912f-4d59fcad506a"
+                },
+                {
+                    "type": "viewcontrollereventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onGridpanelRowkeydown_tpop1003_grid",
+                        "implHandler": [
+                            "const button = this.lookupReference('confirm_button');",
+                            "if (e.getKey() === e.ENTER) {",
+                            "",
+                            "    if (button) {",
+                            "        button.fireEvent('click', button);",
+                            "    }",
+                            "}"
+                        ],
+                        "name": "rowkeydown",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onGridpanelRowkeydown_tpop1003_grid",
+                    "designerId": "13b52db8-e692-419e-aaf4-dcf0a25ec3ee"
                 }
             ]
         },

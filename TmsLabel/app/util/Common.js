@@ -109,7 +109,7 @@ Ext.define('TmsLabel.util.Common', {
         // 클래스명 계산
         const folderName = menuId.substring(0, 4).toLowerCase();
         const classNamePart = menuId.toLowerCase();
-        const className = `dream.view.${folderName}.${classNamePart}`;
+        const className = `TmsLabel.view.${folderName}.${classNamePart}`;
 
         Ext.require(className, () => {
             const viewInstance = Ext.create(className, {
@@ -204,7 +204,7 @@ Ext.define('TmsLabel.util.Common', {
      * @param {String} code - 코드 값 (예: '1', '0')
      * @returns {String}
      */
-    // 사용예시 dream.util.Common.getFlagCodeName('사용', value);
+    // 사용예시 TmsLabel.util.Common.getFlagCodeName('사용', value);
     getFlagCodeName: function(group, code) {
         const groupObj = this.data[group];
         if (!groupObj) return code;
@@ -229,9 +229,9 @@ Ext.define('TmsLabel.util.Common', {
             fields: ['codeCd', 'codeNm'],
             proxy: {
                 type: 'ajax',
-                url: dream.util.Common.BASE_URL+`/api/code/${groupCd}`,
+                url: TmsLabel.util.Common.BASE_URL+`/api/code/${groupCd}`,
                 params : {
-                    userCetCd: dream.util.Common.LOGIN_USER_CET_CD
+                    userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD
                 },
                 reader: { type: 'json' }
             }
@@ -265,7 +265,7 @@ Ext.define('TmsLabel.util.Common', {
             return;
         }
 
-        const codeData = dream.util.Common.getCodeData(flagType);
+        const codeData = TmsLabel.util.Common.getCodeData(flagType);
         if (!codeData) {
             Ext.Msg.alert('오류', `정의되지 않은 코드 유형입니다: ${flagType}`);
             return;
@@ -344,11 +344,11 @@ Ext.define('TmsLabel.util.Common', {
             codeField: info.codeField,
             nameField: info.nameField,
             where: options.where || '',
-            userCetCd: dream.util.Common.LOGIN_USER_CET_CD
+            userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD
         };
 
         Ext.Ajax.request({
-            url: dream.util.Common.BASE_URL+'/api/code/table',
+            url: TmsLabel.util.Common.BASE_URL+'/api/code/table',
             method: 'GET',
             params: params,
             success: function (response) {
@@ -391,7 +391,7 @@ Ext.define('TmsLabel.util.Common', {
             fields: ['codeCd', 'codeNm'],
             proxy: {
                 type: 'ajax',
-                url: dream.util.Common.BASE_URL + '/api/code/' + groupCode,
+                url: TmsLabel.util.Common.BASE_URL + '/api/code/' + groupCode,
                 reader: { type: 'json' }
             },
             autoLoad: true
@@ -404,9 +404,9 @@ Ext.define('TmsLabel.util.Common', {
 
 
     // 그리드 컬럼에 적용 방법
-    // renderer: dream.util.Common.getRenderer('USER_CHK_GB')
+    // renderer: TmsLabel.util.Common.getRenderer('USER_CHK_GB')
     getRenderer: function(groupCode) {
-        const store = dream.util.Common.getStore(groupCode);
+        const store = TmsLabel.util.Common.getStore(groupCode);
 
         console.log("저장된 스토어");
         console.log(store);
@@ -483,9 +483,9 @@ Ext.define('TmsLabel.util.Common', {
     /**
      * @param {Ext.form.Panel} form - 대상 form
      * @param {String[]} fieldOrder - 필드 식별자 배열 (itemId, reference 또는 name)
-     * 사용 예시 : dream.util.Common.enableEnterKeyNavigation(form, ['ordNoField', 'ordDtField', 'labelDtField', 'poNoField', 'publisherField']);
+     * 사용 예시 : TmsLabel.util.Common.enableEnterKeyNavigation(form, ['ordNoField', 'ordDtField', 'labelDtField', 'poNoField', 'publisherField']);
      * const fields = [];
-     * dream.util.Common.enableEnterKeyNavigation(form, fields);
+     * TmsLabel.util.Common.enableEnterKeyNavigation(form, fields);
      */
     enableEnterKeyNavigation: function (form, fieldOrder) {
         fieldOrder.forEach((fieldKey, index) => {
@@ -514,11 +514,11 @@ Ext.define('TmsLabel.util.Common', {
      */
     loadCode: function (codeId, callback) {
         Ext.Ajax.request({
-            url: dream.util.Common.BASE_URL + '/api/code/' + codeId,
+            url: TmsLabel.util.Common.BASE_URL + '/api/code/' + codeId,
             method: 'GET',
             success: function(response) {
                 const codeList = Ext.decode(response.responseText);
-                dream.util.Common.setCodeData(codeId, codeList);
+                TmsLabel.util.Common.setCodeData(codeId, codeList);
 
                 if (typeof callback === 'function') {
                     callback(codeList);
@@ -678,12 +678,12 @@ Ext.define('TmsLabel.util.Common', {
 
         // 3. 파일명: 오늘날짜_메뉴이름.xlsx
         const today = Ext.Date.format(new Date(), 'Ymd'); // 예: 20250731
-        const menuNm = dream.util.Common.currentMenuNm || '메뉴이름없음';
+        const menuNm = TmsLabel.util.Common.currentMenuNm || '메뉴이름없음';
         const fileName = `${today}_${menuNm}.xlsx`;
 
         // 4. 엑셀 다운로드 요청
         Ext.Ajax.request({
-            url: dream.util.Common.BASE_URL + '/system/exceldownload',
+            url: TmsLabel.util.Common.BASE_URL + '/system/exceldownload',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -693,10 +693,10 @@ Ext.define('TmsLabel.util.Common', {
                 fileName: fileName,
                 headers: headers,
                 data: data,
-                userId: dream.util.Common.LOGIN_USER,
-                userCetCd: dream.util.Common.LOGIN_USER_CET_CD,
-                menuId: dream.util.Common.currentMenuId || null,
-                menuNm: dream.util.Common.currentMenuNm || null, 
+                userId: TmsLabel.util.Common.LOGIN_USER,
+                userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,
+                menuId: TmsLabel.util.Common.currentMenuId || null,
+                menuNm: TmsLabel.util.Common.currentMenuNm || null, 
                 paramsJson: JSON.stringify({
                     // 그리드 검색조건/필터 등을 넣어두면 분석에 도움
                     filters: grid.getStore().getFilters()?.items?.map(f => f.getConfig()) || [],
@@ -755,14 +755,14 @@ Ext.define('TmsLabel.util.Common', {
 
         // 파일명: 오늘날짜_메뉴이름.xlsx
         const today = Ext.Date.format(new Date(), 'Ymd');
-        const menuNm = dream.util.Common.currentMenuNm || '메뉴이름없음';
+        const menuNm = TmsLabel.util.Common.currentMenuNm || '메뉴이름없음';
         const fileName = `${today}_${menuNm}.xlsx`;
 
         // 엑셀 다운로드 확인창 (confirm 사용)
         Ext.Msg.confirm('확인', '엑셀 다운로드를 하시겠습니까?', function(btn) {
             if (btn === 'yes') {
                 Ext.Ajax.request({
-                    url: dream.util.Common.BASE_URL + '/system/exceldownload',
+                    url: TmsLabel.util.Common.BASE_URL + '/system/exceldownload',
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -772,10 +772,10 @@ Ext.define('TmsLabel.util.Common', {
                         fileName: fileName,
                         headers: headers,
                         data: data,
-                        userId: dream.util.Common.LOGIN_USER,
-                        userCetCd: dream.util.Common.LOGIN_USER_CET_CD,
-                        menuId: dream.util.Common.currentMenuId || null,
-                        menuNm: dream.util.Common.currentMenuNm,
+                        userId: TmsLabel.util.Common.LOGIN_USER,
+                        userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,
+                        menuId: TmsLabel.util.Common.currentMenuId || null,
+                        menuNm: TmsLabel.util.Common.currentMenuNm,
                         paramsJson: JSON.stringify({
                             filters: grid.getStore().getFilters()?.items?.map(f => f.getConfig()) || [],
                             sorters: grid.getStore().getSorters()?.items?.map(s => s.getConfig()) || []

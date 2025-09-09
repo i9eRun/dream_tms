@@ -133,7 +133,8 @@ Ext.define('dream.view.tpop.tpop1003', {
             ],
             listeners: {
                 afterrender: 'onGridpanelAfterRender_tpop1003',
-                itemdblclick: 'onGridpanelItemDblClick_tpop1003_cust_grid'
+                itemdblclick: 'onGridpanelItemDblClick_tpop1003_cust_grid',
+                rowkeydown: 'onGridpanelRowkeydown_tpop1003_grid'
             }
         },
         {

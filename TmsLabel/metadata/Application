@@ -7,15 +7,18 @@
     "codeClass": null,
     "userConfig": {
         "models": [
-            "TMS_DUNGE_MST"
+            "TMS_DUNGE_MST",
+            "popup.custVO"
         ],
         "name": "TmsLabel",
         "stores": [
-            "TMS_DUNGE_MST"
+            "TMS_DUNGE_MST",
+            "popup.custStore"
         ],
         "views": [
             "LoginView",
-            "MainView"
+            "MainView",
+            "popup.cust"
         ]
     },
     "configAlternates": {

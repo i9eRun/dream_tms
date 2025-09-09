@@ -33,6 +33,16 @@ Ext.define('dream.view.tpop.tpop1003ViewController', {
         view.close();
     },
 
+    onGridpanelRowkeydown_tpop1003_grid: function(tableview, record, element, rowIndex, e, eOpts) {
+        const button = this.lookupReference('confirm_button');
+        if (e.getKey() === e.ENTER) {
+
+            if (button) {
+                button.fireEvent('click', button);
+            }
+        }
+    },
+
     onTpop1003_keywordAfterRender: function(component, eOpts) {
         const button = this.lookupReference('search_button');
         component.on('specialkey', function(component, e) {

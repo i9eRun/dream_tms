@@ -9,10 +9,12 @@ public class TmsDungeMstVO {
     private String userCetCd;     // USER_CET_CD
     private Long rowSeq;          // ROW_SEQ
     private String chulpanCd;     // CHULPAN_CD
+    private String cetCd;         // CET_CD
     private String chulpanNm;     
     private String ordNo;         // ORD_NO
     private String sujumCd;       // SUJUM_CD
     private String sujumNm;       // SUJUM_NM
+    private String chulgoGb;      // CHULGO_GB
     private String jiyukNm;       // JIYUK_NM
     private Long courseCd;        // COURSE_CD
     private String telNo;         // TEL_NO
@@ -26,7 +28,6 @@ public class TmsDungeMstVO {
     private String transGb;       // TRANS_GB
     private Date insertDt;        // INSERT_DT
     private String dreamUpdate;   // DREAM_UPDATE
-    private String daeCd;         // DAE_CD
     private String daeNo;         // DAE_NO
     private String insertId;      // INSERT_ID
     private Date updateDt;        // UPDATE_DT

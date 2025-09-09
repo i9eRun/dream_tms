@@ -27,7 +27,9 @@ Ext.define('TmsLabel.view.MainView', {
         'Ext.form.field.Checkbox',
         'Ext.grid.Panel',
         'Ext.grid.column.RowNumberer',
-        'Ext.form.Panel'
+        'Ext.form.Panel',
+        'Ext.toolbar.Toolbar',
+        'Ext.form.Label'
     ],
 
     controller: 'mainview',
@@ -104,7 +106,8 @@ Ext.define('TmsLabel.view.MainView', {
                                             format: 'Ymd',
                                             submitFormat: 'Ymd',
                                             listeners: {
-                                                afterrender: 'onDatefieldAfterRender_choose_date'
+                                                afterrender: 'onDatefieldAfterRender_choose_date',
+                                                change: 'onDatefieldChange_choose_date'
                                             }
                                         },
                                         {
@@ -146,13 +149,20 @@ Ext.define('TmsLabel.view.MainView', {
                                             labelWidth: 50,
                                             editable: false,
                                             displayField: 'custNm',
-                                            valueField: 'custCd'
+                                            valueField: 'custCd',
+                                            listeners: {
+                                                afterrender: 'onComboboxAfterRender_combo_chulpan'
+                                            }
                                         },
                                         {
                                             xtype: 'button',
-                                            reference: 'chulpan_search_button',
+                                            reference: 'chulpan_button',
                                             width: 100,
-                                            text: '출판사조회'
+                                            text: '출판사조회',
+                                            listeners: {
+                                                afterrender: 'onButtonAfterRender_chulpan_search_button2',
+                                                click: 'onButtonClick_chulpan_button'
+                                            }
                                         },
                                         {
                                             xtype: 'button',
@@ -199,7 +209,8 @@ Ext.define('TmsLabel.view.MainView', {
                                             width: 80,
                                             text: '찾기',
                                             listeners: {
-                                                afterrender: 'onButtonAfterRender_chulpan_search_button'
+                                                afterrender: 'onButtonAfterRender_chulpan_search_button',
+                                                click: 'onButtonClick_chulpan_search_button'
                                             }
                                         },
                                         {
@@ -222,7 +233,10 @@ Ext.define('TmsLabel.view.MainView', {
                                             reference: 'delete_button',
                                             margin: '0 0 0 100',
                                             width: 100,
-                                            text: '자료삭제'
+                                            text: '자료삭제',
+                                            listeners: {
+                                                click: 'onButtonClick_delete_button'
+                                            }
                                         }
                                     ]
                                 }
@@ -243,11 +257,13 @@ Ext.define('TmsLabel.view.MainView', {
                                 },
                                 {
                                     xtype: 'gridcolumn',
+                                    width: 160,
                                     dataIndex: 'ordNo',
                                     text: '전표번호'
                                 },
                                 {
                                     xtype: 'gridcolumn',
+                                    width: 200,
                                     dataIndex: 'chulpanNm',
                                     text: '출판사명',
                                     listeners: {
@@ -261,11 +277,13 @@ Ext.define('TmsLabel.view.MainView', {
                                 },
                                 {
                                     xtype: 'gridcolumn',
+                                    width: 150,
                                     dataIndex: 'jiyukNm',
                                     text: '지역명'
                                 },
                                 {
                                     xtype: 'gridcolumn',
+                                    width: 200,
                                     dataIndex: 'sujumNm',
                                     text: '거래처명'
                                 },
@@ -281,16 +299,46 @@ Ext.define('TmsLabel.view.MainView', {
                                 },
                                 {
                                     xtype: 'gridcolumn',
+                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                        if (value === '01') {
+                                            return '시내';
+                                        } else if (value === '02') {
+                                            return '지방';
+                                        } else {
+                                            return value;
+                                        }
+                                    },
+                                    width: 60,
                                     dataIndex: 'chulgoGb',
                                     text: '구분'
                                 },
                                 {
                                     xtype: 'gridcolumn',
+                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                        if (value === '1') {
+                                            return '전송';
+                                        } else if (value === '0') {
+                                            return '미전송';
+                                        } else {
+                                            return value;
+                                        }
+                                    },
+                                    width: 60,
                                     dataIndex: 'transGb',
                                     text: '전송'
                                 },
                                 {
                                     xtype: 'gridcolumn',
+                                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                        if (value === '1') {
+                                            return '출력';
+                                        } else if (value === '0') {
+                                            return '미출력';
+                                        } else {
+                                            return value;
+                                        }
+                                    },
+                                    width: 80,
                                     dataIndex: 'outYn',
                                     text: '출력유무'
                                 },
@@ -320,7 +368,11 @@ Ext.define('TmsLabel.view.MainView', {
                             items: [
                                 {
                                     xtype: 'button',
-                                    text: '자료전송'
+                                    reference: 'trans_button',
+                                    text: '자료전송',
+                                    listeners: {
+                                        click: 'onButtonClick_trans_button'
+                                    }
                                 },
                                 {
                                     xtype: 'button',
@@ -340,7 +392,10 @@ Ext.define('TmsLabel.view.MainView', {
                                 }
                             ]
                         }
-                    ]
+                    ],
+                    listeners: {
+                        afterrender: 'onPanelAfterRender_chulgo'
+                    }
                 },
                 {
                     xtype: 'panel',
@@ -354,6 +409,22 @@ Ext.define('TmsLabel.view.MainView', {
                             xtype: 'form',
                             bodyPadding: 10,
                             title: 'My Form'
+                        }
+                    ]
+                }
+            ],
+            dockedItems: [
+                {
+                    xtype: 'toolbar',
+                    dock: 'top',
+                    items: [
+                        {
+                            xtype: 'label',
+                            reference: 'welcome',
+                            text: '누구님 환영합니다.',
+                            listeners: {
+                                afterrender: 'onLabelAfterRender_welcome'
+                            }
                         }
                     ]
                 }
