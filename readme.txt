@@ -41,6 +41,18 @@ git push origin main
 
 
 
+# dev 최신화
+git checkout dev
+git pull origin dev
+
+# 새 브랜치 생성
+git checkout -b feature/print
+
+# 작업 후 푸시
+git add .
+git commit -m "[feat] 출력 기능 추가"
+git push origin feature/print
+
 
 
 
