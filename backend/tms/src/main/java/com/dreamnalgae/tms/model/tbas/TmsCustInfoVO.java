@@ -141,4 +141,17 @@ public class TmsCustInfoVO {
     private String pissEndDt;
     private String mainSale;
     
+    private String custX;
+    private String custY;
+    private String custX3;
+    private String custY3;
+    private String changAddr;
+    
+    private String changAddr2;
+    private String changPostNo;
+    private String ptlGb;
+    private Integer dochaQty;
+    private Integer dochaBox;
+    private Integer dochaAmt;
+
 }

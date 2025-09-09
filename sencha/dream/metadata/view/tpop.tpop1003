@@ -396,13 +396,9 @@
                     "userConfig": {
                         "fn": "onGridpanelItemDblClick_tpop1003_cust_grid",
                         "implHandler": [
-                            "const view = this.getView();",
-                            "",
-                            "// 부모에게 사용자 정보 전달 (이벤트 방식)",
-                            "view.fireEvent('selectUser', view, record);",
-                            "",
-                            "// 팝업 닫기",
-                            "view.close();"
+                            "       const view = this.getView();",
+                            "       view.fireEvent('selectUser', view, record);",
+                            "       view.close();"
                         ],
                         "name": "itemdblclick",
                         "scope": "me"
@@ -426,13 +422,13 @@
                     "userConfig": {
                         "fn": "onGridpanelRowkeydown_tpop1003_grid",
                         "implHandler": [
-                            "const button = this.lookupReference('confirm_button');",
-                            "if (e.getKey() === e.ENTER) {",
+                            "        const button = this.lookupReference('confirm_button');",
+                            "        if (e.getKey() === e.ENTER) {",
                             "",
-                            "    if (button) {",
-                            "        button.fireEvent('click', button);",
-                            "    }",
-                            "}"
+                            "            if (button) {",
+                            "                button.fireEvent('click', button);",
+                            "            }",
+                            "        }"
                         ],
                         "name": "rowkeydown",
                         "scope": "me"
@@ -444,7 +440,7 @@
                         "scope": "string"
                     },
                     "name": "onGridpanelRowkeydown_tpop1003_grid",
-                    "designerId": "13b52db8-e692-419e-aaf4-dcf0a25ec3ee"
+                    "designerId": "ff1947f0-b80e-4df6-ac3f-475c0ddefeac"
                 }
             ]
         },
@@ -661,23 +657,36 @@
                     "userConfig": {
                         "fn": "onTpop1003_search_buttonClick",
                         "implHandler": [
-                            "const grid = Ext.ComponentQuery.query('grid[reference=tpop1003_grid]')[0];",
-                            "const store = grid.getStore();",
-                            "const keyword = Ext.getCmp('tpop1003_keyword').getValue();",
-                            "const useYn = Ext.getCmp('tpop1003_useyn').getValue();",
-                            "const cust_gb = Ext.getCmp('tpop1003_cust_gb').getValue();",
-                            "//const sosok_nm = Ext.getCmp('tpop1003_sosok_nm').getValue();",
+                            "       const grid = Ext.ComponentQuery.query('grid[reference=tpop1003_grid]')[0];",
+                            "        const store = grid.getStore();",
+                            "        const keyword = Ext.getCmp('tpop1003_keyword').getValue();",
+                            "        const useYn = Ext.getCmp('tpop1003_useyn').getValue();",
+                            "        const cust_gb = Ext.getCmp('tpop1003_cust_gb').getValue();",
+                            "        //const sosok_nm = Ext.getCmp('tpop1003_sosok_nm').getValue();",
                             "",
-                            "store.getProxy().setExtraParams({",
-                            "    userCetCd: dream.util.Common.LOGIN_USER_CET_CD,",
-                            "    keyword: keyword,",
-                            "    useYn: useYn,",
-                            "    //sosokNm: sosok_nm,",
-                            "    custDivGb: cust_gb",
-                            "    ",
+                            "        store.getProxy().setExtraParams({",
+                            "            userCetCd: dream.util.Common.LOGIN_USER_CET_CD,",
+                            "            keyword: keyword,",
+                            "            useYn: useYn,",
+                            "            //sosokNm: sosok_nm,",
+                            "            custDivGb: cust_gb",
+                            "",
+                            "        });",
+                            "",
+                            "        store.reload();",
+                            "",
+                            "store.load({",
+                            "  callback: function(records, operation, success) {",
+                            "        if (store.getCount() > 0) {",
+                            "      grid.getSelectionModel().select(0);",
+                            "      grid.getView().focusRow(0);",
+                            "      grid.focus();",
+                            "    } else {",
+                            "      keywordField.focus();",
+                            "    }",
+                            "  }",
                             "});",
                             "",
-                            "store.reload();",
                             ""
                         ],
                         "name": "click",

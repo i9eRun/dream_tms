@@ -477,6 +477,38 @@
             },
             "name": "MyField282",
             "designerId": "aedfecb8-2750-4d69-9163-14fd5af60129"
+        },
+        {
+            "type": "Ext.data.field.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "baesongNm"
+            },
+            "configAlternates": {
+                "name": "string"
+            },
+            "name": "MyField3",
+            "designerId": "f294f264-8d44-4f35-9b68-838bb168f62c"
+        },
+        {
+            "type": "Ext.data.field.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "barsongId"
+            },
+            "configAlternates": {
+                "name": "string"
+            },
+            "name": "MyField4",
+            "designerId": "515a0706-672e-4930-b253-34d67baff1e2"
         }
     ]
 }

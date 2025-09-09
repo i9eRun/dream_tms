@@ -12,7 +12,7 @@
         "height": 850,
         "layout": "absolute",
         "title": "",
-        "width": 1600
+        "width": 1643
     },
     "configAlternates": {
         "designer|snapToGrid": "number",
@@ -36,7 +36,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "height": 350,
+                "height": 500,
                 "layout|x": 10,
                 "layout|y": 80,
                 "reference": "order_grid",
@@ -76,7 +76,8 @@
                             "store.getProxy().setExtraParams({",
                             "    userCetCd: dream.util.Common.LOGIN_USER_CET_CD,",
                             "    frDt: today,",
-                            "    toDt: today",
+                            "    toDt: today,",
+                            "    ordDt: today",
                             "});",
                             "",
                             ""
@@ -320,24 +321,6 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "ordBokDanga",
-                        "text": "덩이단가"
-                    },
-                    "configAlternates": {
-                        "text": "string",
-                        "dataIndex": "datafield"
-                    },
-                    "name": "MyColumn73",
-                    "designerId": "ca2880cb-ced0-4a67-b9fa-91e2661d3d6b"
-                },
-                {
-                    "type": "Ext.grid.column.Column",
-                    "reference": {
-                        "name": "columns",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
                         "dataIndex": "ordAmt",
                         "text": "금액"
                     },
@@ -380,10 +363,10 @@
             "userConfig": {
                 "bodyPadding": 10,
                 "designer|snapToGrid": 5,
-                "height": 310,
+                "height": 210,
                 "layout": "absolute",
                 "layout|x": 10,
-                "layout|y": 480,
+                "layout|y": 590,
                 "reference": "order_form",
                 "title": "주문(배본) 상세 정보",
                 "width": 1200
@@ -413,13 +396,15 @@
                         "fieldLabel": "주문번호",
                         "labelWidth": 80,
                         "name": "ordNo",
-                        "readOnly": true
+                        "readOnly": true,
+                        "width": 265
                     },
                     "configAlternates": {
                         "fieldLabel": "string",
                         "labelWidth": "number",
                         "name": "string",
-                        "readOnly": "boolean"
+                        "readOnly": "boolean",
+                        "width": "auto"
                     },
                     "name": "MyTextField2",
                     "designerId": "f0dafff3-bb69-47ae-bca5-dc855d138717"
@@ -434,11 +419,11 @@
                     "userConfig": {
                         "allowBlank": false,
                         "fieldLabel": "출판사",
-                        "labelWidth": 80,
-                        "layout|x": 10,
-                        "layout|y": 145,
+                        "labelWidth": 50,
+                        "layout|x": 285,
+                        "layout|y": 45,
                         "name": "chulpanCd",
-                        "width": 180
+                        "width": 115
                     },
                     "configAlternates": {
                         "fieldLabel": "string",
@@ -460,18 +445,76 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "fieldLabel": "",
-                        "labelWidth": 80,
-                        "layout|x": 190,
-                        "layout|y": 145,
-                        "name": "chulpanNm"
+                        "allowBlank": false,
+                        "fieldLabel": "수거담당",
+                        "labelWidth": 60,
+                        "layout|x": 410,
+                        "layout|y": 10,
+                        "name": "sugeoId",
+                        "width": 115
                     },
                     "configAlternates": {
                         "fieldLabel": "string",
                         "labelWidth": "number",
                         "layout|x": "number",
                         "layout|y": "number",
-                        "name": "string"
+                        "name": "string",
+                        "width": "auto",
+                        "allowBlank": "boolean"
+                    },
+                    "name": "MyTextField20",
+                    "designerId": "94537c8e-c5de-4b57-ba17-a002c1e6291e"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "allowBlank": false,
+                        "fieldLabel": "배송담당",
+                        "labelWidth": 60,
+                        "layout|x": 800,
+                        "layout|y": 80,
+                        "name": "baesongId",
+                        "width": 115
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "labelWidth": "number",
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "name": "string",
+                        "width": "auto",
+                        "allowBlank": "boolean"
+                    },
+                    "name": "MyTextField30",
+                    "designerId": "8d53850f-598a-4562-afca-773d210f5aef"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "",
+                        "labelWidth": 80,
+                        "layout|x": 455,
+                        "layout|y": 45,
+                        "name": "chulpanNm",
+                        "width": 185
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "labelWidth": "number",
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "name": "string",
+                        "width": "auto"
                     },
                     "name": "MyTextField",
                     "designerId": "ba9c7de8-cc4b-4548-8025-3ccccd5a3565",
@@ -488,7 +531,7 @@
                                 "implHandler": [
                                     "const button = this.lookupReference('form_chulpan_search_button');",
                                     "component.on('specialkey', function(component, e) {",
-                                    "    if (e.getKey() === e.ENTER) {",
+                                    " if (e.getKey() === e.ENTER) {",
                                     "        if (button) {",
                                     "            button.fireEvent('click', button);",
                                     "        }",
@@ -506,6 +549,37 @@
                             },
                             "name": "onTextfieldAfterRender_chulpanNm",
                             "designerId": "0a36582f-97a6-4759-9128-9b823dd2ca75"
+                        },
+                        {
+                            "type": "viewcontrollereventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onTextfieldChange_chulpanNm",
+                                "implHandler": [
+                                    "    const form = field.up('form');",
+                                    "",
+                                    "    const s_chulpanNm = form.down('[name=chulpanNm]').getValue();",
+                                    "",
+                                    "    if (Ext.isEmpty(s_chulpanNm)) {",
+                                    "        form.down('[name=chulpanCd]').setValue('');",
+                                    "    }",
+                                    ""
+                                ],
+                                "name": "change",
+                                "scope": "me"
+                            },
+                            "configAlternates": {
+                                "fn": "string",
+                                "implHandler": "code",
+                                "name": "string",
+                                "scope": "string"
+                            },
+                            "name": "onTextfieldChange_chulpanNm",
+                            "designerId": "f027cbf9-26e8-4949-979f-5cf12a5aa2ea"
                         }
                     ]
                 },
@@ -519,16 +593,136 @@
                     "userConfig": {
                         "fieldLabel": "",
                         "labelWidth": 80,
-                        "layout|x": 190,
-                        "layout|y": 170,
-                        "name": "sujumNm"
+                        "layout|x": 565,
+                        "layout|y": 10,
+                        "name": "sugeoNm",
+                        "width": 80
                     },
                     "configAlternates": {
                         "fieldLabel": "string",
                         "labelWidth": "number",
                         "layout|x": "number",
                         "layout|y": "number",
-                        "name": "string"
+                        "name": "string",
+                        "width": "auto"
+                    },
+                    "name": "MyTextField24",
+                    "designerId": "18905535-36ac-4b57-ba18-003c9809c393",
+                    "cn": [
+                        {
+                            "type": "viewcontrollereventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onTextfieldChange_sugeoNm",
+                                "implHandler": [
+                                    "    const form = field.up('form');",
+                                    "",
+                                    "    const s_sugeoNm = form.down('[name=sugeoNm]').getValue();",
+                                    "",
+                                    "    if (Ext.isEmpty(s_sugeoNm)) {",
+                                    "        form.down('[name=sugeoId]').setValue('');",
+                                    "    }",
+                                    ""
+                                ],
+                                "name": "change",
+                                "scope": "me"
+                            },
+                            "configAlternates": {
+                                "fn": "string",
+                                "implHandler": "code",
+                                "name": "string",
+                                "scope": "string"
+                            },
+                            "name": "onTextfieldChange_sugeoNm",
+                            "designerId": "7bd88ce5-a45d-4ef4-ab46-2f69256798bb"
+                        },
+                        {
+                            "type": "viewcontrollereventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onTextfieldAfterRender_sugeoNm",
+                                "implHandler": [
+                                    "const button = this.lookupReference('form_com_user_search_button');",
+                                    "component.on('specialkey', function(component, e) {",
+                                    " if (e.getKey() === e.ENTER) {",
+                                    "        if (button) {",
+                                    "            button.fireEvent('click', button);",
+                                    "        }",
+                                    "    }",
+                                    "});"
+                                ],
+                                "name": "afterrender",
+                                "scope": "me"
+                            },
+                            "configAlternates": {
+                                "fn": "string",
+                                "implHandler": "code",
+                                "name": "string",
+                                "scope": "string"
+                            },
+                            "name": "onTextfieldAfterRender_sugeoNm",
+                            "designerId": "2dd7b251-8955-4138-9d61-201a63179032"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "",
+                        "labelWidth": 80,
+                        "layout|x": 920,
+                        "layout|y": 80,
+                        "name": "baesongNm",
+                        "width": 80
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "labelWidth": "number",
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "name": "string",
+                        "width": "auto"
+                    },
+                    "name": "MyTextField32",
+                    "designerId": "80779d38-911c-4469-84f7-1d0cd378ea9e"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "emptyText": "",
+                        "fieldLabel": "",
+                        "labelWidth": 80,
+                        "layout|x": 795,
+                        "layout|y": 45,
+                        "name": "sujumNm",
+                        "width": 205
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "labelWidth": "number",
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "name": "string",
+                        "emptyText": "string",
+                        "width": "auto"
                     },
                     "name": "MyTextField1",
                     "designerId": "dc5a1ffe-0b33-4c34-ae8a-86d40039fa33",
@@ -561,6 +755,37 @@
                             },
                             "name": "onTextfieldAfterRender_sujumNm",
                             "designerId": "ce2fbc85-9773-4d3e-a25e-3ef91cf965d5"
+                        },
+                        {
+                            "type": "viewcontrollereventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onTextfieldChange_sujumNm",
+                                "implHandler": [
+                                    "    const form = field.up('form');",
+                                    "",
+                                    "    const s_sujumNm = form.down('[name=sujumNm]').getValue();",
+                                    "",
+                                    "    if (Ext.isEmpty(s_sujumNm)) {",
+                                    "        form.down('[name=sujumCd]').setValue('');",
+                                    "    }",
+                                    ""
+                                ],
+                                "name": "change",
+                                "scope": "me"
+                            },
+                            "configAlternates": {
+                                "fn": "string",
+                                "implHandler": "code",
+                                "name": "string",
+                                "scope": "string"
+                            },
+                            "name": "onTextfieldChange_sujumNm",
+                            "designerId": "4e0c1c16-33b7-453b-9db4-0df31e29caec"
                         }
                     ]
                 },
@@ -573,12 +798,13 @@
                     "codeClass": null,
                     "userConfig": {
                         "allowBlank": false,
+                        "emptyText": "",
                         "fieldLabel": "서점",
-                        "labelWidth": 80,
-                        "layout|x": 10,
-                        "layout|y": 170,
+                        "labelWidth": 30,
+                        "layout|x": 655,
+                        "layout|y": 45,
                         "name": "sujumCd",
-                        "width": 180
+                        "width": 100
                     },
                     "configAlternates": {
                         "fieldLabel": "string",
@@ -587,7 +813,8 @@
                         "layout|y": "number",
                         "name": "string",
                         "width": "auto",
-                        "allowBlank": "boolean"
+                        "allowBlank": "boolean",
+                        "emptyText": "string"
                     },
                     "name": "MyTextField35",
                     "designerId": "74899932-6b12-4867-a8c6-e9f379b3e76c"
@@ -601,11 +828,11 @@
                     "codeClass": null,
                     "userConfig": {
                         "fieldLabel": "비고사항",
-                        "labelWidth": 80,
-                        "layout|x": 10,
-                        "layout|y": 205,
+                        "labelWidth": 60,
+                        "layout|x": 275,
+                        "layout|y": 115,
                         "name": "bigo",
-                        "width": 745
+                        "width": 725
                     },
                     "configAlternates": {
                         "fieldLabel": "string",
@@ -656,64 +883,6 @@
                     ]
                 },
                 {
-                    "type": "Ext.form.field.ComboBox",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "allowBlank": false,
-                        "displayField": "codeNm",
-                        "fieldLabel": "주문처리구분",
-                        "labelWidth": 80,
-                        "layout|x": 500,
-                        "layout|y": 10,
-                        "name": "ordChkGb",
-                        "valueField": "codeCd",
-                        "width": 180
-                    },
-                    "configAlternates": {
-                        "fieldLabel": "string",
-                        "labelWidth": "number",
-                        "layout|x": "number",
-                        "layout|y": "number",
-                        "width": "auto",
-                        "displayField": "datafield",
-                        "name": "string",
-                        "valueField": "datafield",
-                        "allowBlank": "boolean"
-                    },
-                    "name": "MyComboBox",
-                    "designerId": "4f8dce6a-3f42-4185-a9b5-87ca03ba3654",
-                    "cn": [
-                        {
-                            "type": "viewcontrollereventbinding",
-                            "reference": {
-                                "name": "listeners",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fn": "onComboboxAfterRender_ordChkGb",
-                                "implHandler": [
-                                    "dream.util.Common.setComboCode(component,104,false);"
-                                ],
-                                "name": "afterrender",
-                                "scope": "me"
-                            },
-                            "configAlternates": {
-                                "fn": "string",
-                                "implHandler": "code",
-                                "name": "string",
-                                "scope": "string"
-                            },
-                            "name": "onComboboxAfterRender_ordChkGb",
-                            "designerId": "91a89e41-4f17-4084-80d7-271204f433c3"
-                        }
-                    ]
-                },
-                {
                     "type": "Ext.form.field.Text",
                     "reference": {
                         "name": "items",
@@ -723,12 +892,13 @@
                     "userConfig": {
                         "allowBlank": false,
                         "fieldLabel": "입력자",
-                        "labelWidth": 80,
-                        "layout|x": 500,
-                        "layout|y": 35,
+                        "labelWidth": 50,
+                        "layout|x": 285,
+                        "layout|y": 10,
                         "name": "ordInputId",
                         "readOnly": true,
-                        "width": 180
+                        "vtypeText": "",
+                        "width": 115
                     },
                     "configAlternates": {
                         "fieldLabel": "string",
@@ -738,7 +908,8 @@
                         "width": "auto",
                         "name": "string",
                         "allowBlank": "boolean",
-                        "readOnly": "boolean"
+                        "readOnly": "boolean",
+                        "vtypeText": "string"
                     },
                     "name": "MyTextField17",
                     "designerId": "80c5de60-62c8-4936-a9bd-efbe85dd9b92"
@@ -753,68 +924,10 @@
                     "userConfig": {
                         "allowBlank": false,
                         "displayField": "codeNm",
-                        "fieldLabel": "정/반구분",
-                        "labelWidth": 80,
-                        "layout|x": 500,
-                        "layout|y": 60,
-                        "name": "itemGb",
-                        "valueField": "codeCd",
-                        "width": 180
-                    },
-                    "configAlternates": {
-                        "fieldLabel": "string",
-                        "labelWidth": "number",
-                        "layout|x": "number",
-                        "layout|y": "number",
-                        "width": "auto",
-                        "displayField": "datafield",
-                        "name": "string",
-                        "valueField": "datafield",
-                        "allowBlank": "boolean"
-                    },
-                    "name": "MyComboBox12",
-                    "designerId": "e13ef44d-a8d8-448f-9f1c-748e5ffc9763",
-                    "cn": [
-                        {
-                            "type": "viewcontrollereventbinding",
-                            "reference": {
-                                "name": "listeners",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fn": "onComboboxAfterRender_itemGb",
-                                "implHandler": [
-                                    "dream.util.Common.setComboCode(component,208,false);"
-                                ],
-                                "name": "afterrender",
-                                "scope": "me"
-                            },
-                            "configAlternates": {
-                                "fn": "string",
-                                "implHandler": "code",
-                                "name": "string",
-                                "scope": "string"
-                            },
-                            "name": "onComboboxAfterRender_itemGb",
-                            "designerId": "674cae39-19df-4573-a299-3c790333acc7"
-                        }
-                    ]
-                },
-                {
-                    "type": "Ext.form.field.ComboBox",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "allowBlank": false,
-                        "displayField": "codeNm",
                         "fieldLabel": "출고",
                         "labelWidth": 30,
-                        "layout|x": 500,
-                        "layout|y": 100,
+                        "layout|x": 655,
+                        "layout|y": 10,
                         "name": "chulgoGb",
                         "valueField": "codeCd",
                         "width": 100
@@ -869,68 +982,10 @@
                     "userConfig": {
                         "allowBlank": false,
                         "displayField": "codeNm",
-                        "fieldLabel": "결제",
-                        "labelWidth": 30,
-                        "layout|x": 620,
-                        "layout|y": 100,
-                        "name": "guljaeGb",
-                        "valueField": "codeCd",
-                        "width": 100
-                    },
-                    "configAlternates": {
-                        "fieldLabel": "string",
-                        "labelWidth": "number",
-                        "layout|x": "number",
-                        "layout|y": "number",
-                        "width": "auto",
-                        "displayField": "datafield",
-                        "name": "string",
-                        "valueField": "datafield",
-                        "allowBlank": "boolean"
-                    },
-                    "name": "MyComboBox14",
-                    "designerId": "3037fd09-d87a-4c26-81cf-6c1231274d1d",
-                    "cn": [
-                        {
-                            "type": "viewcontrollereventbinding",
-                            "reference": {
-                                "name": "listeners",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fn": "onComboboxAfterRender_guljaeGb",
-                                "implHandler": [
-                                    "dream.util.Common.setComboCode(component,102,false);"
-                                ],
-                                "name": "afterrender",
-                                "scope": "me"
-                            },
-                            "configAlternates": {
-                                "fn": "string",
-                                "implHandler": "code",
-                                "name": "string",
-                                "scope": "string"
-                            },
-                            "name": "onComboboxAfterRender_guljaeGb",
-                            "designerId": "29dbd717-83a1-4af0-8245-efb4e20f3ca3"
-                        }
-                    ]
-                },
-                {
-                    "type": "Ext.form.field.ComboBox",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "allowBlank": false,
-                        "displayField": "codeNm",
                         "fieldLabel": "신간",
                         "labelWidth": 30,
-                        "layout|x": 745,
-                        "layout|y": 100,
+                        "layout|x": 760,
+                        "layout|y": 10,
                         "name": "singanGb",
                         "valueField": "codeCd",
                         "width": 100
@@ -976,6 +1031,64 @@
                     ]
                 },
                 {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "allowBlank": false,
+                        "displayField": "codeNm",
+                        "fieldLabel": "미착구분",
+                        "labelWidth": 60,
+                        "layout|x": 865,
+                        "layout|y": 10,
+                        "name": "michakGb",
+                        "valueField": "codeCd",
+                        "width": 135
+                    },
+                    "configAlternates": {
+                        "fieldLabel": "string",
+                        "labelWidth": "number",
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "width": "auto",
+                        "displayField": "datafield",
+                        "name": "string",
+                        "valueField": "datafield",
+                        "allowBlank": "boolean"
+                    },
+                    "name": "MyComboBox5",
+                    "designerId": "46744bd2-3b0f-4772-9501-9974eefa2c7b",
+                    "cn": [
+                        {
+                            "type": "viewcontrollereventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onComboboxAfterRender_michakGb",
+                                "implHandler": [
+                                    "dream.util.Common.setComboCode(component,1033,false);"
+                                ],
+                                "name": "afterrender",
+                                "scope": "me"
+                            },
+                            "configAlternates": {
+                                "fn": "string",
+                                "implHandler": "code",
+                                "name": "string",
+                                "scope": "string"
+                            },
+                            "name": "onComboboxAfterRender_michakGb",
+                            "designerId": "dbed183c-a173-49d5-986b-165a553b877b"
+                        }
+                    ]
+                },
+                {
                     "type": "Ext.form.field.Text",
                     "reference": {
                         "name": "items",
@@ -985,10 +1098,10 @@
                     "userConfig": {
                         "fieldLabel": "부수",
                         "labelWidth": 30,
-                        "layout|x": 500,
-                        "layout|y": 145,
-                        "name": "bokQty",
-                        "width": 100
+                        "layout|x": 305,
+                        "layout|y": 80,
+                        "name": "ordQty",
+                        "width": 95
                     },
                     "configAlternates": {
                         "fieldLabel": "string",
@@ -999,7 +1112,40 @@
                         "name": "string"
                     },
                     "name": "MyTextField39",
-                    "designerId": "36d262f4-ae08-4cd1-a862-479030d23ce6"
+                    "designerId": "36d262f4-ae08-4cd1-a862-479030d23ce6",
+                    "cn": [
+                        {
+                            "type": "viewcontrollereventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onTextfieldAfterRender_ordQty",
+                                "implHandler": [
+                                    "component.on('specialkey', function(component, e) {",
+                                    "    if (e.getKey() === Ext.event.Event.ENTER) {",
+                                    "        const form = component.up('form');",
+                                    "        form.down('[name=ordBox]').focus(true, 100);",
+                                    "    }",
+                                    "}",
+                                    "",
+                                    ");"
+                                ],
+                                "name": "afterrender",
+                                "scope": "me"
+                            },
+                            "configAlternates": {
+                                "fn": "string",
+                                "implHandler": "code",
+                                "name": "string",
+                                "scope": "string"
+                            },
+                            "name": "onTextfieldAfterRender_ordQty",
+                            "designerId": "bd8637ab-7faa-486c-aef0-3afec5048f14"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.form.field.Text",
@@ -1011,10 +1157,10 @@
                     "userConfig": {
                         "fieldLabel": "금액",
                         "labelWidth": 30,
-                        "layout|x": 745,
-                        "layout|y": 145,
+                        "layout|x": 520,
+                        "layout|y": 80,
                         "name": "ordAmt",
-                        "width": 150
+                        "width": 120
                     },
                     "configAlternates": {
                         "fieldLabel": "string",
@@ -1025,7 +1171,40 @@
                         "name": "string"
                     },
                     "name": "MyTextField42",
-                    "designerId": "9b21f440-1492-46d6-8d03-5a5d42c08d51"
+                    "designerId": "9b21f440-1492-46d6-8d03-5a5d42c08d51",
+                    "cn": [
+                        {
+                            "type": "viewcontrollereventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onTextfieldAfterRender_ordAmt",
+                                "implHandler": [
+                                    "component.on('specialkey', function(component, e) {",
+                                    "    if (e.getKey() === Ext.event.Event.ENTER) {",
+                                    "        const form = component.up('form');",
+                                    "        form.down('[name=bigo]').focus(true, 100);",
+                                    "    }",
+                                    "}",
+                                    "",
+                                    ");"
+                                ],
+                                "name": "afterrender",
+                                "scope": "me"
+                            },
+                            "configAlternates": {
+                                "fn": "string",
+                                "implHandler": "code",
+                                "name": "string",
+                                "scope": "string"
+                            },
+                            "name": "onTextfieldAfterRender_ordAmt",
+                            "designerId": "dfcc357c-7e54-40da-938b-69064248ff22"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.form.field.Text",
@@ -1037,10 +1216,10 @@
                     "userConfig": {
                         "fieldLabel": "덩이",
                         "labelWidth": 30,
-                        "layout|x": 620,
-                        "layout|y": 145,
-                        "name": "boxQty",
-                        "width": 100
+                        "layout|x": 415,
+                        "layout|y": 80,
+                        "name": "ordBox",
+                        "width": 85
                     },
                     "configAlternates": {
                         "fieldLabel": "string",
@@ -1051,7 +1230,40 @@
                         "name": "string"
                     },
                     "name": "MyTextField40",
-                    "designerId": "94f36598-fbc0-45c7-b7a8-e5a9750b16d9"
+                    "designerId": "94f36598-fbc0-45c7-b7a8-e5a9750b16d9",
+                    "cn": [
+                        {
+                            "type": "viewcontrollereventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onTextfieldAfterRender_ordBox",
+                                "implHandler": [
+                                    "component.on('specialkey', function(component, e) {",
+                                    "    if (e.getKey() === Ext.event.Event.ENTER) {",
+                                    "        const form = component.up('form');",
+                                    "        form.down('[name=ordAmt]').focus(true, 100);",
+                                    "    }",
+                                    "}",
+                                    "",
+                                    ");"
+                                ],
+                                "name": "afterrender",
+                                "scope": "me"
+                            },
+                            "configAlternates": {
+                                "fn": "string",
+                                "implHandler": "code",
+                                "name": "string",
+                                "scope": "string"
+                            },
+                            "name": "onTextfieldAfterRender_ordBox",
+                            "designerId": "0ebee512-cc7b-4714-9e1f-c9ecac383345"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.form.field.Date",
@@ -1065,7 +1277,7 @@
                         "format": "Y-m-d",
                         "labelWidth": 80,
                         "layout|x": 10,
-                        "layout|y": 35,
+                        "layout|y": 45,
                         "name": "ordDt",
                         "readOnly": false,
                         "submitFormat": "Ymd",
@@ -1083,7 +1295,43 @@
                         "submitFormat": "string"
                     },
                     "name": "MyDateField",
-                    "designerId": "e80453de-fa43-4185-96b1-59d509751c35"
+                    "designerId": "e80453de-fa43-4185-96b1-59d509751c35",
+                    "cn": [
+                        {
+                            "type": "viewcontrollereventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onDatefieldAfterRender_ordDt",
+                                "implHandler": [
+                                    "const ordDt = Ext.Date.format(new Date(), 'Y-m-d');",
+                                    "component.setValue(ordDt);",
+                                    "",
+                                    "const button = this.lookupReference('order_search_button');",
+                                    "component.on('specialkey', function(component, e) {",
+                                    "    if (e.getKey() === e.ENTER) {",
+                                    "        if (button) {",
+                                    "            button.fireEvent('click', button);",
+                                    "        }",
+                                    "    }",
+                                    "});"
+                                ],
+                                "name": "afterrender",
+                                "scope": "me"
+                            },
+                            "configAlternates": {
+                                "fn": "string",
+                                "implHandler": "code",
+                                "name": "string",
+                                "scope": "string"
+                            },
+                            "name": "onDatefieldAfterRender_ordDt",
+                            "designerId": "e076bd3b-86bb-4b97-8764-83a6079b79bd"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.form.field.Time",
@@ -1096,8 +1344,8 @@
                         "fieldLabel": "",
                         "format": "H:i:s",
                         "labelWidth": 80,
-                        "layout|x": 195,
-                        "layout|y": 35,
+                        "layout|x": 190,
+                        "layout|y": 45,
                         "name": "ordRegiTime",
                         "readOnly": false,
                         "width": 80
@@ -1127,9 +1375,10 @@
                         "format": "Y-m-d",
                         "labelWidth": 80,
                         "layout|x": 10,
-                        "layout|y": 60,
+                        "layout|y": 80,
                         "name": "labelPrtDt",
                         "readOnly": false,
+                        "submitFormat": "Ymd",
                         "width": 180
                     },
                     "configAlternates": {
@@ -1140,10 +1389,47 @@
                         "format": "string",
                         "name": "string",
                         "readOnly": "boolean",
-                        "width": "auto"
+                        "width": "auto",
+                        "submitFormat": "string"
                     },
                     "name": "MyDateField1",
-                    "designerId": "91b05598-ae9d-4ad7-949c-5e739e205d33"
+                    "designerId": "91b05598-ae9d-4ad7-949c-5e739e205d33",
+                    "cn": [
+                        {
+                            "type": "viewcontrollereventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onDatefieldAfterRender_labelPrtDt",
+                                "implHandler": [
+                                    "const labelPrtDt = Ext.Date.format(new Date(), 'Y-m-d');",
+                                    "component.setValue(labelPrtDt);",
+                                    "",
+                                    "const button = this.lookupReference('order_search_button');",
+                                    "component.on('specialkey', function(component, e) {",
+                                    "    if (e.getKey() === e.ENTER) {",
+                                    "        if (button) {",
+                                    "            button.fireEvent('click', button);",
+                                    "        }",
+                                    "    }",
+                                    "});"
+                                ],
+                                "name": "afterrender",
+                                "scope": "me"
+                            },
+                            "configAlternates": {
+                                "fn": "string",
+                                "implHandler": "code",
+                                "name": "string",
+                                "scope": "string"
+                            },
+                            "name": "onDatefieldAfterRender_labelPrtDt",
+                            "designerId": "92c0a1db-da70-440b-838d-f8cff70a13a9"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.form.field.Text",
@@ -1153,13 +1439,13 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "fieldLabel": "출판사주문번호",
-                        "labelWidth": 90,
+                        "fieldLabel": "출판사번호",
+                        "labelWidth": 80,
                         "layout|x": 10,
-                        "layout|y": 85,
+                        "layout|y": 115,
                         "name": "ordPoNo",
                         "readOnly": false,
-                        "width": 235
+                        "width": 265
                     },
                     "configAlternates": {
                         "fieldLabel": "string",
@@ -1181,11 +1467,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|x": 340,
-                        "layout|y": 145,
+                        "layout|x": 400,
+                        "layout|y": 45,
                         "reference": "form_chulpan_search_button",
                         "text": "찾기",
-                        "width": 60
+                        "width": 45
                     },
                     "configAlternates": {
                         "layout|x": "number",
@@ -1207,37 +1493,47 @@
                             "userConfig": {
                                 "fn": "onButtonClick_form_chulpan_search_button",
                                 "implHandler": [
-                                    "// 기존 팝업이 있으면 먼저 제거",
-                                    "let oldPopup = Ext.ComponentQuery.Query('tpop1003')[0];",
-                                    "if (oldPopup) oldPopup.destroy();",
+                                    "    // 기존 팝업이 있으면 먼저 제거",
+                                    "        let oldPopup = Ext.ComponentQuery.Query('tpop1003')[0];",
+                                    "        if (oldPopup) oldPopup.destroy();",
                                     "",
-                                    "const popup = Ext.create('dream.view.tpop.tpop1003');",
-                                    "const form = this.lookupReference('order_form');",
-                                    "const me = this;",
-                                    "const keyword = form.down('[name=chulpanNm]').getValue();",
+                                    "        const popup = Ext.create('dream.view.tpop.tpop1003');",
+                                    "        const form = this.lookupReference('order_form');",
+                                    "        const me = this;",
+                                    "        const keyword = form.down('[name=chulpanNm]').getValue();",
                                     "",
                                     "",
-                                    "popup.on('afterrender', function(win) {",
-                                    "    if (!Ext.isEmpty(keyword)) {",
-                                    "        const searchField = win.down('#tpop1003_keyword');",
-                                    "        if (searchField) searchField.setValue(keyword);",
+                                    "        popup.on('afterrender', function(win) {",
+                                    "            if (!Ext.isEmpty(keyword)) {",
+                                    "                const searchField = win.down('#tpop1003_keyword');",
+                                    "                if (searchField) searchField.setValue(keyword);",
                                     "",
-                                    "        const btn = win.lookupReference('search_button');",
-                                    "        if (btn) btn.fireEvent('click',btn);",
-                                    "    }",
+                                    "                const btn = win.lookupReference('search_button');",
+                                    "                if (btn) btn.fireEvent('click',btn);",
+                                    "            }",
                                     "",
-                                    "});",
+                                    "        });",
                                     "",
-                                    "popup.on('selectUser', function(win, record) {",
-                                    "    const publisher_code_field = form.down('[name=chulpanCd]');",
-                                    "    const publisher_name_field = form.down('[name=chulpanNm]');",
-                                    "    publisher_code_field.setValue(record.get('CUST_CD'));",
-                                    "    publisher_name_field.setValue(record.get('CUST_NM'));",
-                                    "});",
+                                    "        popup.on('selectUser', function(win, record) {",
+                                    "            const publisher_code_field = form.down('[name=chulpanCd]');",
+                                    "            const publisher_name_field = form.down('[name=chulpanNm]');",
+                                    "            publisher_code_field.setValue(record.get('CUST_CD'));",
+                                    "            publisher_name_field.setValue(record.get('CUST_NM'));",
                                     "",
-                                    "popup.show();",
+                                    "    // 포커스는 팝업 닫힌 후에 지정",
+                                    "    Ext.defer(function() {",
+                                    "        const chulpanNmField = form.down('[name=sujumNm]');",
+                                    "        if (chulpanNmField) {",
+                                    "            chulpanNmField.focus(false, 100);",
+                                    "        }",
+                                    "    }, 150); // 팝업 닫히는 타이밍 이후",
+                                    "        ",
+                                    "        ",
+                                    "        });",
                                     "",
-                                    "form.down('[name=sujumNm]').focus(true, 100);"
+                                    "        popup.show();",
+                                    "",
+                                    ""
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -1261,11 +1557,91 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|x": 340,
-                        "layout|y": 170,
+                        "layout|x": 520,
+                        "layout|y": 10,
+                        "reference": "form_com_user_search_button",
+                        "text": "찾기",
+                        "width": 45
+                    },
+                    "configAlternates": {
+                        "layout|x": "number",
+                        "layout|y": "number",
+                        "reference": "string",
+                        "text": "string",
+                        "width": "auto"
+                    },
+                    "name": "MyButton17",
+                    "designerId": "1f625361-ea96-4e0a-9af7-55bcd051e88c",
+                    "cn": [
+                        {
+                            "type": "viewcontrollereventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick_from_com_user_seanch_button",
+                                "implHandler": [
+                                    "let oldPopup = Ext.ComponentQuery.Query('tpop1001')[0];",
+                                    "if (oldPopup) oldPopup.destroy();",
+                                    "",
+                                    "const popup = Ext.create('dream.view.tpop.tpop1001');",
+                                    "const form = this.lookupReference('order_form');",
+                                    "const keyword = form.down('[name=sugeoNm]').getValue();",
+                                    "",
+                                    "popup.on('afterrender', function(win) {",
+                                    "    const searchField = win.down('#tpop1001_keyword');",
+                                    "    if (searchField) searchField.setValue(keyword);",
+                                    "",
+                                    "    const btn = win.down('#tpop1001_search_btn');",
+                                    "    if (btn) btn.fireEvent('click', btn);",
+                                    "});",
+                                    "",
+                                    "popup.on('selectUser', function(win, record) {",
+                                    "    const publisher_code_field = form.down('[name=sugeoId]');",
+                                    "    const publisher_name_field = form.down('[name=sugeoNm]');",
+                                    "    publisher_code_field.setValue(record.get('userId'));",
+                                    "    publisher_name_field.setValue(record.get('userNm'));",
+                                    "",
+                                    "    // 포커스는 팝업 닫힌 후에 지정",
+                                    "    Ext.defer(function() {",
+                                    "        const chulpanNmField = form.down('[name=chulpanNm]');",
+                                    "        if (chulpanNmField) {",
+                                    "            chulpanNmField.focus(false, 100);",
+                                    "        }",
+                                    "    }, 150); // 팝업 닫히는 타이밍 이후",
+                                    "});",
+                                    "",
+                                    "popup.show();"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "configAlternates": {
+                                "fn": "string",
+                                "implHandler": "code",
+                                "name": "string",
+                                "scope": "string"
+                            },
+                            "name": "onButtonClick_from_com_user_seanch_button",
+                            "designerId": "c94eb6e7-d120-492e-a363-00720ce0bd49"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|x": 750,
+                        "layout|y": 45,
                         "reference": "form_sujum_search_button",
                         "text": "찾기",
-                        "width": 60
+                        "width": 45
                     },
                     "configAlternates": {
                         "layout|x": "number",
@@ -1290,6 +1666,9 @@
                                     "let oldPopup = Ext.ComponentQuery.Query('tpop1006')[0];",
                                     "if (oldPopup) oldPopup.destroy();",
                                     "",
+                                    "",
+                                    "const popup = Ext.create('dream.view.tpop.tpop1006');",
+                                    "",
                                     "const form = this.lookupReference('order_form');",
                                     "const chulpan_cd_value = form.down('[name=chulpanCd]').getValue();",
                                     "const chulpan_name_value = form.down('[name=chulpanNm]').getValue();",
@@ -1299,43 +1678,57 @@
                                     "    Ext.Msg.alert('알림', '출판사를 먼저 선택해주세요.');",
                                     "    return;",
                                     "}",
-                                    "",
                                     "const send_cd = chulpan_cd_value;",
                                     "const send_nm = chulpan_name_value;",
                                     "",
                                     "",
-                                    "const popup = Ext.create('dream.view.tpop.tpop1006');",
-                                    "const me = this;",
+                                    "",
                                     "",
                                     "popup.on('afterrender', function() {",
                                     "    const searchField = popup.lookupReference('keyword');",
                                     "    const popup_cd = popup.lookupReference('chulpan_code');",
                                     "    const popup_nm = popup.lookupReference('chulpan_name');",
+                                    "    const btn = popup.lookupReference('search_button');",
                                     "",
-                                    "    if (!Ext.isEmpty(sujum_name_value)) {",
-                                    "        if (searchField) {",
-                                    "            searchField.setValue(sujum_name_value);  // 원하는 초기 검색어 값",
-                                    "            const btn = popup.lookupReference('search_button');",
-                                    "            if (btn) btn.fireEvent('click',btn);",
-                                    "        }",
-                                    "    }",
-                                    "",
+                                    "    // 출판사 코드/이름 설정",
                                     "    if (popup_cd && popup_nm) {",
                                     "        popup_cd.setValue(send_cd);",
                                     "        popup_nm.setValue(send_nm);",
                                     "    }",
+                                    "",
+                                    "    // 검색어 설정 및 자동 검색 실행",
+                                    "    if (!Ext.isEmpty(sujum_name_value)) {",
+                                    "        if (searchField && btn) {",
+                                    "            searchField.setValue(sujum_name_value);",
+                                    "            btn.fireEvent('click', btn);",
+                                    "        }",
+                                    "    }",
                                     "});",
                                     "",
-                                    "",
                                     "popup.on('selectUser', function(win, record) {",
-                                    "    const publisher_code_field = form.down('[name=sujumCd]');",
-                                    "    const publisher_name_field = form.down('[name=sujumNm]');",
-                                    "    publisher_code_field.setValue(record.get('custCd'));",
-                                    "    publisher_name_field.setValue(record.get('custAbbrNm'));",
-                                    "    form.down('[name=itemGb]').focus(true, 100);",
+                                    "    const code_field = form.down('[name=sujumCd]');",
+                                    "    const name_field = form.down('[name=sujumNm]');",
+                                    "    const chulgo_field = form.down('[name=chulgoGb]');",
+                                    "    const baesongId_field = form.down('[name=baesongId]');",
+                                    "    const baesongNm_field = form.down('[name=baesongNm]');",
+                                    "",
+                                    "    code_field.setValue(record.get('custCd'));",
+                                    "    name_field.setValue(record.get('custAbbrNm'));",
+                                    "    chulgo_field.setValue(record.get('chulgoGb'));",
+                                    "    baesongId_field.setValue(record.get('baesongId'));",
+                                    "    baesongNm_field.setValue(record.get('baesongNm'));",
+                                    "    // 포커스는 팝업 닫힌 후에 지정",
+                                    "    Ext.defer(function() {",
+                                    "        const chulpanNmField = form.down('[name=ordQty]');",
+                                    "        if (chulpanNmField) {",
+                                    "            chulpanNmField.focus(false, 100);",
+                                    "        }",
+                                    "    }, 150); // 팝업 닫히는 타이밍 이후",
+                                    "",
                                     "});",
                                     "",
                                     "popup.show();",
+                                    "",
                                     ""
                                 ],
                                 "name": "click",
@@ -1388,7 +1781,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "layout|x": 10,
+                "layout|x": -13,
                 "layout|y": 10,
                 "text": "배송출고관리 [TORD1002]"
             },
@@ -1558,7 +1951,7 @@
                 "labelWidth": 60,
                 "layout|x": 430,
                 "layout|y": 50,
-                "reference": "publisher_code",
+                "reference": "chulpan_find_Cd",
                 "width": 150
             },
             "configAlternates": {
@@ -1584,7 +1977,7 @@
                 "labelWidth": 60,
                 "layout|x": 800,
                 "layout|y": 50,
-                "reference": "bookstore_code",
+                "reference": "sujum_find_Cd",
                 "width": 150
             },
             "configAlternates": {
@@ -1609,7 +2002,7 @@
                 "fieldLabel": "",
                 "layout|x": 580,
                 "layout|y": 50,
-                "reference": "publisher_name",
+                "reference": "chulpan_find_Nm",
                 "width": 130
             },
             "configAlternates": {
@@ -1620,7 +2013,73 @@
                 "reference": "string"
             },
             "name": "MyTextField6",
-            "designerId": "99269c54-4bf3-4048-b147-9d63e266584d"
+            "designerId": "99269c54-4bf3-4048-b147-9d63e266584d",
+            "cn": [
+                {
+                    "type": "viewcontrollereventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onTextfieldAfterRender_chulpanfNm",
+                        "implHandler": [
+                            "const button = this.lookupReference('chulpan_find_button');",
+                            "component.on('specialkey', function(component, e) {",
+                            " if (e.getKey() === e.ENTER) {",
+                            "        if (button) {",
+                            "            button.fireEvent('click', button);",
+                            "        }",
+                            "    }",
+                            "});",
+                            "",
+                            ""
+                        ],
+                        "name": "afterrender",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onTextfieldAfterRender_chulpanfNm",
+                    "designerId": "b3cdeb11-8531-492a-ae5e-467508e4e56c"
+                },
+                {
+                    "type": "viewcontrollereventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onTextfieldChange_chulpanfNm",
+                        "implHandler": [
+                            "",
+                            "    const form = field.up('form');",
+                            "",
+                            "    const s_chulpanfNm = form.down('[name=chulpan_find_Nm]').getValue();",
+                            "",
+                            "    if (Ext.isEmpty(s_chulpanfNm)) {",
+                            "        form.down('[name=chulpan_find_Cd]').setValue('');",
+                            "    }"
+                        ],
+                        "name": "change",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onTextfieldChange_chulpanfNm",
+                    "designerId": "01a1a484-e416-4e22-b37d-14cfc8a9eea5"
+                }
+            ]
         },
         {
             "type": "Ext.form.field.Text",
@@ -1633,7 +2092,7 @@
                 "fieldLabel": "",
                 "layout|x": 950,
                 "layout|y": 50,
-                "reference": "bookstore_name",
+                "reference": "sujum_find_Nm",
                 "width": 130
             },
             "configAlternates": {
@@ -1656,7 +2115,7 @@
             "userConfig": {
                 "layout|x": 710,
                 "layout|y": 50,
-                "reference": "publisher_search_button",
+                "reference": "chulpan_find_button",
                 "text": "찾기",
                 "width": 60
             },
@@ -1678,16 +2137,17 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "fn": "onButtonClick_publisher_search_button",
+                        "fn": "onButtonClick_chulpan_find_button",
                         "implHandler": [
+                            "",
                             "const popup = Ext.create('dream.view.tpop.tpop1003');",
                             "const me = this;",
                             "",
                             "popup.on('selectUser', function(win, record) {",
-                            "    const publisher_code_field = me.lookupReference('publisher_code');",
-                            "    const publisher_name_field = me.lookupReference('publisher_name');",
-                            "    publisher_code_field.setValue(record.get('CUST_CD'));",
-                            "    publisher_name_field.setValue(record.get('CUST_NM'));",
+                            "    const chulpan_find_Cd_field = me.lookupReference('chulpan_find_Cd');",
+                            "    const chulpan_find_Nm_field = me.lookupReference('chulpan_find_Nm');",
+                            "    chulpan_find_Cd_field.setValue(record.get('CUST_CD'));",
+                            "    chulpan_find_Nm_field.setValue(record.get('CUST_NM'));",
                             "});",
                             "",
                             "popup.show();"
@@ -1701,8 +2161,8 @@
                         "name": "string",
                         "scope": "string"
                     },
-                    "name": "onButtonClick_publisher_search_button",
-                    "designerId": "6f29021f-a389-4dfb-80c4-ce124e3c89fb"
+                    "name": "onButtonClick_chulpan_find_button",
+                    "designerId": "b6c4c2b1-a2d5-44ed-bb0c-e67534aad3e7"
                 }
             ]
         },
@@ -1791,17 +2251,41 @@
                     "userConfig": {
                         "fn": "onButtonClick_bookstore_search_button1",
                         "implHandler": [
-                            "const popup = Ext.create('dream.view.tpop.tpop1003');",
+                            "",
+                            "const popup = Ext.create('dream.view.tpop.tpop1003', {",
+                            "    listeners: {",
+                            "        show: function(win) {",
+                            "            const combo = win.down('#tpop1003_cust_gb');",
+                            "            const store = combo.getStore();",
+                            "",
+                            "            if (store.isLoaded()) {",
+                            "                combo.setValue('2');",
+                            "            } else {",
+                            "                store.load({",
+                            "                    callback: function() {",
+                            "                        combo.setValue('2');",
+                            "                    }",
+                            "                });",
+                            "            }",
+                            "        }",
+                            "    }",
+                            "",
+                            "}).show();",
+                            "",
+                            "",
                             "const me = this;",
                             "",
                             "popup.on('selectUser', function(win, record) {",
-                            "    const bookstore_code_field = me.lookupReference('bookstore_code');",
-                            "    const bookstore_name_field = me.lookupReference('bookstore_name');",
-                            "    bookstore_code_field.setValue(record.get('CUST_CD'));",
-                            "    bookstore_name_field.setValue(record.get('CUST_NM'));",
+                            "    const sujum_find_Cd_field = me.lookupReference('sujum_find_Cd');",
+                            "    const sujum_find_Nm_field = me.lookupReference('sujum_find_Nm');",
+                            "",
+                            "    sujum_find_Cd_field.setValue(record.get('CUST_CD'));",
+                            "    sujum_find_Nm_field.setValue(record.get('CUST_NM'));",
                             "});",
                             "",
-                            "popup.show();"
+                            "popup.show();",
+                            "",
+                            ""
                         ],
                         "name": "click",
                         "scope": "me"
@@ -1854,8 +2338,8 @@
                             "const view = this.getView();",
                             "const frDt = view.lookupReference('frDt').getValue();",
                             "const toDt = view.lookupReference('toDt').getValue();",
-                            "const publisher = view.lookupReference('publisher_code').getValue();",
-                            "const bookstore = view.lookupReference('bookstore_code').getValue();",
+                            "const publisher = view.lookupReference('chulpan_find_Cd').getValue();",
+                            "const bookstore = view.lookupReference('sujum_find_Cd').getValue();",
                             "const orderGrid = view.lookupReference('order_grid');",
                             "const store = orderGrid.getStore();",
                             "",
@@ -1895,10 +2379,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "layout|x": 940,
-                "layout|y": 450,
+                "layout|x": 490,
+                "layout|y": 770,
                 "reference": "add_button",
-                "text": "추가",
+                "text": "초기화",
                 "width": 60
             },
             "configAlternates": {
@@ -1921,6 +2405,9 @@
                     "userConfig": {
                         "fn": "onButtonClick_add_button",
                         "implHandler": [
+                            "",
+                            "",
+                            "",
                             "const form = this.lookupReference('order_form');",
                             "",
                             "// 선택된 행 모두 해제",
@@ -1947,25 +2434,46 @@
                             "//         timeField.setValue(parsedTime);",
                             "//     }",
                             "",
-                            "    const comboDefaults = ['itemGb', 'chulgoGb', 'guljaeGb', 'singanGb'];",
+                            "    const date_field = form.down('[name=ordDt]');",
+                            "",
+                            "    date_field.setValue(new Date());",
+                            "",
+                            "    const date_field_labelPrtDt = form.down('[name=labelPrtDt]');",
+                            "",
+                            "    date_field_labelPrtDt.setValue(new Date());",
+                            "",
+                            "",
+                            "    const s_ordInputId = form.down('[name=ordInputId]').getValue();",
+                            "",
+                            "    if (Ext.isEmpty(s_ordInputId)) {",
+                            "        form.down('[name=ordInputId]').setValue('1234');",
+                            "    }",
+                            "",
+                            "",
+                            "    const now = new Date();",
+                            "    ordRegiTime.setValue(new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0));",
+                            "",
+                            "    const comboDefaults = ['itemGb', 'chulgoGb', 'guljaeGb', 'singanGb', 'michakGb'];",
                             "    comboDefaults.forEach(name => {",
                             "        const field = form.down('[name=' + name + ']');",
                             "        if (field) {",
                             "            field.setValue('01'); // 기본 코드 값 \"01\"로 설정",
                             "        }",
-                            "    });",
+                            "    const sugeoNmField = form.down('[name=sugeoNm]');",
+                            "    if (sugeoNmField) {",
+                            "        sugeoNmField.focus(true, 200); // 200ms 지연 후 포커스",
+                            "    }",
+                            "",
+                            "",
+                            "    }",
+                            "",
+                            "",
+                            "",
+                            "                         );",
                             "",
                             "    ordChkGb.setValue('02');",
                             "    ordInputId.setValue(dream.util.Common.LOGIN_USER);",
-                            "    ordDt.setValue(new Date());",
                             "",
-                            "    const now = new Date();",
-                            "    ordRegiTime.setValue(new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0));",
-                            "",
-                            "    const chulpanNmField = form.down('[name=chulpanNm]');",
-                            "    if (chulpanNmField) {",
-                            "        chulpanNmField.focus(true, 200); // 200ms 지연 후 포커스",
-                            "    }",
                             "",
                             "}"
                         ],
@@ -1991,8 +2499,8 @@
             },
             "codeClass": null,
             "userConfig": {
-                "layout|x": 1010,
-                "layout|y": 450,
+                "layout|x": 570,
+                "layout|y": 770,
                 "reference": "insert_button",
                 "text": "등록",
                 "width": 60
@@ -2095,8 +2603,8 @@
             },
             "codeClass": null,
             "userConfig": {
-                "layout|x": 1080,
-                "layout|y": 450,
+                "layout|x": 650,
+                "layout|y": 770,
                 "reference": "update_button",
                 "text": "수정",
                 "width": 60
@@ -2193,8 +2701,8 @@
             },
             "codeClass": null,
             "userConfig": {
-                "layout|x": 1150,
-                "layout|y": 450,
+                "layout|x": 730,
+                "layout|y": 770,
                 "reference": "delete_button",
                 "text": "삭제",
                 "width": 60

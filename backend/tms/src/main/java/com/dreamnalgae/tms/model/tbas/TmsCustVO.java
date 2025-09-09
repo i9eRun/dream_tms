@@ -131,4 +131,13 @@ public class TmsCustVO {
     private String salesManagerTel;    // 영업팀장 전화번호
     private String paymentManagerTel;  // 결제담당 전화번호
     private String orderManagerTel;    // 주문담당 전화번호
+    private String changAddr;
+    
+    private String changAddr2;
+    private String changPostNo;
+    private String ptlGb;
+    private Integer dochaQty;
+    private Integer dochaBox;
+    private Integer dochaAmt;
+
 }

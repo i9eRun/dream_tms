@@ -33,5 +33,8 @@ public class ChulpanSujumVO {
     private String takbaeCd;
     private String asUseYn;
     private String chk;
+    private String baesongId;
+    private String baesongNm;
+    
     
 }

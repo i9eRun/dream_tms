@@ -42,7 +42,7 @@ public class Tpop1006Service {
                 T1.FAX_NO,
                 T1.JIYUK_NM,
                 T1.GULJAE_GB,
-                T1.CHULGO_GB,
+                SF_NM_CODE (T1.CHULGO_GB, '173') AS .CHULGO_GB,
                 T1.DELIV_PATH_CD,
                 T1.BIGO,
                 T1.USE_YN,
@@ -114,10 +114,14 @@ public class Tpop1006Service {
                 C.POST_NO,
                 C.TAKBAE_CD,
                 DECODE(C.USE_YN, '1', '사용', '미사용') AS AS_USE_YN,
-                '0' AS CHK
-            FROM TMS_CHULPAN_SUJUM T
+                '0' AS CHK,
+                D.USER_ID AS BAESONG_ID,
+                SF_NM_CD(D.USER_ID,'TMS_COM_USER') AS BAESONG_NM
+                FROM TMS_CHULPAN_SUJUM T
             LEFT OUTER JOIN TMS_CUST C ON T.SUJUM_CD = C.CUST_CD
+            INNER JOIN TMS_CUS D ON C.DELIV_PATH_CD = D.CUS_CD
             WHERE T.CHULPAN_CD = :chulpanCd
+
                 AND T.USER_CET_CD = :userCetCd
               AND (
                    C.CUST_NM LIKE '%' || :keyword || '%'
