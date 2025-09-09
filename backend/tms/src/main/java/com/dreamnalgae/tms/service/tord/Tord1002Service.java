@@ -71,9 +71,6 @@ public class Tord1002Service {
            .append("      T1.SPEC_PRT_CNT,\n")
            .append("      T1.DELIV_CD,\n")
            .append("      T1.DELIV_PATH_CD,\n")
-           .append("      T1.CHULGO_TEAM_CD,\n")
-           .append("      T1.CHULGO_TEAM_NM,\n")
-           .append("      T1.CHULGO_DAMDANG_NM,\n")
            .append("      T1.TAKBAE_CP_TEL_NO,\n")
            .append("      T1.CHULPAN_GB,\n")
            .append("      T1.CHULPAN_ORD_DT,\n")
@@ -85,6 +82,11 @@ public class Tord1002Service {
            .append("      T1.ITEM_GB,\n")
            .append("      T1.ORG_ORD_NO,\n")
            .append("      T1.ORD_AMT,\n")
+           .append("      T1.SUGEO_ID,\n")
+           .append("      SF_NM_CD(T1.SUGEO_ID,'TMS_COM_USER') AS SUGEO_NM,\n")
+           .append("      T1.BAESONG_ID,\n")
+           .append("      SF_NM_CD(T1.BAESONG_ID,'TMS_COM_USER') AS BAESONG_NM,\n")
+           .append("      T1.MICHAK_GB,\n")
            .append("      T2.CUST_NM AS CHULPAN_NM,\n")
            .append("      T2.JIYUK_NM AS CHULPAN_JIYUK_NM,\n")
            .append("      T3.CUST_NM AS SUJUM_NM,\n")
@@ -130,17 +132,22 @@ public class Tord1002Service {
         dto.setCetCd("00001");
 
         String sql = """
-            INSERT INTO TMS_ORDER_MST (
-                USER_CET_CD, CET_CD, ORD_NO, ORD_DT, ORD_REGI_TIME, LABEL_PRT_DT,
-                ORD_DIV_GB, ORD_PO_NO, CHULPAN_CD, SUJUM_CD,
-                BIGO, ORD_CHK_GB, ORD_INPUT_ID, ITEM_GB, CHULGO_GB,
-                GULJAE_GB, SINGAN_GB, BOK_QTY, BOX_QTY, ORD_AMT, INSERT_ID, INSERT_DT
-            ) VALUES (
-                :userCetCd, :cetCd, :ordNo, :ordDt, SYSDATE, TO_DATE(:labelPrtDt, 'YYYY-MM-DD'),
-                '02', :ordPoNo, :chulpanCd, :sujumCd, 
-                :bigo, :ordChkGb, :insertId, :itemGb, :chulgoGb,
-                :guljaeGb, :singanGb, :bokQty, :boxQty, :ordAmt, :insertId, :insertDt
-            )
+ 
+          INSERT INTO TMS_ORDER_MST (
+          USER_CET_CD, CET_CD, ORD_NO, ORD_DT, ORD_REGI_TIME, LABEL_PRT_DT,
+          ORD_DIV_GB, ORD_PO_NO, CHULPAN_CD, SUJUM_CD,     
+          BIGO, ORD_CHK_GB, ORD_INPUT_ID, ITEM_GB, CHULGO_GB,  
+          GULJAE_GB, SINGAN_GB, ORD_QTY, ORD_BOX, ORD_AMT, MICHAK_GB,
+          BAESONG_ID, SUGEO_ID, INSERT_ID, INSERT_DT, TRANS_GB, DELIV_PATH_CD
+          ) 
+          VALUES 
+          (
+          :userCetCd, :cetCd, :ordNo, :ordDt, SYSDATE, :labelPrtDt,
+          '02', :ordPoNo, :chulpanCd, :sujumCd,
+          :bigo, '01', :ordInputId, '01', :chulgoGb,
+          '01', :singanGb, :ordQty, :ordBox, :ordAmt, :michakGb,
+          :baesongId, :sugeoId, :insertId, :insertDt, '01',''
+           )
         """;
 
          jdbc.update(sql, new BeanPropertySqlParameterSource(dto));
@@ -149,10 +156,11 @@ public class Tord1002Service {
 
     // 주문번호 생성
     public String generateOrderNumber(String insertId) {
-        String sql = """
-            SELECT SF_TMS_NO(:insertId, TO_CHAR(SYSDATE, 'YYYYMMDD'), 'TMS_ORDER_MST', 'ORD_NO') AS ORD_NO
-            FROM DUAL
-        """;
+         String sql = """
+         SELECT SF_TMS_NO(:insertId, TO_CHAR(SYSDATE, 'YYYYMMDD'), 'TMS_ORDER_MST', 'ORD_NO') AS ORD_NO
+           FROM DUAL
+           """;
+
 
         Map<String, Object> params = Map.of("insertId", insertId); // 또는 실제 사용자 구분값
 
@@ -180,9 +188,12 @@ public class Tord1002Service {
                 CHULGO_GB = :chulgoGb,
                 GULJAE_GB = :guljaeGb,
                 SINGAN_GB = :singanGb,
-                BOK_QTY = :bokQty,
-                BOX_QTY = :boxQty,
+                ORD_QTY = :ordQty,
+                ORD_BOX = :ordBox,
                 ORD_AMT = :ordAmt,
+                MICHAK_GB = :michakGb,
+                BAESONG_ID = :baesongId,
+                SUGEO_ID = :sugeoId,
                 UPDATE_ID = :updateId,
                 UPDATE_DT = SYSDATE
             WHERE USER_CET_CD = :userCetCd

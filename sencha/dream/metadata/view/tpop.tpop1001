@@ -284,9 +284,9 @@
                     "userConfig": {
                         "fn": "onGridpanelItemDblClick_tpop1001_user_grid",
                         "implHandler": [
-                            "const view = this.getView();",
-                            "view.fireEvent('selectUser', view, record);",
-                            "view.close();"
+                            "       const view = this.getView();",
+                            "       view.fireEvent('selectUser', view, record);",
+                            "       view.close();"
                         ],
                         "name": "itemdblclick",
                         "scope": "me"
@@ -299,6 +299,36 @@
                     },
                     "name": "onGridpanelItemDblClick_tpop1001_user_grid",
                     "designerId": "a2665bd0-cf66-4d8e-b05e-d680b576b376"
+                },
+                {
+                    "type": "viewcontrollereventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onGridpanelRowkeydown_tpop1001_user_grid",
+                        "implHandler": [
+                            "        const button = this.lookupReference('confirm_button');",
+                            "        if (e.getKey() === e.ENTER) {",
+                            "",
+                            "            if (button) {",
+                            "                button.fireEvent('click', button);",
+                            "            }",
+                            "        }"
+                        ],
+                        "name": "rowkeydown",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onGridpanelRowkeydown_tpop1001_user_grid",
+                    "designerId": "89e5196a-2a51-4742-8b93-ab16dab6f699"
                 }
             ]
         },
@@ -364,7 +394,22 @@
                             "    cbo_use_yn_sch: use_yn",
                             "});",
                             "",
-                            "store.reload();"
+                            "store.reload();",
+                            "",
+                            "const grid = view.lookupReference('tpop1001_user_grid');",
+                            "",
+                            "store.load({",
+                            "  callback: function(records, operation, success) {",
+                            "        if (store.getCount() > 0) {",
+                            "      grid.getSelectionModel().select(0);",
+                            "      grid.getView().focusRow(0);",
+                            "      grid.focus();",
+                            "    } else {",
+                            "      keywordField.focus();",
+                            "    }",
+                            "  }",
+                            "});",
+                            ""
                         ],
                         "name": "click",
                         "scope": "me"
@@ -391,13 +436,15 @@
                 "id": "tpop1001_confirm",
                 "layout|x": 570,
                 "layout|y": 35,
+                "reference": "confirm_button",
                 "text": "확인"
             },
             "configAlternates": {
                 "layout|x": "number",
                 "layout|y": "number",
                 "text": "string",
-                "id": "string"
+                "id": "string",
+                "reference": "string"
             },
             "name": "MyButton14",
             "designerId": "2bf428ce-d1f9-4ca9-9c77-dcb86df1188d",

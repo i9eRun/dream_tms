@@ -26,7 +26,7 @@ public class OrderVO {
     private String unsongExpAmt;
     private String unsongBigo;
     private String bigo;
-    private Date labelPrtDt;
+    private String labelPrtDt;
     private String labelPrtId;
     private String unsongRecvDt;
     private String unsongRecvId;
@@ -72,6 +72,12 @@ public class OrderVO {
     private Date updateDt;
     private int ordQty;
     private int ordBox;
+
+    private String sugeoId;
+    private String sugeoNm;
+    private String michakGb;
+    private String baesongId;
+    private String baesongNm;
 
     // 출판사, 서점, 주문자 정보
     private String chulpanNm;

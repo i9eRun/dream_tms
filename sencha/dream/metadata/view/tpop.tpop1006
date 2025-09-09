@@ -365,6 +365,36 @@
                     },
                     "name": "onGridpanelItemDblClick",
                     "designerId": "ba379fb8-ff18-4f43-84d3-0e7e13fa66e0"
+                },
+                {
+                    "type": "viewcontrollereventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onGridpanelRowkeydown_search_grid",
+                        "implHandler": [
+                            "        const button = this.lookupReference('confirm_button');",
+                            "        if (e.getKey() === e.ENTER) {",
+                            "",
+                            "            if (button) {",
+                            "                button.fireEvent('click', button);",
+                            "            }",
+                            "        }"
+                        ],
+                        "name": "rowkeydown",
+                        "scope": "me"
+                    },
+                    "configAlternates": {
+                        "fn": "string",
+                        "implHandler": "code",
+                        "name": "string",
+                        "scope": "string"
+                    },
+                    "name": "onGridpanelRowkeydown_search_grid",
+                    "designerId": "498fd12f-8dde-47ad-b01e-20cd3ed5ae2f"
                 }
             ]
         },
@@ -601,7 +631,20 @@
                             "    keyword: keyword",
                             "});",
                             "",
-                            "store.reload();"
+                            "store.reload();",
+                            "",
+                            "",
+                            "store.load({",
+                            "  callback: function(records, operation, success) {",
+                            "        if (store.getCount() > 0) {",
+                            "      grid.getSelectionModel().select(0);",
+                            "      grid.getView().focusRow(0);",
+                            "      grid.focus();",
+                            "    } else {",
+                            "      keywordField.focus();",
+                            "    }",
+                            "  }",
+                            "});"
                         ],
                         "name": "click",
                         "scope": "me"

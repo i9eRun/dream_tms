@@ -27,6 +27,8 @@ public class Tbas1001Service {
         sql.append("    T.USER_CET_CD, ");
         sql.append("    T.CUST_CD, ");
         sql.append("    T.CUST_GB, ");
+        sql.append("    T.CUST_X, ");
+        sql.append("    T.CUST_Y, ");
         sql.append("    T.CUST_DIV_GB, ");
         sql.append("    T.CUST_ABBR_NM, ");
         sql.append("    T.CUST_NM, ");
@@ -149,7 +151,15 @@ public class Tbas1001Service {
         sql.append("    T.ORDER_MANAGER_NM, ");
         sql.append("    T.SALES_MANAGER_TEL, ");
         sql.append("    T.PAYMENT_MANAGER_TEL, ");
-        sql.append("    T.ORDER_MANAGER_TEL ");
+        sql.append("    T.ORDER_MANAGER_TEL, ");
+        sql.append("    T.CUST_Y3, ");
+        sql.append("    T.CHANG_POST_NO, ");
+        sql.append("    T.CHANG_ADDR, ");
+        sql.append("    T.PTL_GB, ");        
+        sql.append("    T.CHANG_ADDR2, ");
+        sql.append("    T.DOCHA_QTY, ");
+        sql.append("    T.DOCHA_BOX, ");        
+        sql.append("    T.DOCHA_AMT ");
         sql.append("FROM TMS_CUST T ");
         sql.append("LEFT JOIN TMS_COM_USER U ON T.CHARGE_EMP_ID = U.USER_ID ");
         sql.append("LEFT JOIN TMS_CUS C1 ON T.DELIV_PATH_CD = C1.CUS_CD ");
@@ -211,6 +221,7 @@ public class Tbas1001Service {
                 SUNLBL_USE_YN, PRT_GB, TEL_NO2, EXPRESS_DELIV_PATH_CD, EXPRESS_DELIV_POS_CD,
                 JAEBUL_TRUST_YN, JULPAN_TRUST_YN, JAEBUL_TRUST_DT, PLT_USE_KPP, PLT_USE_AJ,
                 PLT_USE_NG, PLT_USE_EX, CNV_STD_CD, CUST_X, CUST_Y, CUST_X3, CUST_Y3,
+                CHANG_POST_NO,CHANG_ADDR, PTL_GB,  T.CHANG_ADDR2, DOCHA_QTY, DOCHA_BOX, DOCHA_AMT,
                 SALES_MANAGER_NM, PAYMENT_MANAGER_NM, ORDER_MANAGER_NM, SALES_MANAGER_TEL, PAYMENT_MANAGER_TEL, ORDER_MANAGER_TEL
             ) VALUES (
                 :userCetCd, :custCd, :custGb, :custDivGb, :custAbbrNm, :custNm, :bizRegNo, :daepyoNm,
@@ -232,6 +243,7 @@ public class Tbas1001Service {
                 :sunlblUseYn, :prtGb, :telNo2, :expressDelivPathCd, :expressDelivPosCd,
                 :jaebulTrustYn, :julpanTrustYn, :jaebulTrustDt, :pltUseKpp, :pltUseAj,
                 :pltUseNg, :pltUseEx, :cnvStdCd, :custX, :custY, :custX3, :custY3,
+                :changPostNo, :changAddr, :ptlGb,  :changAddr2, :dochaQty, :dochaBox, :dochaAmt,
                 :salesManagerNm, :paymentManagerNm, :orderManagerNm, :salesManagerTel, :paymentManagerTel, :orderManagerTel
             )
         """;
@@ -362,8 +374,15 @@ public class Tbas1001Service {
                 ORDER_MANAGER_NM = :orderManagerNm,
                 SALES_MANAGER_TEL = :salesManagerTel,
                 PAYMENT_MANAGER_TEL = :paymentManagerTel,
-                ORDER_MANAGER_TEL = :orderManagerTel
-            WHERE USER_CET_CD = :userCetCd AND CUST_CD = :custCd
+                ORDER_MANAGER_TEL = :orderManagerTel,
+                CHANG_POST_NO = :changPostNo, 
+                CHANG_ADDR = :changAddr, 
+                PTL_GB = :ptlGb, 
+                CHANG_ADDR2 = :changAddr2, 
+                DOCHA_QTY = :dochaQty, 
+                DOCHA_BOX = :dochaBox,
+                DOCHA_AMT = :dochaAmt                
+                WHERE USER_CET_CD = :userCetCd AND CUST_CD = :custCd
         """;
         return jdbc.update(sql, new BeanPropertySqlParameterSource(vo)) > 0;
     }
