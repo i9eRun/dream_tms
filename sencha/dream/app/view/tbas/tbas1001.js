@@ -21,22 +21,21 @@ Ext.define('dream.view.tbas.tbas1001', {
         'dream.view.tbas.tbas1001ViewModel',
         'dream.view.tbas.tbas1001ViewController',
         'Ext.form.Label',
+        'Ext.form.FieldContainer',
         'Ext.form.field.ComboBox',
         'Ext.button.Button',
         'Ext.grid.Panel',
         'Ext.grid.column.RowNumberer',
         'Ext.form.Panel',
         'Ext.form.field.Date',
-        'Ext.form.FieldSet',
-        'Ext.form.CheckboxGroup',
-        'Ext.form.field.Checkbox'
+        'Ext.form.FieldSet'
     ],
 
     controller: 'tbas.tbas1001',
     viewModel: {
         type: 'tbas.tbas1001'
     },
-    height: 850,
+    height: 846,
     width: 1600,
     layout: 'absolute',
     title: '',
@@ -279,10 +278,10 @@ Ext.define('dream.view.tbas.tbas1001', {
         },
         {
             xtype: 'form',
-            x: 10,
-            y: 250,
+            x: 20,
+            y: 280,
             reference: 'tbas1001_cust_form',
-            height: 440,
+            height: 510,
             width: 1200,
             layout: 'absolute',
             bodyPadding: 10,
@@ -292,13 +291,14 @@ Ext.define('dream.view.tbas.tbas1001', {
                     xtype: 'textfield',
                     x: 5,
                     y: 5,
-                    width: 355,
+                    width: 155,
                     fieldLabel: '거래처코드',
+                    labelWidth: 70,
                     name: 'custCd'
                 },
                 {
                     xtype: 'textfield',
-                    x: 425,
+                    x: 370,
                     y: 5,
                     width: 320,
                     fieldLabel: '사업자번호',
@@ -307,33 +307,10 @@ Ext.define('dream.view.tbas.tbas1001', {
                 },
                 {
                     xtype: 'combobox',
-                    x: 920,
-                    y: 5,
-                    fieldLabel: '주문방식',
-                    name: 'ordMethodGb',
-                    displayField: 'codeNm',
-                    valueField: 'codeCd',
-                    listeners: {
-                        afterrender: 'onComboboxAfterRender_tbas1001_ordMethodGb'
-                    }
-                },
-                {
-                    xtype: 'combobox',
-                    x: 920,
-                    y: 30,
-                    fieldLabel: '세부주문방식',
-                    name: 'ordMethodGbD',
-                    displayField: 'codeNm',
-                    valueField: 'codeCd',
-                    listeners: {
-                        afterrender: 'onComboboxAfterRender_tbas1001_ordMethodGbD'
-                    }
-                },
-                {
-                    xtype: 'combobox',
-                    x: 920,
-                    y: 55,
+                    x: 5,
+                    y: 280,
                     fieldLabel: '출고형태',
+                    labelWidth: 70,
                     name: 'chulgoGb',
                     displayField: 'codeNm',
                     valueField: 'codeCd',
@@ -343,9 +320,10 @@ Ext.define('dream.view.tbas.tbas1001', {
                 },
                 {
                     xtype: 'combobox',
-                    x: 920,
-                    y: 80,
+                    x: 5,
+                    y: 305,
                     fieldLabel: '대행사',
+                    labelWidth: 70,
                     name: 'sosokNm',
                     displayField: 'SOSOK_NM',
                     valueField: 'SOSOK_NM',
@@ -355,33 +333,25 @@ Ext.define('dream.view.tbas.tbas1001', {
                 },
                 {
                     xtype: 'textfield',
-                    x: 920,
-                    y: 155,
+                    x: 695,
+                    y: 55,
+                    width: 265,
                     fieldLabel: '청구서담당',
+                    labelWidth: 70,
                     name: 'chunguDamdangNm'
                 },
                 {
                     xtype: 'textfield',
-                    x: 920,
-                    y: 130,
+                    x: 695,
+                    y: 30,
+                    width: 265,
                     fieldLabel: '우편물담당',
+                    labelWidth: 70,
                     name: 'recvDamdangNm'
                 },
                 {
-                    xtype: 'combobox',
-                    x: 920,
-                    y: 105,
-                    fieldLabel: '총판지정',
-                    name: 'mainSale',
-                    displayField: 'codeNm',
-                    valueField: 'codeCd',
-                    listeners: {
-                        afterrender: 'onComboboxAfterRender_tbas1001_mainSale'
-                    }
-                },
-                {
                     xtype: 'textfield',
-                    x: 425,
+                    x: 370,
                     y: 105,
                     width: 185,
                     fieldLabel: '전화번호',
@@ -390,7 +360,7 @@ Ext.define('dream.view.tbas.tbas1001', {
                 },
                 {
                     xtype: 'textfield',
-                    x: 615,
+                    x: 560,
                     y: 105,
                     width: 130,
                     fieldLabel: 'TEL2',
@@ -399,7 +369,7 @@ Ext.define('dream.view.tbas.tbas1001', {
                 },
                 {
                     xtype: 'textfield',
-                    x: 425,
+                    x: 370,
                     y: 55,
                     width: 320,
                     fieldLabel: '대표휴대전화',
@@ -408,7 +378,7 @@ Ext.define('dream.view.tbas.tbas1001', {
                 },
                 {
                     xtype: 'textfield',
-                    x: 425,
+                    x: 370,
                     y: 130,
                     width: 320,
                     fieldLabel: '팩스번호',
@@ -417,7 +387,7 @@ Ext.define('dream.view.tbas.tbas1001', {
                 },
                 {
                     xtype: 'textfield',
-                    x: 425,
+                    x: 370,
                     y: 155,
                     width: 320,
                     fieldLabel: '대표메일',
@@ -426,7 +396,7 @@ Ext.define('dream.view.tbas.tbas1001', {
                 },
                 {
                     xtype: 'textfield',
-                    x: 425,
+                    x: 370,
                     y: 180,
                     width: 320,
                     fieldLabel: 'E-MAIL1',
@@ -435,7 +405,7 @@ Ext.define('dream.view.tbas.tbas1001', {
                 },
                 {
                     xtype: 'textfield',
-                    x: 425,
+                    x: 370,
                     y: 205,
                     width: 320,
                     fieldLabel: 'E-MAIL2',
@@ -444,7 +414,7 @@ Ext.define('dream.view.tbas.tbas1001', {
                 },
                 {
                     xtype: 'textfield',
-                    x: 425,
+                    x: 370,
                     y: 230,
                     width: 320,
                     fieldLabel: 'E-MAIL3',
@@ -453,7 +423,7 @@ Ext.define('dream.view.tbas.tbas1001', {
                 },
                 {
                     xtype: 'textfield',
-                    x: 425,
+                    x: 370,
                     y: 255,
                     width: 320,
                     fieldLabel: '홈페이지',
@@ -462,7 +432,43 @@ Ext.define('dream.view.tbas.tbas1001', {
                 },
                 {
                     xtype: 'textfield',
-                    x: 425,
+                    x: 895,
+                    y: 330,
+                    width: 135,
+                    fieldLabel: 'X좌표',
+                    labelWidth: 50,
+                    name: 'custX'
+                },
+                {
+                    xtype: 'textfield',
+                    x: 895,
+                    y: 380,
+                    width: 135,
+                    fieldLabel: 'X좌표',
+                    labelWidth: 50,
+                    name: 'custX3'
+                },
+                {
+                    xtype: 'textfield',
+                    x: 1055,
+                    y: 330,
+                    width: 135,
+                    fieldLabel: 'Y좌표',
+                    labelWidth: 50,
+                    name: 'custY'
+                },
+                {
+                    xtype: 'textfield',
+                    x: 1055,
+                    y: 380,
+                    width: 135,
+                    fieldLabel: 'Y좌표',
+                    labelWidth: 50,
+                    name: 'custY3'
+                },
+                {
+                    xtype: 'textfield',
+                    x: 370,
                     y: 280,
                     width: 320,
                     fieldLabel: '홈피상호',
@@ -471,7 +477,7 @@ Ext.define('dream.view.tbas.tbas1001', {
                 },
                 {
                     xtype: 'textfield',
-                    x: 425,
+                    x: 370,
                     y: 305,
                     width: 320,
                     fieldLabel: '홈피 ID',
@@ -480,7 +486,7 @@ Ext.define('dream.view.tbas.tbas1001', {
                 },
                 {
                     xtype: 'textfield',
-                    x: 425,
+                    x: 370,
                     y: 30,
                     width: 160,
                     fieldLabel: '대표 성명',
@@ -489,7 +495,7 @@ Ext.define('dream.view.tbas.tbas1001', {
                 },
                 {
                     xtype: 'textfield',
-                    x: 425,
+                    x: 370,
                     y: 80,
                     width: 160,
                     fieldLabel: '업태',
@@ -498,7 +504,7 @@ Ext.define('dream.view.tbas.tbas1001', {
                 },
                 {
                     xtype: 'textfield',
-                    x: 595,
+                    x: 540,
                     y: 80,
                     width: 150,
                     fieldLabel: '종목',
@@ -507,7 +513,21 @@ Ext.define('dream.view.tbas.tbas1001', {
                 },
                 {
                     xtype: 'combobox',
-                    x: 595,
+                    x: 5,
+                    y: 180,
+                    width: 170,
+                    fieldLabel: '마감일',
+                    labelWidth: 70,
+                    name: 'magamDd',
+                    displayField: 'codeNm',
+                    valueField: 'codeCd',
+                    listeners: {
+                        afterrender: 'onComboboxAfterRender_tbas1001_magamDd'
+                    }
+                },
+                {
+                    xtype: 'combobox',
+                    x: 540,
                     y: 30,
                     width: 150,
                     fieldLabel: '대표자명여부',
@@ -525,6 +545,7 @@ Ext.define('dream.view.tbas.tbas1001', {
                     y: 30,
                     width: 355,
                     fieldLabel: '거래처명',
+                    labelWidth: 70,
                     name: 'custNm'
                 },
                 {
@@ -533,6 +554,7 @@ Ext.define('dream.view.tbas.tbas1001', {
                     y: 55,
                     width: 355,
                     fieldLabel: '약식상호',
+                    labelWidth: 70,
                     name: 'custAbbrNm'
                 },
                 {
@@ -541,14 +563,16 @@ Ext.define('dream.view.tbas.tbas1001', {
                     y: 80,
                     width: 355,
                     fieldLabel: '정식상호',
+                    labelWidth: 70,
                     name: 'bizNm'
                 },
                 {
                     xtype: 'datefield',
                     x: 5,
                     y: 105,
-                    width: 200,
+                    width: 170,
                     fieldLabel: '거래기간',
+                    labelWidth: 70,
                     name: 'tradeFrDt',
                     format: 'Y-m-d'
                 },
@@ -567,6 +591,7 @@ Ext.define('dream.view.tbas.tbas1001', {
                     y: 130,
                     width: 200,
                     fieldLabel: '거래처분류',
+                    labelWidth: 70,
                     name: 'custDivGb',
                     displayField: 'codeNm',
                     valueField: 'codeCd',
@@ -589,11 +614,25 @@ Ext.define('dream.view.tbas.tbas1001', {
                     }
                 },
                 {
+                    xtype: 'combobox',
+                    x: 5,
+                    y: 405,
+                    width: 155,
+                    fieldLabel: '파레트사용',
+                    labelWidth: 70,
+                    name: 'ptlGb',
+                    displayField: 'codeNm',
+                    valueField: 'codeCd',
+                    listeners: {
+                        afterrender: 'onComboboxAfterRender_ptlGb'
+                    }
+                },
+                {
                     xtype: 'textfield',
                     x: 220,
                     y: 155,
                     width: 140,
-                    fieldLabel: '지역',
+                    fieldLabel: '지역명',
                     labelWidth: 60,
                     name: 'jiyukNm'
                 },
@@ -608,33 +647,12 @@ Ext.define('dream.view.tbas.tbas1001', {
                 },
                 {
                     xtype: 'textfield',
-                    x: 220,
-                    y: 205,
-                    width: 140,
-                    fieldLabel: '명세서번지',
-                    labelWidth: 70,
-                    name: 'delivDivCd'
-                },
-                {
-                    xtype: 'textfield',
                     x: 5,
                     y: 155,
                     width: 200,
                     fieldLabel: '모회사코드',
+                    labelWidth: 70,
                     name: 'parentCustCd'
-                },
-                {
-                    xtype: 'combobox',
-                    x: 5,
-                    y: 180,
-                    width: 200,
-                    fieldLabel: '마감일',
-                    name: 'magamDd',
-                    displayField: 'codeNm',
-                    valueField: 'codeCd',
-                    listeners: {
-                        afterrender: 'onComboboxAfterRender_tbas1001_magamDd'
-                    }
                 },
                 {
                     xtype: 'textfield',
@@ -642,6 +660,7 @@ Ext.define('dream.view.tbas.tbas1001', {
                     y: 205,
                     width: 200,
                     fieldLabel: '회계코드',
+                    labelWidth: 70,
                     name: 'accCd'
                 },
                 {
@@ -650,52 +669,62 @@ Ext.define('dream.view.tbas.tbas1001', {
                     y: 230,
                     width: 355,
                     fieldLabel: '회계메일',
+                    labelWidth: 70,
                     name: 'accEmailAddr'
                 },
                 {
                     xtype: 'textfield',
                     x: 5,
                     y: 255,
-                    width: 120,
+                    width: 140,
                     fieldLabel: '배본코스',
-                    labelWidth: 55,
+                    labelWidth: 70,
                     name: 'delivPathCd'
                 },
                 {
                     xtype: 'textfield',
-                    x: 5,
-                    y: 280,
+                    x: 170,
+                    y: 405,
                     width: 120,
-                    fieldLabel: '특송코스',
+                    fieldLabel: '기본부수',
                     labelWidth: 55,
-                    name: 'expressDelivPathCd'
+                    name: 'dochaQty',
+                    listeners: {
+                        afterrender: 'onTextfieldAfterRender_dochaQty'
+                    }
                 },
                 {
                     xtype: 'textfield',
-                    x: 240,
-                    y: 255,
+                    x: 295,
+                    y: 405,
                     width: 120,
-                    fieldLabel: '코스순번',
+                    fieldLabel: '기본덩이',
                     labelWidth: 55,
-                    name: 'delivPosCd'
+                    name: 'dochaBox',
+                    listeners: {
+                        afterrender: 'onTextfieldAfterRender_dochaBox'
+                    }
                 },
                 {
                     xtype: 'textfield',
-                    x: 130,
+                    x: 420,
+                    y: 405,
+                    width: 120,
+                    fieldLabel: '기본금액',
+                    labelWidth: 55,
+                    name: 'dochaAmt',
+                    listeners: {
+                        afterrender: 'onTextfieldAfterRender_dochaAmt'
+                    }
+                },
+                {
+                    xtype: 'textfield',
+                    x: 180,
                     y: 255,
-                    width: 65,
+                    width: 180,
                     fieldLabel: '',
                     labelWidth: 55,
                     name: 'delivCarNo'
-                },
-                {
-                    xtype: 'textfield',
-                    x: 130,
-                    y: 280,
-                    width: 65,
-                    fieldLabel: '',
-                    labelWidth: 55,
-                    name: 'expressDelivCarNo'
                 },
                 {
                     xtype: 'textfield',
@@ -709,6 +738,15 @@ Ext.define('dream.view.tbas.tbas1001', {
                 {
                     xtype: 'textfield',
                     x: 5,
+                    y: 380,
+                    width: 170,
+                    fieldLabel: '창고주소',
+                    labelWidth: 70,
+                    name: 'changPostNo'
+                },
+                {
+                    xtype: 'textfield',
+                    x: 5,
                     y: 355,
                     width: 170,
                     fieldLabel: '우편물주소',
@@ -717,35 +755,53 @@ Ext.define('dream.view.tbas.tbas1001', {
                 },
                 {
                     xtype: 'textfield',
-                    x: 235,
+                    x: 220,
                     y: 330,
-                    width: 590,
+                    width: 440,
                     fieldLabel: '',
                     labelWidth: 70,
                     name: 'addr1'
                 },
                 {
                     xtype: 'textfield',
-                    x: 235,
+                    x: 220,
+                    y: 380,
+                    width: 440,
+                    fieldLabel: '',
+                    labelWidth: 70,
+                    name: 'changAddr'
+                },
+                {
+                    xtype: 'textfield',
+                    x: 220,
                     y: 355,
-                    width: 590,
+                    width: 440,
                     fieldLabel: '',
                     labelWidth: 70,
                     name: 'recvAddr1'
                 },
                 {
                     xtype: 'textfield',
-                    x: 830,
+                    x: 660,
                     y: 330,
-                    width: 360,
+                    width: 200,
                     fieldLabel: '',
                     labelWidth: 70,
                     name: 'addr2'
                 },
                 {
                     xtype: 'textfield',
-                    x: 5,
+                    x: 660,
                     y: 380,
+                    width: 210,
+                    fieldLabel: '',
+                    labelWidth: 70,
+                    name: 'changAddr2'
+                },
+                {
+                    xtype: 'textfield',
+                    x: 5,
+                    y: 430,
                     width: 610,
                     fieldLabel: '기타사항',
                     labelWidth: 70,
@@ -754,7 +810,7 @@ Ext.define('dream.view.tbas.tbas1001', {
                 {
                     xtype: 'textfield',
                     x: 635,
-                    y: 380,
+                    y: 430,
                     width: 555,
                     fieldLabel: '드림비고',
                     labelWidth: 60,
@@ -762,22 +818,23 @@ Ext.define('dream.view.tbas.tbas1001', {
                 },
                 {
                     xtype: 'textfield',
-                    x: 890,
-                    y: 355,
-                    width: 300,
+                    x: 1045,
+                    y: 405,
+                    width: 145,
                     fieldLabel: '변환코드',
+                    labelWidth: 60,
                     name: 'guljaeGb'
                 },
                 {
                     xtype: 'label',
-                    x: 230,
+                    x: 210,
                     y: 105,
                     text: '~'
                 },
                 {
                     xtype: 'fieldset',
-                    x: 800,
-                    y: 225,
+                    x: 695,
+                    y: 80,
                     height: 100,
                     width: 390,
                     layout: 'absolute',
@@ -840,100 +897,14 @@ Ext.define('dream.view.tbas.tbas1001', {
                     ]
                 },
                 {
-                    xtype: 'fieldset',
-                    x: 800,
-                    y: 175,
-                    height: 45,
-                    width: 390,
-                    layout: 'absolute',
-                    title: '날개물류',
-                    items: [
-                        {
-                            xtype: 'textfield',
-                            x: 0,
-                            y: 0,
-                            width: 150,
-                            fieldLabel: '전산담당자',
-                            labelWidth: 70,
-                            name: 'chargeEmpId'
-                        },
-                        {
-                            xtype: 'textfield',
-                            x: 155,
-                            y: 0,
-                            width: 145,
-                            fieldLabel: '',
-                            name: 'chargeEmpNm'
-                        },
-                        {
-                            xtype: 'button',
-                            x: 305,
-                            y: 0,
-                            id: 'tbas1001_charge_emp_search_button',
-                            width: 60,
-                            text: '찾기',
-                            listeners: {
-                                click: 'onTbas1001_charge_emp_search_buttonClick'
-                            }
-                        }
-                    ]
-                },
-                {
                     xtype: 'button',
-                    x: 200,
+                    x: 145,
                     y: 255,
                     reference: 'tbas1001_cus_button',
                     text: '찾기',
                     listeners: {
                         click: 'onButtonClick_tbas1001_cus_button'
                     }
-                },
-                {
-                    xtype: 'button',
-                    x: 200,
-                    y: 280,
-                    reference: 'tbas1001_cus_express_button',
-                    text: '찾기',
-                    listeners: {
-                        click: 'onButtonClick_tbas1001_cus_express_button'
-                    }
-                },
-                {
-                    xtype: 'checkboxgroup',
-                    x: 5,
-                    y: 305,
-                    width: 390,
-                    fieldLabel: '임대파레트사용',
-                    items: [
-                        {
-                            xtype: 'checkboxfield',
-                            name: 'pltUseKpp',
-                            boxLabel: 'KPP',
-                            inputValue: '1',
-                            uncheckedValue: '0'
-                        },
-                        {
-                            xtype: 'checkboxfield',
-                            name: 'pltUseAj',
-                            boxLabel: '아주',
-                            inputValue: '1',
-                            uncheckedValue: '0'
-                        },
-                        {
-                            xtype: 'checkboxfield',
-                            name: 'pltUseNg',
-                            boxLabel: '날개',
-                            inputValue: '1',
-                            uncheckedValue: '0'
-                        },
-                        {
-                            xtype: 'checkboxfield',
-                            name: 'pltUseEx',
-                            boxLabel: '기타',
-                            inputValue: '1',
-                            uncheckedValue: '0'
-                        }
-                    ]
                 },
                 {
                     xtype: 'button',
@@ -948,8 +919,46 @@ Ext.define('dream.view.tbas.tbas1001', {
                 {
                     xtype: 'button',
                     x: 180,
+                    y: 380,
+                    reference: 'tbas1001_addr_search_button',
+                    text: '찾기',
+                    listeners: {
+                        click: 'onButtonClick_tbas1001_addr_search_button1'
+                    }
+                },
+                {
+                    xtype: 'button',
+                    x: 180,
                     y: 355,
                     text: '찾기'
+                },
+                {
+                    xtype: 'textfield',
+                    x: 695,
+                    y: 5,
+                    width: 130,
+                    fieldLabel: '전산담당자',
+                    labelWidth: 70,
+                    name: 'chargeEmpId'
+                },
+                {
+                    xtype: 'textfield',
+                    x: 880,
+                    y: 5,
+                    width: 80,
+                    fieldLabel: '',
+                    name: 'chargeEmpNm'
+                },
+                {
+                    xtype: 'button',
+                    x: 825,
+                    y: 5,
+                    id: 'tbas1001_charge_emp_search_button',
+                    width: 60,
+                    text: '찾기',
+                    listeners: {
+                        click: 'onTbas1001_charge_emp_search_buttonClick'
+                    }
                 }
             ]
         },
@@ -1020,8 +1029,8 @@ Ext.define('dream.view.tbas.tbas1001', {
         {
             xtype: 'gridpanel',
             x: 10,
-            y: 700,
-            height: 140,
+            y: 770,
+            height: 70,
             width: 1200,
             title: '기록사항',
             columns: [

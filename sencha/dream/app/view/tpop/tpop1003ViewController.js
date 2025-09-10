@@ -25,11 +25,7 @@ Ext.define('dream.view.tpop.tpop1003ViewController', {
 
     onGridpanelItemDblClick_tpop1003_cust_grid: function(dataview, record, item, index, e, eOpts) {
         const view = this.getView();
-
-        // 부모에게 사용자 정보 전달 (이벤트 방식)
         view.fireEvent('selectUser', view, record);
-
-        // 팝업 닫기
         view.close();
     },
 
@@ -89,6 +85,19 @@ Ext.define('dream.view.tpop.tpop1003ViewController', {
         });
 
         store.reload();
+
+        store.load({
+            callback: function(records, operation, success) {
+                if (store.getCount() > 0) {
+                    grid.getSelectionModel().select(0);
+                    grid.getView().focusRow(0);
+                    grid.focus();
+                } else {
+                    keywordField.focus();
+                }
+            }
+        });
+
 
     },
 

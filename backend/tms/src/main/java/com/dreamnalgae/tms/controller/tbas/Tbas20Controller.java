@@ -27,7 +27,6 @@ public class Tbas20Controller {
 
     @GetMapping("/carlist")
     public List<Map<String, Object>> getCList(@RequestParam Map<String, String> params) {
-        System.out.println(params);
         return tbas20Service.getCarList(params);
     }
 

@@ -179,8 +179,6 @@ public class CommonController {
 
     //     List<TmsDungeMstVO> data = tchu1001Service.selectList("20250829", "00001", null, null);
 
-    //     System.out.println(data);
-
     //     response.setContentType("application/pdf");
     //     response.setHeader("Content-Disposition", "attachment; filename=chulgo.pdf");
 

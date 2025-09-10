@@ -88,7 +88,6 @@ public class Tsys1003Controller {
 
     @PostMapping("/group/insertgroup")
     public ResponseEntity<String> insertGroup(@RequestBody TmsGroupMVO vo) {
-        System.out.println(vo);
         boolean result = tsys1003Service.insertGroup(vo);
         return result ? ResponseEntity.ok("SUCCESS") : ResponseEntity.status(500).body("FAIL");
     }
