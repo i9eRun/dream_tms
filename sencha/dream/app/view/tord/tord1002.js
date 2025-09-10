@@ -34,7 +34,7 @@ Ext.define('dream.view.tord.tord1002', {
         type: 'tord.tord1002'
     },
     height: 850,
-    width: 1600,
+    width: 1643,
     layout: 'absolute',
     title: '',
 
@@ -44,7 +44,7 @@ Ext.define('dream.view.tord.tord1002', {
             x: 10,
             y: 80,
             reference: 'order_grid',
-            height: 350,
+            height: 500,
             width: 1200,
             title: '주문(배본) 현황',
             store: 'tord.tord1002.order',
@@ -100,11 +100,6 @@ Ext.define('dream.view.tord.tord1002', {
                 },
                 {
                     xtype: 'gridcolumn',
-                    dataIndex: 'ordBokDanga',
-                    text: '덩이단가'
-                },
-                {
-                    xtype: 'gridcolumn',
                     dataIndex: 'ordAmt',
                     text: '금액'
                 },
@@ -119,9 +114,9 @@ Ext.define('dream.view.tord.tord1002', {
         {
             xtype: 'form',
             x: 10,
-            y: 480,
+            y: 590,
             reference: 'order_form',
-            height: 310,
+            height: 210,
             width: 1200,
             layout: 'absolute',
             bodyPadding: 10,
@@ -129,6 +124,7 @@ Ext.define('dream.view.tord.tord1002', {
             items: [
                 {
                     xtype: 'textfield',
+                    width: 265,
                     fieldLabel: '주문번호',
                     labelWidth: 80,
                     name: 'ordNo',
@@ -136,103 +132,122 @@ Ext.define('dream.view.tord.tord1002', {
                 },
                 {
                     xtype: 'textfield',
-                    x: 10,
-                    y: 145,
-                    width: 180,
+                    x: 285,
+                    y: 45,
+                    width: 115,
                     fieldLabel: '출판사',
-                    labelWidth: 80,
+                    labelWidth: 50,
                     name: 'chulpanCd',
                     allowBlank: false
                 },
                 {
                     xtype: 'textfield',
-                    x: 190,
-                    y: 145,
-                    fieldLabel: '',
-                    labelWidth: 80,
-                    name: 'chulpanNm',
-                    listeners: {
-                        afterrender: 'onTextfieldAfterRender_chulpanNm'
-                    }
-                },
-                {
-                    xtype: 'textfield',
-                    x: 190,
-                    y: 170,
-                    fieldLabel: '',
-                    labelWidth: 80,
-                    name: 'sujumNm',
-                    listeners: {
-                        afterrender: 'onTextfieldAfterRender_sujumNm'
-                    }
-                },
-                {
-                    xtype: 'textfield',
-                    x: 10,
-                    y: 170,
-                    width: 180,
-                    fieldLabel: '서점',
-                    labelWidth: 80,
-                    name: 'sujumCd',
+                    x: 410,
+                    y: 10,
+                    width: 115,
+                    fieldLabel: '수거담당',
+                    labelWidth: 60,
+                    name: 'sugeoId',
                     allowBlank: false
                 },
                 {
                     xtype: 'textfield',
-                    x: 10,
-                    y: 205,
-                    width: 745,
-                    fieldLabel: '비고사항',
+                    x: 800,
+                    y: 80,
+                    width: 115,
+                    fieldLabel: '배송담당',
+                    labelWidth: 60,
+                    name: 'baesongId',
+                    allowBlank: false
+                },
+                {
+                    xtype: 'textfield',
+                    x: 455,
+                    y: 45,
+                    width: 185,
+                    fieldLabel: '',
                     labelWidth: 80,
+                    name: 'chulpanNm',
+                    listeners: {
+                        afterrender: 'onTextfieldAfterRender_chulpanNm',
+                        change: 'onTextfieldChange_chulpanNm'
+                    }
+                },
+                {
+                    xtype: 'textfield',
+                    x: 565,
+                    y: 10,
+                    width: 80,
+                    fieldLabel: '',
+                    labelWidth: 80,
+                    name: 'sugeoNm',
+                    listeners: {
+                        change: 'onTextfieldChange_sugeoNm',
+                        afterrender: 'onTextfieldAfterRender_sugeoNm'
+                    }
+                },
+                {
+                    xtype: 'textfield',
+                    x: 920,
+                    y: 80,
+                    width: 80,
+                    fieldLabel: '',
+                    labelWidth: 80,
+                    name: 'baesongNm'
+                },
+                {
+                    xtype: 'textfield',
+                    x: 795,
+                    y: 45,
+                    width: 205,
+                    fieldLabel: '',
+                    labelWidth: 80,
+                    name: 'sujumNm',
+                    emptyText: '',
+                    listeners: {
+                        afterrender: 'onTextfieldAfterRender_sujumNm',
+                        change: 'onTextfieldChange_sujumNm'
+                    }
+                },
+                {
+                    xtype: 'textfield',
+                    x: 655,
+                    y: 45,
+                    width: 100,
+                    fieldLabel: '서점',
+                    labelWidth: 30,
+                    name: 'sujumCd',
+                    allowBlank: false,
+                    emptyText: ''
+                },
+                {
+                    xtype: 'textfield',
+                    x: 275,
+                    y: 115,
+                    width: 725,
+                    fieldLabel: '비고사항',
+                    labelWidth: 60,
                     name: 'bigo',
                     listeners: {
                         afterrender: 'onTextfieldAfterRender_bigo_field'
                     }
                 },
                 {
-                    xtype: 'combobox',
-                    x: 500,
-                    y: 10,
-                    width: 180,
-                    fieldLabel: '주문처리구분',
-                    labelWidth: 80,
-                    name: 'ordChkGb',
-                    allowBlank: false,
-                    displayField: 'codeNm',
-                    valueField: 'codeCd',
-                    listeners: {
-                        afterrender: 'onComboboxAfterRender_ordChkGb'
-                    }
-                },
-                {
                     xtype: 'textfield',
-                    x: 500,
-                    y: 35,
-                    width: 180,
+                    x: 285,
+                    y: 10,
+                    width: 115,
                     fieldLabel: '입력자',
-                    labelWidth: 80,
+                    labelWidth: 50,
                     name: 'ordInputId',
                     readOnly: true,
-                    allowBlank: false
-                },
-                {
-                    xtype: 'combobox',
-                    x: 500,
-                    y: 60,
-                    width: 180,
-                    fieldLabel: '정/반구분',
-                    labelWidth: 80,
-                    name: 'itemGb',
                     allowBlank: false,
-                    displayField: 'codeNm',
-                    valueField: 'codeCd',
-                    listeners: {
-                        afterrender: 'onComboboxAfterRender_itemGb'
-                    }
+                    vtypeText: ''
                 },
                 {
                     xtype: 'combobox',
-                    x: 500,
-                    y: 100,
+                    x: 655,
+                    y: 10,
                     width: 100,
                     fieldLabel: '출고',
                     labelWidth: 30,
@@ -246,23 +261,8 @@ Ext.define('dream.view.tord.tord1002', {
                 },
                 {
                     xtype: 'combobox',
-                    x: 620,
-                    y: 100,
-                    width: 100,
-                    fieldLabel: '결제',
-                    labelWidth: 30,
-                    name: 'guljaeGb',
-                    allowBlank: false,
-                    displayField: 'codeNm',
-                    valueField: 'codeCd',
-                    listeners: {
-                        afterrender: 'onComboboxAfterRender_guljaeGb'
-                    }
-                },
-                {
-                    xtype: 'combobox',
-                    x: 745,
-                    y: 100,
+                    x: 760,
+                    y: 10,
                     width: 100,
                     fieldLabel: '신간',
                     labelWidth: 30,
@@ -275,48 +275,75 @@ Ext.define('dream.view.tord.tord1002', {
                     }
                 },
                 {
+                    xtype: 'combobox',
+                    x: 865,
+                    y: 10,
+                    width: 135,
+                    fieldLabel: '미착구분',
+                    labelWidth: 60,
+                    name: 'michakGb',
+                    allowBlank: false,
+                    displayField: 'codeNm',
+                    valueField: 'codeCd',
+                    listeners: {
+                        afterrender: 'onComboboxAfterRender_michakGb'
+                    }
+                },
+                {
                     xtype: 'textfield',
-                    x: 500,
-                    y: 145,
-                    width: 100,
+                    x: 305,
+                    y: 80,
+                    width: 95,
                     fieldLabel: '부수',
                     labelWidth: 30,
-                    name: 'bokQty'
+                    name: 'ordQty',
+                    listeners: {
+                        afterrender: 'onTextfieldAfterRender_ordQty'
+                    }
                 },
                 {
                     xtype: 'textfield',
-                    x: 745,
-                    y: 145,
-                    width: 150,
+                    x: 520,
+                    y: 80,
+                    width: 120,
                     fieldLabel: '금액',
                     labelWidth: 30,
-                    name: 'ordAmt'
+                    name: 'ordAmt',
+                    listeners: {
+                        afterrender: 'onTextfieldAfterRender_ordAmt'
+                    }
                 },
                 {
                     xtype: 'textfield',
-                    x: 620,
-                    y: 145,
-                    width: 100,
+                    x: 415,
+                    y: 80,
+                    width: 85,
                     fieldLabel: '덩이',
                     labelWidth: 30,
-                    name: 'boxQty'
+                    name: 'ordBox',
+                    listeners: {
+                        afterrender: 'onTextfieldAfterRender_ordBox'
+                    }
                 },
                 {
                     xtype: 'datefield',
                     x: 10,
-                    y: 35,
+                    y: 45,
                     width: 180,
                     fieldLabel: '주문일자',
                     labelWidth: 80,
                     name: 'ordDt',
                     readOnly: false,
                     format: 'Y-m-d',
-                    submitFormat: 'Ymd'
+                    submitFormat: 'Ymd',
+                    listeners: {
+                        afterrender: 'onDatefieldAfterRender_ordDt'
+                    }
                 },
                 {
                     xtype: 'timefield',
-                    x: 195,
-                    y: 35,
+                    x: 190,
+                    y: 45,
                     width: 80,
                     fieldLabel: '',
                     labelWidth: 80,
@@ -327,30 +354,34 @@ Ext.define('dream.view.tord.tord1002', {
                 {
                     xtype: 'datefield',
                     x: 10,
-                    y: 60,
+                    y: 80,
                     width: 180,
                     fieldLabel: '라벨일자',
                     labelWidth: 80,
                     name: 'labelPrtDt',
                     readOnly: false,
-                    format: 'Y-m-d'
+                    format: 'Y-m-d',
+                    submitFormat: 'Ymd',
+                    listeners: {
+                        afterrender: 'onDatefieldAfterRender_labelPrtDt'
+                    }
                 },
                 {
                     xtype: 'textfield',
                     x: 10,
-                    y: 85,
-                    width: 235,
-                    fieldLabel: '출판사주문번호',
-                    labelWidth: 90,
+                    y: 115,
+                    width: 265,
+                    fieldLabel: '출판사번호',
+                    labelWidth: 80,
                     name: 'ordPoNo',
                     readOnly: false
                 },
                 {
                     xtype: 'button',
-                    x: 340,
-                    y: 145,
+                    x: 400,
+                    y: 45,
                     reference: 'form_chulpan_search_button',
-                    width: 60,
+                    width: 45,
                     text: '찾기',
                     listeners: {
                         click: 'onButtonClick_form_chulpan_search_button'
@@ -358,10 +389,21 @@ Ext.define('dream.view.tord.tord1002', {
                 },
                 {
                     xtype: 'button',
-                    x: 340,
-                    y: 170,
+                    x: 520,
+                    y: 10,
+                    reference: 'form_com_user_search_button',
+                    width: 45,
+                    text: '찾기',
+                    listeners: {
+                        click: 'onButtonClick_from_com_user_seanch_button'
+                    }
+                },
+                {
+                    xtype: 'button',
+                    x: 750,
+                    y: 45,
                     reference: 'form_sujum_search_button',
-                    width: 60,
+                    width: 45,
                     text: '찾기',
                     listeners: {
                         click: 'onButtonClick_form_sujum_search_button'
@@ -374,7 +416,7 @@ Ext.define('dream.view.tord.tord1002', {
         },
         {
             xtype: 'label',
-            x: 10,
+            x: -13,
             y: 10,
             text: '배송출고관리 [TORD1002]'
         },
@@ -413,7 +455,7 @@ Ext.define('dream.view.tord.tord1002', {
             xtype: 'textfield',
             x: 430,
             y: 50,
-            reference: 'publisher_code',
+            reference: 'chulpan_find_Cd',
             width: 150,
             fieldLabel: '출판사',
             labelWidth: 60
@@ -422,7 +464,7 @@ Ext.define('dream.view.tord.tord1002', {
             xtype: 'textfield',
             x: 800,
             y: 50,
-            reference: 'bookstore_code',
+            reference: 'sujum_find_Cd',
             width: 150,
             fieldLabel: '서점',
             labelWidth: 60
@@ -431,15 +473,19 @@ Ext.define('dream.view.tord.tord1002', {
             xtype: 'textfield',
             x: 580,
             y: 50,
-            reference: 'publisher_name',
+            reference: 'chulpan_find_Nm',
             width: 130,
-            fieldLabel: ''
+            fieldLabel: '',
+            listeners: {
+                afterrender: 'onTextfieldAfterRender_chulpanfNm',
+                change: 'onTextfieldChange_chulpanfNm'
+            }
         },
         {
             xtype: 'textfield',
             x: 950,
             y: 50,
-            reference: 'bookstore_name',
+            reference: 'sujum_find_Nm',
             width: 130,
             fieldLabel: ''
         },
@@ -447,11 +493,11 @@ Ext.define('dream.view.tord.tord1002', {
             xtype: 'button',
             x: 710,
             y: 50,
-            reference: 'publisher_search_button',
+            reference: 'chulpan_find_button',
             width: 60,
             text: '찾기',
             listeners: {
-                click: 'onButtonClick_publisher_search_button'
+                click: 'onButtonClick_chulpan_find_button'
             }
         },
         {
@@ -489,19 +535,19 @@ Ext.define('dream.view.tord.tord1002', {
         },
         {
             xtype: 'button',
-            x: 940,
-            y: 450,
+            x: 490,
+            y: 770,
             reference: 'add_button',
             width: 60,
-            text: '추가',
+            text: '초기화',
             listeners: {
                 click: 'onButtonClick_add_button'
             }
         },
         {
             xtype: 'button',
-            x: 1010,
-            y: 450,
+            x: 570,
+            y: 770,
             reference: 'insert_button',
             width: 60,
             text: '등록',
@@ -511,8 +557,8 @@ Ext.define('dream.view.tord.tord1002', {
         },
         {
             xtype: 'button',
-            x: 1080,
-            y: 450,
+            x: 650,
+            y: 770,
             reference: 'update_button',
             width: 60,
             text: '수정',
@@ -522,8 +568,8 @@ Ext.define('dream.view.tord.tord1002', {
         },
         {
             xtype: 'button',
-            x: 1150,
-            y: 450,
+            x: 730,
+            y: 770,
             reference: 'delete_button',
             width: 60,
             text: '삭제',
