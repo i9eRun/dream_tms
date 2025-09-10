@@ -1,8 +1,6 @@
 spring.application.name=tms
-
-# ✅ P6Spy 드라이버로 교체
-spring.datasource.driver-class-name=com.p6spy.engine.spy.P6SpyDriver
-spring.datasource.url=jdbc:p6spy:oracle:thin:@190.150.10.207:1521/TMS
+spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
+spring.datasource.url=jdbc:oracle:thin:@190.150.10.207:1521/TMS
 spring.datasource.username=TMS_WMS
 spring.datasource.password=TMS_WMS_123
 
@@ -16,13 +14,9 @@ server.servlet.session.cookie.same-site=none
 
 # JPA 설정 (validate | update | none | create)
 spring.jpa.hibernate.ddl-auto=none
-# ❌ Hibernate 자체 SQL 로그는 끄고, P6Spy 로그만 쓰는 게 깔끔
-spring.jpa.show-sql=false   
+spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.OracleDialect
 spring.jpa.open-in-view=false
 
 #snake_case → camelCase로 변환설정
 #spring.jackson.property-naming-strategy=SNAKE_CASE
-
-# ✅ 로그 레벨
-logging.level.com.p6spy=DEBUG

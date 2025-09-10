@@ -84,8 +84,6 @@ public class Tsys1003Service {
             }
         }
 
-        //System.out.println(allMenuIds);
-
         // 3. 기존 그룹 메뉴 삭제
         deleteMenusByGroup(userCetCd, groupCd);
 

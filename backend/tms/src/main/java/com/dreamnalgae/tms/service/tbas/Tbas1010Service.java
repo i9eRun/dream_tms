@@ -66,8 +66,6 @@ public class Tbas1010Service {
             }
         }
 
-        System.out.println(sql.toString());
-
         return jdbc.query(sql.toString(), params, BeanPropertyRowMapper.newInstance(DochakVO.class));
     }
     

@@ -395,6 +395,30 @@ Ext.define('dream.model.tbas.tbas1001.custInfoModel', {
         },
         {
             name: 'orderManagerTel'
+        },
+        {
+            name: 'custX'
+        },
+        {
+            name: 'custY'
+        },
+        {
+            name: 'custX3'
+        },
+        {
+            name: 'custY3'
+        },
+        {
+            name: 'changAddr'
+        },
+        {
+            name: 'changAddr2'
+        },
+        {
+            name: 'changPostNo'
+        },
+        {
+            name: 'ptlGb'
         }
     ]
 });

@@ -28,7 +28,8 @@ Ext.define('dream.view.tord.tord1002ViewController', {
         store.getProxy().setExtraParams({
             userCetCd: dream.util.Common.LOGIN_USER_CET_CD,
             frDt: today,
-            toDt: today
+            toDt: today,
+            ordDt: today
         });
 
 
@@ -64,6 +65,39 @@ Ext.define('dream.view.tord.tord1002ViewController', {
         });
     },
 
+    onTextfieldChange_chulpanNm: function(field, newValue, oldValue, eOpts) {
+        const form = field.up('form');
+
+        const s_chulpanNm = form.down('[name=chulpanNm]').getValue();
+
+        if (Ext.isEmpty(s_chulpanNm)) {
+            form.down('[name=chulpanCd]').setValue('');
+        }
+
+    },
+
+    onTextfieldChange_sugeoNm: function(field, newValue, oldValue, eOpts) {
+        const form = field.up('form');
+
+        const s_sugeoNm = form.down('[name=sugeoNm]').getValue();
+
+        if (Ext.isEmpty(s_sugeoNm)) {
+            form.down('[name=sugeoId]').setValue('');
+        }
+
+    },
+
+    onTextfieldAfterRender_sugeoNm: function(component, eOpts) {
+        const button = this.lookupReference('form_com_user_search_button');
+        component.on('specialkey', function(component, e) {
+            if (e.getKey() === e.ENTER) {
+                if (button) {
+                    button.fireEvent('click', button);
+                }
+            }
+        });
+    },
+
     onTextfieldAfterRender_sujumNm: function(component, eOpts) {
         const button = this.lookupReference('form_sujum_search_button');
         component.on('specialkey', function(component, e) {
@@ -71,6 +105,17 @@ Ext.define('dream.view.tord.tord1002ViewController', {
                 if (button) button.fireEvent('click', button);
             }
         });
+    },
+
+    onTextfieldChange_sujumNm: function(field, newValue, oldValue, eOpts) {
+        const form = field.up('form');
+
+        const s_sujumNm = form.down('[name=sujumNm]').getValue();
+
+        if (Ext.isEmpty(s_sujumNm)) {
+            form.down('[name=sujumCd]').setValue('');
+        }
+
     },
 
     onTextfieldAfterRender_bigo_field: function(component, eOpts) {
@@ -88,24 +133,77 @@ Ext.define('dream.view.tord.tord1002ViewController', {
         });
     },
 
-    onComboboxAfterRender_ordChkGb: function(component, eOpts) {
-        dream.util.Common.setComboCode(component,104,false);
-    },
-
-    onComboboxAfterRender_itemGb: function(component, eOpts) {
-        dream.util.Common.setComboCode(component,208,false);
-    },
-
     onComboboxAfterRender_chulgoGb: function(component, eOpts) {
         dream.util.Common.setComboCode(component,101,false);
     },
 
-    onComboboxAfterRender_guljaeGb: function(component, eOpts) {
-        dream.util.Common.setComboCode(component,102,false);
-    },
-
     onComboboxAfterRender_singanGb: function(component, eOpts) {
         dream.util.Common.setComboCode(component,106,false);
+    },
+
+    onComboboxAfterRender_michakGb: function(component, eOpts) {
+        dream.util.Common.setComboCode(component,1033,false);
+    },
+
+    onTextfieldAfterRender_ordQty: function(component, eOpts) {
+        component.on('specialkey', function(component, e) {
+            if (e.getKey() === Ext.event.Event.ENTER) {
+                const form = component.up('form');
+                form.down('[name=ordBox]').focus(true, 100);
+            }
+        }
+
+        );
+    },
+
+    onTextfieldAfterRender_ordAmt: function(component, eOpts) {
+        component.on('specialkey', function(component, e) {
+            if (e.getKey() === Ext.event.Event.ENTER) {
+                const form = component.up('form');
+                form.down('[name=bigo]').focus(true, 100);
+            }
+        }
+
+        );
+    },
+
+    onTextfieldAfterRender_ordBox: function(component, eOpts) {
+        component.on('specialkey', function(component, e) {
+            if (e.getKey() === Ext.event.Event.ENTER) {
+                const form = component.up('form');
+                form.down('[name=ordAmt]').focus(true, 100);
+            }
+        }
+
+        );
+    },
+
+    onDatefieldAfterRender_ordDt: function(component, eOpts) {
+        const ordDt = Ext.Date.format(new Date(), 'Y-m-d');
+        component.setValue(ordDt);
+
+        const button = this.lookupReference('order_search_button');
+        component.on('specialkey', function(component, e) {
+            if (e.getKey() === e.ENTER) {
+                if (button) {
+                    button.fireEvent('click', button);
+                }
+            }
+        });
+    },
+
+    onDatefieldAfterRender_labelPrtDt: function(component, eOpts) {
+        const labelPrtDt = Ext.Date.format(new Date(), 'Y-m-d');
+        component.setValue(labelPrtDt);
+
+        const button = this.lookupReference('order_search_button');
+        component.on('specialkey', function(component, e) {
+            if (e.getKey() === e.ENTER) {
+                if (button) {
+                    button.fireEvent('click', button);
+                }
+            }
+        });
     },
 
     onButtonClick_form_chulpan_search_button: function(button, e, eOpts) {
@@ -135,16 +233,63 @@ Ext.define('dream.view.tord.tord1002ViewController', {
             const publisher_name_field = form.down('[name=chulpanNm]');
             publisher_code_field.setValue(record.get('CUST_CD'));
             publisher_name_field.setValue(record.get('CUST_NM'));
+
+            // 포커스는 팝업 닫힌 후에 지정
+            Ext.defer(function() {
+                const chulpanNmField = form.down('[name=sujumNm]');
+                if (chulpanNmField) {
+                    chulpanNmField.focus(false, 100);
+                }
+            }, 150); // 팝업 닫히는 타이밍 이후
+
+
         });
 
         popup.show();
 
-        form.down('[name=sujumNm]').focus(true, 100);
+
+    },
+
+    onButtonClick_from_com_user_seanch_button: function(button, e, eOpts) {
+        let oldPopup = Ext.ComponentQuery.Query('tpop1001')[0];
+        if (oldPopup) oldPopup.destroy();
+
+        const popup = Ext.create('dream.view.tpop.tpop1001');
+        const form = this.lookupReference('order_form');
+        const keyword = form.down('[name=sugeoNm]').getValue();
+
+        popup.on('afterrender', function(win) {
+            const searchField = win.down('#tpop1001_keyword');
+            if (searchField) searchField.setValue(keyword);
+
+            const btn = win.down('#tpop1001_search_btn');
+            if (btn) btn.fireEvent('click', btn);
+        });
+
+        popup.on('selectUser', function(win, record) {
+            const publisher_code_field = form.down('[name=sugeoId]');
+            const publisher_name_field = form.down('[name=sugeoNm]');
+            publisher_code_field.setValue(record.get('userId'));
+            publisher_name_field.setValue(record.get('userNm'));
+
+            // 포커스는 팝업 닫힌 후에 지정
+            Ext.defer(function() {
+                const chulpanNmField = form.down('[name=chulpanNm]');
+                if (chulpanNmField) {
+                    chulpanNmField.focus(false, 100);
+                }
+            }, 150); // 팝업 닫히는 타이밍 이후
+        });
+
+        popup.show();
     },
 
     onButtonClick_form_sujum_search_button: function(button, e, eOpts) {
         let oldPopup = Ext.ComponentQuery.Query('tpop1006')[0];
         if (oldPopup) oldPopup.destroy();
+
+
+        const popup = Ext.create('dream.view.tpop.tpop1006');
 
         const form = this.lookupReference('order_form');
         const chulpan_cd_value = form.down('[name=chulpanCd]').getValue();
@@ -155,43 +300,57 @@ Ext.define('dream.view.tord.tord1002ViewController', {
             Ext.Msg.alert('알림', '출판사를 먼저 선택해주세요.');
             return;
         }
-
         const send_cd = chulpan_cd_value;
         const send_nm = chulpan_name_value;
 
 
-        const popup = Ext.create('dream.view.tpop.tpop1006');
-        const me = this;
+
 
         popup.on('afterrender', function() {
             const searchField = popup.lookupReference('keyword');
             const popup_cd = popup.lookupReference('chulpan_code');
             const popup_nm = popup.lookupReference('chulpan_name');
+            const btn = popup.lookupReference('search_button');
 
-            if (!Ext.isEmpty(sujum_name_value)) {
-                if (searchField) {
-                    searchField.setValue(sujum_name_value);  // 원하는 초기 검색어 값
-                    const btn = popup.lookupReference('search_button');
-                    if (btn) btn.fireEvent('click',btn);
-                }
-            }
-
+            // 출판사 코드/이름 설정
             if (popup_cd && popup_nm) {
                 popup_cd.setValue(send_cd);
                 popup_nm.setValue(send_nm);
             }
+
+            // 검색어 설정 및 자동 검색 실행
+            if (!Ext.isEmpty(sujum_name_value)) {
+                if (searchField && btn) {
+                    searchField.setValue(sujum_name_value);
+                    btn.fireEvent('click', btn);
+                }
+            }
         });
 
-
         popup.on('selectUser', function(win, record) {
-            const publisher_code_field = form.down('[name=sujumCd]');
-            const publisher_name_field = form.down('[name=sujumNm]');
-            publisher_code_field.setValue(record.get('custCd'));
-            publisher_name_field.setValue(record.get('custAbbrNm'));
-            form.down('[name=itemGb]').focus(true, 100);
+            const code_field = form.down('[name=sujumCd]');
+            const name_field = form.down('[name=sujumNm]');
+            const chulgo_field = form.down('[name=chulgoGb]');
+            const baesongId_field = form.down('[name=baesongId]');
+            const baesongNm_field = form.down('[name=baesongNm]');
+
+            code_field.setValue(record.get('custCd'));
+            name_field.setValue(record.get('custAbbrNm'));
+            chulgo_field.setValue(record.get('chulgoGb'));
+            baesongId_field.setValue(record.get('baesongId'));
+            baesongNm_field.setValue(record.get('baesongNm'));
+            // 포커스는 팝업 닫힌 후에 지정
+            Ext.defer(function() {
+                const chulpanNmField = form.down('[name=ordQty]');
+                if (chulpanNmField) {
+                    chulpanNmField.focus(false, 100);
+                }
+            }, 150); // 팝업 닫히는 타이밍 이후
+
         });
 
         popup.show();
+
 
     },
 
@@ -229,15 +388,40 @@ Ext.define('dream.view.tord.tord1002ViewController', {
         });
     },
 
-    onButtonClick_publisher_search_button: function(button, e, eOpts) {
+    onTextfieldAfterRender_chulpanfNm: function(component, eOpts) {
+        const button = this.lookupReference('chulpan_find_button');
+        component.on('specialkey', function(component, e) {
+            if (e.getKey() === e.ENTER) {
+                if (button) {
+                    button.fireEvent('click', button);
+                }
+            }
+        });
+
+
+    },
+
+    onTextfieldChange_chulpanfNm: function(field, newValue, oldValue, eOpts) {
+
+        const form = field.up('form');
+
+        const s_chulpanfNm = form.down('[name=chulpan_find_Nm]').getValue();
+
+        if (Ext.isEmpty(s_chulpanfNm)) {
+            form.down('[name=chulpan_find_Cd]').setValue('');
+        }
+    },
+
+    onButtonClick_chulpan_find_button: function(button, e, eOpts) {
+
         const popup = Ext.create('dream.view.tpop.tpop1003');
         const me = this;
 
         popup.on('selectUser', function(win, record) {
-            const publisher_code_field = me.lookupReference('publisher_code');
-            const publisher_name_field = me.lookupReference('publisher_name');
-            publisher_code_field.setValue(record.get('CUST_CD'));
-            publisher_name_field.setValue(record.get('CUST_NM'));
+            const chulpan_find_Cd_field = me.lookupReference('chulpan_find_Cd');
+            const chulpan_find_Nm_field = me.lookupReference('chulpan_find_Nm');
+            chulpan_find_Cd_field.setValue(record.get('CUST_CD'));
+            chulpan_find_Nm_field.setValue(record.get('CUST_NM'));
         });
 
         popup.show();
@@ -249,25 +433,49 @@ Ext.define('dream.view.tord.tord1002ViewController', {
     },
 
     onButtonClick_bookstore_search_button1: function(button, e, eOpts) {
-        const popup = Ext.create('dream.view.tpop.tpop1003');
+
+        const popup = Ext.create('dream.view.tpop.tpop1003', {
+            listeners: {
+                show: function(win) {
+                    const combo = win.down('#tpop1003_cust_gb');
+                    const store = combo.getStore();
+
+                    if (store.isLoaded()) {
+                        combo.setValue('2');
+                    } else {
+                        store.load({
+                            callback: function() {
+                                combo.setValue('2');
+                            }
+                        });
+                    }
+                }
+            }
+
+        }).show();
+
+
         const me = this;
 
         popup.on('selectUser', function(win, record) {
-            const bookstore_code_field = me.lookupReference('bookstore_code');
-            const bookstore_name_field = me.lookupReference('bookstore_name');
-            bookstore_code_field.setValue(record.get('CUST_CD'));
-            bookstore_name_field.setValue(record.get('CUST_NM'));
+            const sujum_find_Cd_field = me.lookupReference('sujum_find_Cd');
+            const sujum_find_Nm_field = me.lookupReference('sujum_find_Nm');
+
+            sujum_find_Cd_field.setValue(record.get('CUST_CD'));
+            sujum_find_Nm_field.setValue(record.get('CUST_NM'));
         });
 
         popup.show();
+
+
     },
 
     onButtonClick_order_search_button: function(button, e, eOpts) {
         const view = this.getView();
         const frDt = view.lookupReference('frDt').getValue();
         const toDt = view.lookupReference('toDt').getValue();
-        const publisher = view.lookupReference('publisher_code').getValue();
-        const bookstore = view.lookupReference('bookstore_code').getValue();
+        const publisher = view.lookupReference('chulpan_find_Cd').getValue();
+        const bookstore = view.lookupReference('sujum_find_Cd').getValue();
         const orderGrid = view.lookupReference('order_grid');
         const store = orderGrid.getStore();
 
@@ -287,6 +495,9 @@ Ext.define('dream.view.tord.tord1002ViewController', {
     },
 
     onButtonClick_add_button: function(button, e, eOpts) {
+
+
+
         const form = this.lookupReference('order_form');
 
         // 선택된 행 모두 해제
@@ -313,25 +524,46 @@ Ext.define('dream.view.tord.tord1002ViewController', {
             //         timeField.setValue(parsedTime);
             //     }
 
-            const comboDefaults = ['itemGb', 'chulgoGb', 'guljaeGb', 'singanGb'];
+            const date_field = form.down('[name=ordDt]');
+
+            date_field.setValue(new Date());
+
+            const date_field_labelPrtDt = form.down('[name=labelPrtDt]');
+
+            date_field_labelPrtDt.setValue(new Date());
+
+
+            const s_ordInputId = form.down('[name=ordInputId]').getValue();
+
+            if (Ext.isEmpty(s_ordInputId)) {
+                form.down('[name=ordInputId]').setValue('1234');
+            }
+
+
+            const now = new Date();
+            ordRegiTime.setValue(new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0));
+
+            const comboDefaults = ['itemGb', 'chulgoGb', 'guljaeGb', 'singanGb', 'michakGb'];
             comboDefaults.forEach(name => {
                 const field = form.down('[name=' + name + ']');
                 if (field) {
                     field.setValue('01'); // 기본 코드 값 "01"로 설정
                 }
-            });
+                const sugeoNmField = form.down('[name=sugeoNm]');
+                if (sugeoNmField) {
+                    sugeoNmField.focus(true, 200); // 200ms 지연 후 포커스
+                }
+
+
+            }
+
+
+
+            );
 
             ordChkGb.setValue('02');
             ordInputId.setValue(dream.util.Common.LOGIN_USER);
-            ordDt.setValue(new Date());
 
-            const now = new Date();
-            ordRegiTime.setValue(new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0));
-
-            const chulpanNmField = form.down('[name=chulpanNm]');
-            if (chulpanNmField) {
-                chulpanNmField.focus(true, 200); // 200ms 지연 후 포커스
-            }
 
         }
     },

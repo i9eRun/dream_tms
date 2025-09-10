@@ -115,8 +115,6 @@ public class Tord1002Service {
             params.addValue("sujumCd", sujumCd);
         }
 
-        System.out.println(sql.toString());
-
         return jdbc.query(sql.toString(), params, new BeanPropertyRowMapper<>(OrderVO.class));
     }
     

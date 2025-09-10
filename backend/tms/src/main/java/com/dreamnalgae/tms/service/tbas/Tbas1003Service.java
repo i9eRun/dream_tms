@@ -62,8 +62,6 @@ public class Tbas1003Service {
 
         sql.append("ORDER BY T.CUST_CD, T.CUST_NM ");
 
-        System.out.println(sql.toString());
-
         return jdbc.query(sql.toString(), params, new BeanPropertyRowMapper<>(CetListVO.class));
     }
 

@@ -221,8 +221,6 @@ public class LabelService {
             ORDER BY A.ROW_SEQ
             """);
 
-        System.out.println(sql.toString());
-
         return jdbc.query(sql.toString(), params, new BeanPropertyRowMapper<>(TmsDungeMstVO.class));
     }
 

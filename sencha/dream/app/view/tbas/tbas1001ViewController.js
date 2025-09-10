@@ -106,14 +106,6 @@ Ext.define('dream.view.tbas.tbas1001ViewController', {
         }
     },
 
-    onComboboxAfterRender_tbas1001_ordMethodGb: function(component, eOpts) {
-        dream.util.Common.setComboCode(component,184,false);
-    },
-
-    onComboboxAfterRender_tbas1001_ordMethodGbD: function(component, eOpts) {
-        dream.util.Common.setComboCode(component,185,false);
-    },
-
     onComboboxAfterRender_tbas1001_chulgoGb: function(component, eOpts) {
         dream.util.Common.setComboCode(component,173,false);
     },
@@ -144,8 +136,8 @@ Ext.define('dream.view.tbas.tbas1001ViewController', {
         store.load();
     },
 
-    onComboboxAfterRender_tbas1001_mainSale: function(component, eOpts) {
-        dream.util.Common.setFlagCombo(component,"지정","","1");
+    onComboboxAfterRender_tbas1001_magamDd: function(component, eOpts) {
+        dream.util.Common.setComboCode(component,341,false);
     },
 
     onComboboxAfterRender_tbas1001_daepyoNmYn: function(component, eOpts) {
@@ -160,22 +152,38 @@ Ext.define('dream.view.tbas.tbas1001ViewController', {
         dream.util.Common.setComboCode(component,183,true);
     },
 
-    onComboboxAfterRender_tbas1001_magamDd: function(component, eOpts) {
-        dream.util.Common.setComboCode(component,341,false);
+    onComboboxAfterRender_ptlGb: function(component, eOpts) {
+        dream.util.Common.setFlagCombo(component,"사용","","1");
     },
 
-    onTbas1001_charge_emp_search_buttonClick: function(button, e, eOpts) {
-        const popup = Ext.create('dream.view.tpop.tpop1001');
-        const me = this;
-
-        popup.on('selectUser', function(win, record) {
-            const form = me.lookupReference('tbas1001_cust_form');
-
-            form.down('[name=chargeEmpId]').setValue(record.get('userId'));
-            form.down('[name=chargeEmpNm]').setValue(record.get('userNm'));
+    onTextfieldAfterRender_dochaQty: function(component, eOpts) {
+        component.inputEl.on('input', function() {
+            var v = component.getValue() || '';
+            var clean = v.replace(/[^0-9]/g, '');
+            if (v !== clean) {
+                component.setValue(clean);
+            }
         });
+    },
 
-        popup.show();
+    onTextfieldAfterRender_dochaBox: function(component, eOpts) {
+        component.inputEl.on('input', function() {
+            var v = component.getValue() || '';
+            var clean = v.replace(/[^0-9]/g, '');
+            if (v !== clean) {
+                component.setValue(clean);
+            }
+        });
+    },
+
+    onTextfieldAfterRender_dochaAmt: function(component, eOpts) {
+        component.inputEl.on('input', function() {
+            var v = component.getValue() || '';
+            var clean = v.replace(/[^0-9]/g, '');
+            if (v !== clean) {
+                component.setValue(clean);
+            }
+        });
     },
 
     onButtonClick_tbas1001_cus_button: function(button, e, eOpts) {
@@ -187,20 +195,6 @@ Ext.define('dream.view.tbas.tbas1001ViewController', {
 
             form.down('[name=delivPathCd]').setValue(record.get('cusCd'));
             form.down('[name=delivCarNo]').setValue(record.get('cusNm'));
-        });
-
-        popup.show();
-    },
-
-    onButtonClick_tbas1001_cus_express_button: function(button, e, eOpts) {
-        const popup = Ext.create('dream.view.tpop.tpop1005');
-        const me = this;
-
-        popup.on('selectUser', function(win, record) {
-            const form = me.lookupReference('tbas1001_cust_form');
-
-            form.down('[name=expressDelivCarNo]').setValue(record.get('cusNm'));
-            form.down('[name=expressDelivPathCd]').setValue(record.get('cusCd'));
         });
 
         popup.show();
@@ -218,6 +212,34 @@ Ext.define('dream.view.tbas.tbas1001ViewController', {
                 if (addr2) addr2.focus();
             }
         }).open();
+    },
+
+    onButtonClick_tbas1001_addr_search_button1: function(button, e, eOpts) {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                const form = Ext.ComponentQuery.query('form[reference=tbas1001_cust_form]')[0];
+                if (!form) return;
+
+                form.down('[name=postNo]').setValue(data.zonecode);          // 우편번호
+                form.down('[name=addr1]').setValue(data.roadAddress);        // 도로명 주소
+                const addr2 = form.down('[name=addr2]');
+                if (addr2) addr2.focus();
+            }
+        }).open();
+    },
+
+    onTbas1001_charge_emp_search_buttonClick: function(button, e, eOpts) {
+        const popup = Ext.create('dream.view.tpop.tpop1001');
+        const me = this;
+
+        popup.on('selectUser', function(win, record) {
+            const form = me.lookupReference('tbas1001_cust_form');
+
+            form.down('[name=chargeEmpId]').setValue(record.get('userId'));
+            form.down('[name=chargeEmpNm]').setValue(record.get('userNm'));
+        });
+
+        popup.show();
     },
 
     onButtonClick_tbas1001_cust_add_button: function(button, e, eOpts) {
