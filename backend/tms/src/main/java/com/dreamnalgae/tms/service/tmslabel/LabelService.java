@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,11 +21,13 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dreamnalgae.tms.entity.tmslabel.TmsDungeMst;
 import com.dreamnalgae.tms.model.tchu.tchu1001.TmsDungeMstVO;
 import com.dreamnalgae.tms.model.tmslabel.LabelItem;
 import com.dreamnalgae.tms.model.tmslabel.LabelPrintRequest;
 import com.dreamnalgae.tms.model.tmslabel.TmsDungeTransferItem;
 import com.dreamnalgae.tms.model.tmslabel.TmsDungeTransferReq;
+import com.dreamnalgae.tms.repository.tmslabel.TmsDungeMstRepository;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -53,6 +56,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LabelService {
     private final NamedParameterJdbcTemplate jdbc;
+    private final TmsDungeMstRepository repo;
 
     private static volatile BaseFont CACHED_BASE_FONT;
 
@@ -293,108 +297,10 @@ public class LabelService {
         return new BatchResult(updated, failed, successKeys);
     }
 
+    
 
 
-    /*
-    public byte[] buildLabelPdfAndMarkPrinted(LabelPrintRequest req) throws Exception {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-        // 라벨 사이즈 50×30mm
-        float widthPt  = mmToPt(50f);
-        float heightPt = mmToPt(30f);
-        Rectangle pageSize = new Rectangle(widthPt, heightPt);
-
-        Document doc = new Document(pageSize, 6, 6, 6, 6); // 얇은 여백
-        PdfWriter writer = PdfWriter.getInstance(doc, baos);
-        doc.open();
-
-        // 한글 폰트 (경로/파일명은 프로젝트에 맞춰 두세요)
-        BaseFont base = BaseFont.createFont(
-            "src/main/resources/fonts/NanumGothic.ttf",
-            BaseFont.IDENTITY_H,
-            BaseFont.EMBEDDED
-        );
-        Font f10 = new Font(base, 10);
-        Font f9  = new Font(base, 9);
-        PdfContentByte cb = writer.getDirectContent();
-
-        for (LabelItem item : req.getItems()) {
-            for (int c = 0; c < Math.max(1, req.getCopiesPerItem()); c++) {
-                // === Code128 바코드 (OpenPDF) ===
-                Barcode128 code128 = new Barcode128();
-                code128.setCode(item.getOrdNo());
-                code128.setFont(null);
-                Image barcodeImg = code128.createImageWithBarcode(cb, null, null);
-                barcodeImg.scaleToFit(mmToPt(44), mmToPt(10));
-
-                // === QR 코드 (ZXing) ===
-                Image qrImg = createQrImage(item.getOrdNo(), 300, ErrorCorrectionLevel.M, 0);
-                qrImg.scaleToFit(mmToPt(12), mmToPt(12));
-
-                // === 레이아웃 ===
-                PdfPTable table = new PdfPTable(new float[]{ 1f, 0.35f });
-                table.setWidthPercentage(100);
-
-                // 좌측: 바코드 + 거래처 코드/명
-                PdfPTable left = new PdfPTable(1);
-                left.setWidthPercentage(100);
-
-                PdfPCell bcCell = new PdfPCell(barcodeImg, true);
-                bcCell.setBorder(Rectangle.NO_BORDER);
-                bcCell.setPaddingBottom(2);
-                left.addCell(bcCell);
-
-                Phrase p1 = new Phrase(item.getSujumCd() + "  " + safe(item.getSujumNm()), f10);
-                PdfPCell textCell = new PdfPCell(p1);
-                textCell.setBorder(Rectangle.NO_BORDER);
-                textCell.setPaddingTop(0);
-                left.addCell(textCell);
-
-                PdfPCell leftCell = new PdfPCell(left);
-                leftCell.setBorder(Rectangle.NO_BORDER);
-                leftCell.setPaddingRight(4);
-
-                // 우측: QR + ordNo
-                PdfPTable right = new PdfPTable(1);
-                right.setWidthPercentage(100);
-
-                PdfPCell qrCell = new PdfPCell(qrImg, true);
-                qrCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                qrCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                qrCell.setBorder(Rectangle.NO_BORDER);
-                right.addCell(qrCell);
-
-                PdfPCell ordNoCell = new PdfPCell(new Phrase(item.getOrdNo(), f9));
-                ordNoCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                ordNoCell.setBorder(Rectangle.NO_BORDER);
-                ordNoCell.setPaddingTop(1f);
-                right.addCell(ordNoCell);
-
-                PdfPCell rightCell = new PdfPCell(right);
-                rightCell.setBorder(Rectangle.NO_BORDER);
-
-                table.addCell(leftCell);
-                table.addCell(rightCell);
-
-                doc.add(table);
-                doc.newPage();
-            }
-        }
-
-        doc.close();
-
-        // 출력되었다면 OUT_YN=1 업데이트
-        if (req.isUpdateOutYn() && req.getItems() != null && !req.getItems().isEmpty()) {
-            List<Long> ids = req.getItems().stream().map(LabelItem::getRowSeq).toList();
-            markPrinted(ids, req.getUpdateId(), req.getUserCetCd());
-        }
-
-        return baos.toByteArray();
-    }
-*/
-
-
-        /** ZXing으로 QR 생성 → OpenPDF Image 변환 */
+    /** ZXing으로 QR 생성 → OpenPDF Image 변환 */
     private Image createQrImage(String text, int sizePx,
                                 ErrorCorrectionLevel ecLevel, int margin) throws Exception {
         Map<EncodeHintType, Object> hints = Map.of(
@@ -424,141 +330,7 @@ public class LabelService {
 
 
 
-    // 두번째행에 지역명 빠진 버전
-    // public byte[] buildLabelPdfAndMarkPrinted(LabelPrintRequest req) throws Exception {
-    //     if (req.getItems() == null || req.getItems().isEmpty()) {
-    //         throw new IllegalArgumentException("items is empty");
-    //     }
-
-    //     ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-    //     // 라벨 사이즈 50×30mm
-    //     float widthPt  = mmToPt(60f);
-    //     float heightPt = mmToPt(40f);
-    //     Rectangle pageSize = new Rectangle(widthPt, heightPt);
-
-    //     Document doc = new Document(pageSize, 6, 6, 6, 6); // 얇은 여백
-    //     PdfWriter writer = PdfWriter.getInstance(doc, baos);
-    //     doc.open();
-
-    //     // 한글 폰트 (classpath:/fonts/NanumGothic.ttf) - byte[] 로딩 캐시 사용
-    //     BaseFont base = loadBaseFontCached();
-    //     Font f12b = new Font(base, 12, Font.BOLD);
-    //     Font f11b = new Font(base, 11, Font.BOLD);
-    //     Font f10  = new Font(base, 10);
-
-    //     PdfContentByte cb = writer.getDirectContent();
-
-    //     // 전체 라벨 매수(페이지 수) 계산
-    //     int totalLabels = 0;
-    //     for (LabelItem li : req.getItems()) {
-    //         int copies = (li.getDunge() == null || li.getDunge() < 1) ? 1 : li.getDunge();
-    //         totalLabels += copies;
-    //     }
-
-    //     int printed = 0;
-
-    //     for (LabelItem item : req.getItems()) {
-    //         int copies = (item.getDunge() == null || item.getDunge() < 1) ? 1 : item.getDunge();
-
-    //         for (int c = 0; c < copies; c++) {
-    //             // ── 바코드 (짧게) ─────────────────────────────────────
-    //             Barcode128 code128 = new Barcode128();
-    //             code128.setCode(item.getOrdNo());
-    //             code128.setCodeType(Barcode128.CODE128);
-    //             code128.setFont(null);                 // 숫자 숨김
-    //             code128.setBarHeight(mmToPt(8));       // 높이 낮춤 = 더 짧게
-    //             code128.setX(0.75f);                   // 막대 폭(가로 길이도 함께 단축)
-
-    //             Image barcodeImg = code128.createImageWithBarcode(cb, null, null);
-    //             // 좌측 하단 영역에 깔끔히 들어가도록 최대 크기 제한
-    //             barcodeImg.scaleToFit(mmToPt(28), mmToPt(10));
-
-    //             // ── 메인 2열 테이블 (오른쪽 넓게) ─────────────────────
-    //             PdfPTable table = new PdfPTable(new float[]{ 0.60f, 0.40f }); // 좌:60% / 우:40%
-    //             table.setWidthPercentage(100);
-    //             table.setKeepTogether(true);  // 라벨 분할 금지
-    //             table.setSplitRows(false);
-    //             table.setSplitLate(false);
-    //             table.getDefaultCell().setBorder(Rectangle.NO_BORDER);
-
-    //             // 1행: 서점명 | 코스번호
-    //             PdfPCell sujumCell = new PdfPCell(new Phrase(safe(item.getSujumNm()), f12b));
-    //             sujumCell.setBorder(Rectangle.NO_BORDER);
-    //             sujumCell.setHorizontalAlignment(Element.ALIGN_LEFT);
-    //             sujumCell.setPaddingBottom(2f);
-
-    //             String courseText = (item.getCourseCd() == null) ? "" : String.valueOf(item.getCourseCd());
-    //             PdfPCell courseCell = new PdfPCell(new Phrase(courseText, f12b));
-    //             courseCell.setBorder(Rectangle.NO_BORDER);
-    //             courseCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-    //             courseCell.setPaddingBottom(2f);
-
-    //             table.addCell(sujumCell);
-    //             table.addCell(courseCell);
-
-    //             // 2행: 덩이 | 수량
-    //             String dungeText = (item.getDunge() == null) ? "" : String.valueOf(item.getDunge());
-    //             PdfPCell dungeCell = new PdfPCell(new Phrase(dungeText, f11b));
-    //             dungeCell.setBorder(Rectangle.NO_BORDER);
-    //             dungeCell.setHorizontalAlignment(Element.ALIGN_LEFT);
-    //             dungeCell.setPaddingBottom(2f);
-
-    //             String qtyText = (item.getQty() == null) ? "" : String.valueOf(item.getQty());
-    //             PdfPCell qtyCell = new PdfPCell(new Phrase(qtyText, f11b));
-    //             qtyCell.setBorder(Rectangle.NO_BORDER);
-    //             qtyCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-    //             qtyCell.setPaddingBottom(2f);
-
-    //             table.addCell(dungeCell);
-    //             table.addCell(qtyCell);
-
-    //             // 3행: 바코드 | 거래처명
-    //             PdfPCell barcodeCell = new PdfPCell(barcodeImg, true);
-    //             barcodeCell.setBorder(Rectangle.NO_BORDER);
-    //             barcodeCell.setVerticalAlignment(Element.ALIGN_BOTTOM);
-    //             barcodeCell.setPaddingTop(2f);
-
-    //             PdfPCell chulCell = new PdfPCell(new Phrase(safe(item.getChulpanNm()), f10)); // DTO 필드명 chulNm 기준
-    //             chulCell.setBorder(Rectangle.NO_BORDER);
-    //             chulCell.setHorizontalAlignment(Element.ALIGN_LEFT);
-    //             chulCell.setVerticalAlignment(Element.ALIGN_BOTTOM);
-    //             chulCell.setPaddingTop(2f);
-    //             chulCell.setNoWrap(false); // 길면 줄바꿈 허용
-
-    //             table.addCell(barcodeCell);
-    //             table.addCell(chulCell);
-
-    //             // 라벨 1장 추가
-    //             doc.add(table);
-
-    //             printed++;
-    //             if (printed < totalLabels) {
-    //                 doc.newPage(); // 마지막 장 뒤에는 페이지 넘기지 않음
-    //             }
-    //         }
-    //     }
-
-    //     doc.close();
-
-    //     // OUT_YN=1 업데이트
-    //     if (req.isUpdateOutYn()) {
-    //         List<Long> ids = new ArrayList<>();
-    //         for (LabelItem li : req.getItems()) {
-    //             if (li.getRowSeq() != null) ids.add(li.getRowSeq());
-    //         }
-    //         if (!ids.isEmpty()) {
-    //             markPrinted(ids, req.getUpdateId(), req.getUserCetCd());
-    //         }
-    //     }
-
-    //     return baos.toByteArray();
-    // }
-
-
-
-
-
+    
     public byte[] buildLabelPdfAndMarkPrinted(LabelPrintRequest req) throws Exception {
         if (req.getItems() == null || req.getItems().isEmpty()) {
             throw new IllegalArgumentException("items is empty");
@@ -742,6 +514,60 @@ public class LabelService {
         Map<String, Object> params = Map.of("custCd", custCd, "userCetCd", userCetCd);
         return jdbc.queryForObject(sql, params, String.class);
     }
+
+
+
+    @Transactional
+    public void saveAll(List<TmsDungeMst> insertList,
+                        List<TmsDungeMst> updateList,
+                        List<TmsDungeMst> deleteList,
+                        String insertId,
+                        String userCetCd,
+                        String loginCustDivGb,
+                        String loginCustName,
+                        String loginCustCd) {
+
+        if (insertList != null) {
+            for (TmsDungeMst vo : insertList) {
+                vo.setUserCetCd(userCetCd);
+                vo.setInsertId(insertId);
+
+                // 주문번호 생성
+                if (vo.getOrdNo() == null || vo.getOrdNo().isEmpty()) {
+                    String newOrdNo = repo.generateOrderNumber(insertId);
+                    if (newOrdNo == null) {
+                        throw new IllegalStateException("주문번호 생성 실패");
+                    }
+                    vo.setOrdNo(newOrdNo);
+                }
+
+                // 출판사 로그인인 경우 CHULPAN_CD 자동 세팅
+                if ("1".equals(loginCustDivGb)) {
+                    vo.setChulpanCd(loginCustCd);
+                    vo.setChulNm(loginCustName);
+                }
+
+                repo.insert(vo);
+            }
+        }
+
+        // UPDATE
+        if (updateList != null) {
+            for (TmsDungeMst vo : updateList) {
+                vo.setUserCetCd(userCetCd);
+                vo.setUpdateId(insertId);
+                repo.update(vo);
+            }
+        }
+
+        // DELETE
+        if (deleteList != null) {
+            for (TmsDungeMst vo : deleteList) {
+                repo.delete(userCetCd, vo.getRowSeq());
+            }
+        }
+    }
+
 
 
 

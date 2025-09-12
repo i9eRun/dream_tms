@@ -24,7 +24,7 @@ Ext.define('dream.view.tord.tord1001', {
         'Ext.form.field.Date',
         'Ext.form.field.ComboBox',
         'Ext.grid.Panel',
-        'Ext.grid.column.Column',
+        'Ext.grid.column.RowNumberer',
         'Ext.button.Button'
     ],
 
@@ -95,7 +95,7 @@ Ext.define('dream.view.tord.tord1001', {
             store: 'tord.tord1001.excel',
             columns: [
                 {
-                    xtype: 'gridcolumn',
+                    xtype: 'rownumberer',
                     width: 40,
                     text: 'NO'
                 },

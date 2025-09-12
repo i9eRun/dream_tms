@@ -178,6 +178,15 @@ Ext.define('TmsLabel.view.popup.cust', {
                 },
                 {
                     xtype: 'gridcolumn',
+                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        return TmsLabel.util.Common.createCodeRenderer('173',value);
+                    },
+                    width: 80,
+                    dataIndex: 'CHULGO_GB',
+                    text: '출고구분'
+                },
+                {
+                    xtype: 'gridcolumn',
                     dataIndex: 'BIGO',
                     text: '비고사항'
                 },
@@ -193,6 +202,9 @@ Ext.define('TmsLabel.view.popup.cust', {
                 rowkeydown: 'onGridpanelRowkeydown_teset123'
             }
         }
-    ]
+    ],
+    listeners: {
+        beforerender: 'onWindowBeforeRender_cust_panel'
+    }
 
 });

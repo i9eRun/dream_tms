@@ -761,6 +761,334 @@
                                                     "designerId": "d38408eb-8517-441a-bb4b-f3e7231b5f21"
                                                 }
                                             ]
+                                        },
+                                        {
+                                            "type": "Ext.button.Button",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "reference": "reset_button",
+                                                "text": "초기화",
+                                                "width": 100
+                                            },
+                                            "configAlternates": {
+                                                "reference": "string",
+                                                "text": "string",
+                                                "width": "auto"
+                                            },
+                                            "name": "MyButton10",
+                                            "designerId": "7890ba6f-6d02-44f0-b5d1-a913bcfe9b2d",
+                                            "cn": [
+                                                {
+                                                    "type": "viewcontrollereventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onButtonAfterRender_reset_button",
+                                                        "implHandler": [
+                                                            "if (TmsLabel.util.Common.LOGIN_USER === 'dream') component.hide();"
+                                                        ],
+                                                        "name": "afterrender",
+                                                        "scope": "me"
+                                                    },
+                                                    "configAlternates": {
+                                                        "fn": "string",
+                                                        "implHandler": "code",
+                                                        "name": "string",
+                                                        "scope": "string"
+                                                    },
+                                                    "name": "onButtonAfterRender_reset_button",
+                                                    "designerId": "d18df5e8-33cc-4d20-8578-b6fa45924139"
+                                                },
+                                                {
+                                                    "type": "viewcontrollereventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onButtonClick_reset_button",
+                                                        "implHandler": [
+                                                            "// const grid = this.lookupReference('list_grid');",
+                                                            "// const store = grid.getStore();",
+                                                            "",
+                                                            "// store.removeAll();",
+                                                            "",
+                                                            "// const newRec = store.add({",
+                                                            "//     dunge:1,",
+                                                            "//     transGb: '0',",
+                                                            "//     outYn: '0'",
+                                                            "// })[0];",
+                                                            "",
+                                                            "// const col = grid.getColumnManager().getColumns().find(c => c.dataIndex === 'sujumCd');",
+                                                            "",
+                                                            "// const plugin = grid.findPlugin('cellediting');",
+                                                            "",
+                                                            "// if (plugin && newRec && col) {",
+                                                            "//     plugin.startEdit(newRec, col);",
+                                                            "// }",
+                                                            "",
+                                                            "",
+                                                            "",
+                                                            "",
+                                                            "const login_cust_cd = TmsLabel.util.Common.LOGIN_CUST_CD;",
+                                                            "if (Ext.isEmpty(login_cust_cd)) return;",
+                                                            "",
+                                                            "const grid = this.lookupReference('list_grid');",
+                                                            "const store = grid.getStore();",
+                                                            "const choose_date = this.lookupReference('choose_date').getSubmitValue();",
+                                                            "const chulgo_gb = this.lookupReference('chulgo_gb').getValue();",
+                                                            "const chulpan_code = this.lookupReference('chulpan_code').getValue();",
+                                                            "const chulpan_name = this.lookupReference('chulpan_name').getValue();",
+                                                            "",
+                                                            "",
+                                                            "// 날짜 유효성 체크 (오늘 이전이면 경고 후 중단)",
+                                                            "const today = Ext.Date.format(new Date(), 'Ymd');",
+                                                            "if (choose_date < today) {",
+                                                            "    Ext.Msg.alert('경고', '오늘 이전 날짜에는 새로운 데이터를 입력할 수 없습니다.');",
+                                                            "    return;",
+                                                            "}",
+                                                            "",
+                                                            "// 조회 조건 세팅",
+                                                            "if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '1') {",
+                                                            "    store.getProxy().setExtraParams({",
+                                                            "        userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,",
+                                                            "        chooseDate: choose_date,",
+                                                            "        chulpanCd: login_cust_cd,",
+                                                            "        chulgoGb: chulgo_gb",
+                                                            "    });",
+                                                            "} else if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '10') {",
+                                                            "    if (Ext.isEmpty(chulpan_code)) {",
+                                                            "        Ext.Msg.alert('알림', '데이터를 입력할 출판사를 선택해주세요.');",
+                                                            "        return;",
+                                                            "    }",
+                                                            "    store.getProxy().setExtraParams({",
+                                                            "        userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,",
+                                                            "        chooseDate: choose_date,",
+                                                            "        cetCd: login_cust_cd,",
+                                                            "        chulgoGb: chulgo_gb,",
+                                                            "        chulpanCd: chulpan_code",
+                                                            "    });",
+                                                            "}",
+                                                            "",
+                                                            "",
+                                                            "// 스토어 리로드 + 새행 추가",
+                                                            "store.load({",
+                                                            "    callback: function (recs, op, success) {",
+                                                            "        if (success) {",
+                                                            "            // 새 행 생성",
+                                                            "            let newRec;",
+                                                            "            if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '1') {",
+                                                            "                newRec = Ext.create('TmsLabel.model.TMS_DUNGE_MST', {",
+                                                            "                    userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,",
+                                                            "                        dunge: 1,",
+                                                            "                        dungeDt: choose_date,",
+                                                            "                        outYn: '0',",
+                                                            "                        transGb: '0'",
+                                                            "                });",
+                                                            "            } else if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '10') {",
+                                                            "                newRec = Ext.create('TmsLabel.model.TMS_DUNGE_MST', {",
+                                                            "                    userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,",
+                                                            "                    chulpanCd: chulpan_code,",
+                                                            "                    chulNm: chulpan_name,",
+                                                            "                        dunge: 1,",
+                                                            "                        dungeDt: choose_date,",
+                                                            "                        outYn: '0',",
+                                                            "                        transGb: '0'",
+                                                            "                });",
+                                                            "            }",
+                                                            "",
+                                                            "",
+                                                            "",
+                                                            "            // 마지막에 추가",
+                                                            "            store.insert(store.getCount(), newRec);",
+                                                            "            const plugin = grid.findPlugin('cellediting');",
+                                                            "            const sujumCol = grid.getColumnManager().getColumns().find( c => c.dataIndex === 'sujumCd');",
+                                                            "            if (plugin && sujumCol) {",
+                                                            "                Ext.defer( () => {",
+                                                            "                    plugin.startEdit(newRec, sujumCol);",
+                                                            "                }, 100);",
+                                                            "            }",
+                                                            "",
+                                                            "        }",
+                                                            "    }",
+                                                            "});",
+                                                            "",
+                                                            "",
+                                                            "",
+                                                            "",
+                                                            ""
+                                                        ],
+                                                        "name": "click",
+                                                        "scope": "me"
+                                                    },
+                                                    "configAlternates": {
+                                                        "fn": "string",
+                                                        "name": "string",
+                                                        "scope": "string",
+                                                        "implHandler": "code"
+                                                    },
+                                                    "name": "onButtonClick_reset_button",
+                                                    "designerId": "ebc026db-2cd4-4410-95ee-177a76e9ab3d"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "Ext.button.Button",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "reference": "save_button",
+                                                "text": "저장",
+                                                "width": 100
+                                            },
+                                            "configAlternates": {
+                                                "reference": "string",
+                                                "text": "string",
+                                                "width": "auto"
+                                            },
+                                            "name": "MyButton11",
+                                            "designerId": "6bdc3c7f-a914-4bd2-b525-efde51fc28e0",
+                                            "cn": [
+                                                {
+                                                    "type": "viewcontrollereventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onButtonAfterRender_save_button",
+                                                        "implHandler": [
+                                                            "if (TmsLabel.util.Common.LOGIN_USER === 'dream') component.hide();"
+                                                        ],
+                                                        "name": "afterrender",
+                                                        "scope": "me"
+                                                    },
+                                                    "configAlternates": {
+                                                        "fn": "string",
+                                                        "implHandler": "code",
+                                                        "name": "string",
+                                                        "scope": "string"
+                                                    },
+                                                    "name": "onButtonAfterRender_save_button",
+                                                    "designerId": "569188f5-dc4d-4c5a-9bb7-e558f6903837"
+                                                },
+                                                {
+                                                    "type": "viewcontrollereventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onButtonClick_save_button",
+                                                        "implHandler": [
+                                                            "const grid = this.lookupReference('list_grid');",
+                                                            "const store = grid.getStore();",
+                                                            "",
+                                                            "// 상단 날짜 필드 값 가져오기",
+                                                            "const chooseDateCmp = this.lookupReference('choose_date');",
+                                                            "const chooseDate = chooseDateCmp ? chooseDateCmp.getSubmitValue() : null;",
+                                                            "",
+                                                            "const newRecs = store.getNewRecords();",
+                                                            "const updated = store.getUpdatedRecords();",
+                                                            "const removed = store.getRemovedRecords();",
+                                                            "",
+                                                            "const data = {",
+                                                            "    insertId: TmsLabel.util.Common.LOGIN_USER,",
+                                                            "    userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,",
+                                                            "    loginCustDivGb: TmsLabel.util.Common.LOGIN_CUST_DIV_GB, // 로그인 구분값",
+                                                            "    loginCustName: TmsLabel.util.Common.LOGIN_CUST_NAME,",
+                                                            "    loginCustCd: TmsLabel.util.Common.LOGIN_CUST_CD,      // 로그인 출판사 코드",
+                                                            "    insertList: [],",
+                                                            "    updateList: [],",
+                                                            "    deleteList: []",
+                                                            "};",
+                                                            "",
+                                                            "// 추가 + 수정",
+                                                            "Ext.Array.each(newRecs.concat(updated), function (rec) {",
+                                                            "    const qty = rec.get('qty');",
+                                                            "    const dunge = rec.get('dunge');",
+                                                            "",
+                                                            "    if (!Ext.isEmpty(qty) && !Ext.isEmpty(dunge)) {",
+                                                            "        const rowData = Ext.apply({}, rec.getData()); // 얕은 복사",
+                                                            "",
+                                                            "        // 공통 필드 보정 (PK 및 감사정보)",
+                                                            "        rowData.userCetCd = TmsLabel.util.Common.LOGIN_USER_CET_CD;",
+                                                            "        rowData.insertId = TmsLabel.util.Common.LOGIN_USER_ID;",
+                                                            "",
+                                                            "        // 신규행일 경우 DUNGE_DT 세팅",
+                                                            "        if (rec.phantom && chooseDate) {",
+                                                            "            rowData.dungeDt = chooseDate;",
+                                                            "        }",
+                                                            "",
+                                                            "        if (rec.phantom) {",
+                                                            "            data.insertList.push(rowData);",
+                                                            "        } else {",
+                                                            "            data.updateList.push(rowData);",
+                                                            "        }",
+                                                            "    }",
+                                                            "});",
+                                                            "",
+                                                            "// 삭제행 처리 (PK만 보내도 됨, 하지만 전체 데이터 보내도 무방)",
+                                                            "Ext.Array.each(removed, function (rec) {",
+                                                            "    const rowData = Ext.apply({}, rec.getData());",
+                                                            "    rowData.userCetCd = TmsLabel.util.Common.LOGIN_USER_CET_CD;",
+                                                            "    data.deleteList.push(rowData);",
+                                                            "});",
+                                                            "",
+                                                            "// 저장할 데이터 없으면 중단",
+                                                            "if (data.insertList.length === 0 &&",
+                                                            "    data.updateList.length === 0 &&",
+                                                            "    data.deleteList.length === 0) {",
+                                                            "    Ext.Msg.alert('알림', '저장할 데이터가 없습니다.');",
+                                                            "    return;",
+                                                            "}",
+                                                            "",
+                                                            "// 서버 호출",
+                                                            "Ext.Msg.confirm('확인', '저장하시겠습니까?', function(btn) {",
+                                                            "    if (btn !== 'yes') return; // '아니오' 선택 시 중단",
+                                                            "",
+                                                            "    // 서버 호출",
+                                                            "    Ext.Ajax.request({",
+                                                            "        url: TmsLabel.util.Common.BASE_URL + '/tmslabel/save',",
+                                                            "        method: 'POST',",
+                                                            "        jsonData: data,",
+                                                            "        success: function () {",
+                                                            "            Ext.Msg.alert('성공', '저장이 완료되었습니다.');",
+                                                            "            store.commitChanges();",
+                                                            "            store.reload();",
+                                                            "        },",
+                                                            "        failure: function () {",
+                                                            "            Ext.Msg.alert('실패', '저장 중 오류가 발생했습니다.');",
+                                                            "        }",
+                                                            "    });",
+                                                            "});"
+                                                        ],
+                                                        "name": "click",
+                                                        "scope": "me"
+                                                    },
+                                                    "configAlternates": {
+                                                        "fn": "string",
+                                                        "name": "string",
+                                                        "scope": "string",
+                                                        "implHandler": "code"
+                                                    },
+                                                    "name": "onButtonClick_save_button",
+                                                    "designerId": "b168bbcc-d02a-40df-98d2-133e99db0634"
+                                                }
+                                            ]
                                         }
                                     ]
                                 },
@@ -863,7 +1191,13 @@
                                                     "userConfig": {
                                                         "fn": "onTextfieldAfterRender_chulpan_name",
                                                         "implHandler": [
-                                                            "if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '1' || TmsLabel.util.Common.LOGIN_USER === 'dream') component.hide();"
+                                                            "if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '1' || TmsLabel.util.Common.LOGIN_USER === 'dream') {",
+                                                            "    component.hide();",
+                                                            "    return;",
+                                                            "}",
+                                                            "",
+                                                            "",
+                                                            ""
                                                         ],
                                                         "name": "afterrender",
                                                         "scope": "me"
@@ -876,6 +1210,33 @@
                                                     },
                                                     "name": "onTextfieldAfterRender_chulpan_name",
                                                     "designerId": "7d10821a-00ed-45f9-a20d-931b743cce9b"
+                                                },
+                                                {
+                                                    "type": "viewcontrollereventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onTextfieldSpecialkey_chulpan_name",
+                                                        "implHandler": [
+                                                            "const button = this.lookupReference('chulpan_search_button');",
+                                                            "if (e.getKey() === e.ENTER) {",
+                                                            "    if (button) button.fireEvent('click', button);",
+                                                            "}"
+                                                        ],
+                                                        "name": "specialkey",
+                                                        "scope": "me"
+                                                    },
+                                                    "configAlternates": {
+                                                        "fn": "string",
+                                                        "implHandler": "code",
+                                                        "name": "string",
+                                                        "scope": "string"
+                                                    },
+                                                    "name": "onTextfieldSpecialkey_chulpan_name",
+                                                    "designerId": "dcb275d8-439a-4d88-bf14-6e99bc46f88f"
                                                 }
                                             ]
                                         },
@@ -937,6 +1298,17 @@
                                                         "implHandler": [
                                                             "const popup = Ext.create('TmsLabel.view.popup.cust');",
                                                             "const me = this;",
+                                                            "const keyword = this.lookupReference('chulpan_name').getValue();",
+                                                            "",
+                                                            "popup.on('afterrender', function(win) {",
+                                                            "    if (!Ext.isEmpty(keyword)) {",
+                                                            "        const searchField = win.lookupReference('search_keyword');",
+                                                            "        if (searchField) searchField.setValue(keyword);",
+                                                            "",
+                                                            "        const btn = win.lookupReference('search_button');",
+                                                            "        if (btn) btn.fireEvent('click', btn);",
+                                                            "    }",
+                                                            "});",
                                                             "",
                                                             "popup.on('selectRow', function(win, record) {",
                                                             "    const form = me.lookupReference('list_grid');",
@@ -949,8 +1321,6 @@
                                                             "});",
                                                             "",
                                                             "popup.show();",
-                                                            "",
-                                                            "",
                                                             ""
                                                         ],
                                                         "name": "click",
@@ -1052,8 +1422,8 @@
                                                             "}",
                                                             "",
                                                             "const store = grid.getStore();",
-                                                            "",
                                                             "const rec = grid.getSelection()[0];",
+                                                            "",
                                                             "if (!rec) {",
                                                             "    Ext.Msg.alert('알림', '삭제할 행을 선택하세요.');",
                                                             "    return;",
@@ -1068,28 +1438,10 @@
                                                             "Ext.Msg.confirm('확인', '선택된 데이터를 삭제하시겠습니까?', function (btn) {",
                                                             "    if (btn !== 'yes') return;",
                                                             "",
-                                                            "    Ext.Ajax.request({",
-                                                            "        url: TmsLabel.util.Common.BASE_URL + '/tmslabel/delete',",
-                                                            "        method: 'DELETE', // 서버가 DELETE+body를 막으면 POST 사용",
-                                                            "        jsonData: {",
-                                                            "            userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,",
-                                                            "            rowSeq   : rec.get('rowSeq'),",
-                                                            "            ordNo    : rec.get('ordNo')",
-                                                            "        },",
-                                                            "        success: function () {",
-                                                            "            Ext.toast('삭제되었습니다.');",
-                                                            "            store.reload();",
-                                                            "        },",
-                                                            "        failure: function () {",
-                                                            "            Ext.Msg.alert('오류', '삭제 중 오류가 발생했습니다.');",
-                                                            "        }",
-                                                            "    });",
+                                                            "    store.remove(rec);",
                                                             "",
-                                                            "});",
-                                                            "",
-                                                            "",
-                                                            "",
-                                                            ""
+                                                            "    Ext.toast('삭제 행이 저장 목록에 추가되었습니다. \"저장\"을 눌러야 최종 반영됩니다.');",
+                                                            "});"
                                                         ],
                                                         "name": "click",
                                                         "scope": "me"
@@ -1181,7 +1533,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "dataIndex": "chulpanNm",
+                                        "dataIndex": "chulNm",
                                         "text": "출판사명",
                                         "width": 200
                                     },
@@ -1216,6 +1568,16 @@
                                             },
                                             "name": "onGridcolumnAfterRender_grid_col_chulpanNm",
                                             "designerId": "09ea1ba4-b410-45db-9670-c2bbe36911d0"
+                                        },
+                                        {
+                                            "type": "Ext.form.field.Text",
+                                            "reference": {
+                                                "name": "editor",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "name": "MyTextField5",
+                                            "designerId": "36e8e107-fb6e-4b37-afeb-85604594de62"
                                         }
                                     ]
                                 },
@@ -1235,7 +1597,143 @@
                                         "dataIndex": "datafield"
                                     },
                                     "name": "MyColumn8",
-                                    "designerId": "c1783f99-e9ab-479f-81cb-7d7bb40cf6da"
+                                    "designerId": "c1783f99-e9ab-479f-81cb-7d7bb40cf6da",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.form.field.Text",
+                                            "reference": {
+                                                "name": "editor",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "name": "MyTextField4",
+                                            "designerId": "df748316-43b5-42cd-b99d-3d81efbc2825",
+                                            "cn": [
+                                                {
+                                                    "type": "viewcontrollereventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onTextfieldSpecialkey_sujum_cd",
+                                                        "implHandler": [
+                                                            "const me = this;",
+                                                            "",
+                                                            "if (e.getKey() === e.ENTER) {",
+                                                            "    const keyword = field.getValue();",
+                                                            "",
+                                                            "    // 기존 팝업이 열려있으면 제거",
+                                                            "    const oldPopup = Ext.ComponentQuery.query('window[tmsPopupType=cust]')[0];",
+                                                            "    if (oldPopup) {",
+                                                            "        oldPopup.close(); // close()가 destroy까지 처리됨",
+                                                            "    }",
+                                                            "",
+                                                            "    // 새 팝업 생성",
+                                                            "    const popup = Ext.create('TmsLabel.view.popup.cust', {",
+                                                            "        tmsPopupType: 'cust'   // 식별용 custom 속성",
+                                                            "    });",
+                                                            "",
+                                                            "    popup.on('afterrender', function(win) {",
+                                                            "        const custGbField = win.lookupReference('cust_gb');",
+                                                            "        if (custGbField) {",
+                                                            "            custGbField.getStore().on('load', function () {",
+                                                            "                custGbField.setValue('2');",
+                                                            "            }, { single:true });",
+                                                            "        }",
+                                                            "",
+                                                            "        if (!Ext.isEmpty(keyword)) {",
+                                                            "            const searchField = win.lookupReference('search_keyword');",
+                                                            "            if (searchField) searchField.setValue(keyword);",
+                                                            "",
+                                                            "            const btn = win.lookupReference('search_button');",
+                                                            "            if (btn) {",
+                                                            "                btn.fireEvent('click', btn);",
+                                                            "",
+                                                            "                const grid = win.lookupReference('list_grid');",
+                                                            "                if (grid) {",
+                                                            "                    const store = grid.getStore();",
+                                                            "",
+                                                            "                    // 안전한 handler 정의",
+                                                            "                    const onStoreLoad = function(st, recs) {",
+                                                            "                        if (!win.isDestroyed && grid && grid.rendered && recs && recs.length > 0) {",
+                                                            "                            grid.getSelectionModel().select(0);",
+                                                            "                            const view = grid.getView();",
+                                                            "                            if (view) {",
+                                                            "                                Ext.defer(() => {",
+                                                            "                                    if (!win.isDestroyed && view.el) {",
+                                                            "                                        view.focusRow(0);",
+                                                            "                                    }",
+                                                            "                                }, 50);",
+                                                            "                            }",
+                                                            "                        }",
+                                                            "                    };",
+                                                            "",
+                                                            "                    store.on('load', onStoreLoad, { single: true });",
+                                                            "",
+                                                            "                    // 팝업 닫힐 때 이벤트 해제",
+                                                            "                    win.on('close', function() {",
+                                                            "                        store.un('load', onStoreLoad);",
+                                                            "                    });",
+                                                            "                }",
+                                                            "            }",
+                                                            "        }",
+                                                            "    });",
+                                                            "",
+                                                            "",
+                                                            "    popup.on('selectRow', function(win, record) {",
+                                                            "        const grid = me.lookupReference('list_grid');",
+                                                            "        const plugin = grid.findPlugin('cellediting');",
+                                                            "",
+                                                            "        // 현재 편집중이던 레코드",
+                                                            "        const editingRec = plugin.context ? plugin.context.record : null;",
+                                                            "",
+                                                            "        if (editingRec) {",
+                                                            "            // 팝업에서 가져온 데이터를 현재 그리드 로우에 세팅",
+                                                            "            editingRec.set('sujumCd', record.get('CUST_CD'));",
+                                                            "            editingRec.set('courseCd', record.get('DELIV_PATH_CD'));",
+                                                            "            editingRec.set('jiyukNm', record.get('JIYUK_NM'));",
+                                                            "            editingRec.set('sujumNm', record.get('CUST_NM'));",
+                                                            "            editingRec.set('chulgoGb', record.get('CHULGO_GB'));",
+                                                            "            if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '10') {",
+                                                            "                editingRec.set('cetCd', TmsLabel.util.Common.LOGIN_CUST_CD);",
+                                                            "            }",
+                                                            "",
+                                                            "            // qty(부수) 컬럼으로 편집가능한 상태로 이동",
+                                                            "            const qtyCol = grid.getColumnManager().getColumns().find(c => c.dataIndex === 'qty');",
+                                                            "",
+                                                            "            if (qtyCol) {",
+                                                            "                Ext.defer( () => {",
+                                                            "                    plugin.startEdit(editingRec, qtyCol);",
+                                                            "                }, 50);",
+                                                            "            }",
+                                                            "",
+                                                            "        }",
+                                                            "",
+                                                            "        win.close(); // 팝업 닫기",
+                                                            "",
+                                                            "    });",
+                                                            "",
+                                                            "    popup.show();",
+                                                            "}",
+                                                            ""
+                                                        ],
+                                                        "name": "specialkey",
+                                                        "scope": "me"
+                                                    },
+                                                    "configAlternates": {
+                                                        "fn": "string",
+                                                        "implHandler": "code",
+                                                        "name": "string",
+                                                        "scope": "string"
+                                                    },
+                                                    "name": "onTextfieldSpecialkey_sujum_cd",
+                                                    "designerId": "26d49cf4-0944-485f-92b1-69ea37efed71"
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.grid.column.Column",
@@ -1293,7 +1791,68 @@
                                         "dataIndex": "datafield"
                                     },
                                     "name": "MyColumn5",
-                                    "designerId": "9555f899-78ec-406a-bbba-52d2a8d9128b"
+                                    "designerId": "9555f899-78ec-406a-bbba-52d2a8d9128b",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.form.field.Number",
+                                            "reference": {
+                                                "name": "editor",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "allowDecimals": false,
+                                                "minValue": 0
+                                            },
+                                            "configAlternates": {
+                                                "allowDecimals": "boolean",
+                                                "minValue": "number"
+                                            },
+                                            "name": "MyNumberField",
+                                            "designerId": "edeb11c6-59fb-4a91-b5df-d821debe3a83",
+                                            "cn": [
+                                                {
+                                                    "type": "viewcontrollereventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onTextfieldSpecialkey_qty",
+                                                        "implHandler": [
+                                                            "const grid   = this.lookupReference('list_grid');",
+                                                            "const plugin = grid.findPlugin('cellediting');",
+                                                            "const record = field.getWidgetRecord ? field.getWidgetRecord() : plugin.context.record;",
+                                                            "if (e.getKey() === Ext.EventObject.ENTER || e.getKey() === Ext.EventObject.TAB) {",
+                                                            "    if (!record) return;",
+                                                            "",
+                                                            "    // \"dunge\" 컬럼을 찾아서 바로 편집 시작",
+                                                            "    const dungeCol = grid.down('gridcolumn[dataIndex=dunge]');",
+                                                            "    if (dungeCol) {",
+                                                            "        plugin.completeEdit(); // 현재 에디트 확실히 종료",
+                                                            "        // 딜레이를 주고 실행해야 확실하게 편집모드 진입",
+                                                            "        Ext.defer(function() {",
+                                                            "            plugin.startEdit(record, dungeCol);",
+                                                            "        }, 50);",
+                                                            "    }",
+                                                            "}"
+                                                        ],
+                                                        "name": "specialkey",
+                                                        "scope": "me"
+                                                    },
+                                                    "configAlternates": {
+                                                        "fn": "string",
+                                                        "implHandler": "code",
+                                                        "name": "string",
+                                                        "scope": "string"
+                                                    },
+                                                    "name": "onTextfieldSpecialkey_qty",
+                                                    "designerId": "379976b1-12e2-41f6-aac7-dcc5c877935a"
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.grid.column.Column",
@@ -1311,7 +1870,176 @@
                                         "dataIndex": "datafield"
                                     },
                                     "name": "MyColumn4",
-                                    "designerId": "acabc56e-6994-4615-93e7-fdbfa95ea61d"
+                                    "designerId": "acabc56e-6994-4615-93e7-fdbfa95ea61d",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.form.field.Number",
+                                            "reference": {
+                                                "name": "editor",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "allowDecimals": false,
+                                                "minValue": 0
+                                            },
+                                            "configAlternates": {
+                                                "allowDecimals": "boolean",
+                                                "minValue": "number"
+                                            },
+                                            "name": "MyNumberField1",
+                                            "designerId": "f9f01f66-2335-4d37-a8e7-98325f6b933b",
+                                            "cn": [
+                                                {
+                                                    "type": "viewcontrollereventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onTextfieldSpecialkey_dunge",
+                                                        "implHandler": [
+                                                            "const grid   = this.lookupReference('list_grid');",
+                                                            "const plugin = grid.findPlugin('cellediting');",
+                                                            "const record = field.getWidgetRecord ? field.getWidgetRecord() : plugin.context.record;",
+                                                            "if (e.getKey() === Ext.EventObject.ENTER || e.getKey() === Ext.EventObject.TAB) {",
+                                                            "    if (!record) return;",
+                                                            "",
+                                                            "    // \"dunge\" 컬럼을 찾아서 바로 편집 시작",
+                                                            "    const bigoCol = grid.down('gridcolumn[dataIndex=bigo]');",
+                                                            "    if (bigoCol) {",
+                                                            "        plugin.completeEdit(); // 현재 에디트 확실히 종료",
+                                                            "        // 딜레이를 주고 실행해야 확실하게 편집모드 진입",
+                                                            "        Ext.defer(function() {",
+                                                            "            plugin.startEdit(record, bigoCol);",
+                                                            "        }, 50);",
+                                                            "    }",
+                                                            "}"
+                                                        ],
+                                                        "name": "specialkey",
+                                                        "scope": "me"
+                                                    },
+                                                    "configAlternates": {
+                                                        "fn": "string",
+                                                        "implHandler": "code",
+                                                        "name": "string",
+                                                        "scope": "string"
+                                                    },
+                                                    "name": "onTextfieldSpecialkey_dunge",
+                                                    "designerId": "358cd194-ba36-4942-a585-84ef8aa44715"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "bigo",
+                                        "text": "비고",
+                                        "width": 200
+                                    },
+                                    "configAlternates": {
+                                        "text": "string",
+                                        "dataIndex": "datafield",
+                                        "width": "auto"
+                                    },
+                                    "name": "MyColumn1",
+                                    "designerId": "731e7aec-e7ee-42c5-849e-6c69c35da939",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.form.field.Text",
+                                            "reference": {
+                                                "name": "editor",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "name": "MyTextField7",
+                                            "designerId": "8134a540-4cc8-4ff1-a663-7a2f4f66c301",
+                                            "cn": [
+                                                {
+                                                    "type": "viewcontrollereventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onTextfieldSpecialkey_bigo",
+                                                        "implHandler": [
+                                                            "const me = this;",
+                                                            "",
+                                                            "if (e.getKey() === e.ENTER || e.getKey() === e.TAB ) {",
+                                                            "    const grid = me.lookupReference('list_grid');",
+                                                            "    const store = grid.getStore();",
+                                                            "    const plugin = grid.findPlugin('cellediting');",
+                                                            "    const record = field.getWidgetRecord ? field.getWidgetRecord() : plugin.context.record;",
+                                                            "    const rowIndex = store.indexOf(record);",
+                                                            "    const lastIndex = store.getCount() - 1;",
+                                                            "    const sujumCdCol = grid.getColumnManager().getColumns().find(c => c.dataIndex === 'sujumCd');",
+                                                            "",
+                                                            "    e.stopEvent();",
+                                                            "",
+                                                            "    if (rowIndex === lastIndex) {",
+                                                            "        const chulgoGb = record.get('chulgoGb');",
+                                                            "",
+                                                            "        let rowData = {",
+                                                            "            courseCd: record.get('courseCd'),",
+                                                            "            chulgoGb: chulgoGb,",
+                                                            "            dunge: 1,",
+                                                            "            transGb: '0',",
+                                                            "            outYn: '0'",
+                                                            "        };",
+                                                            "",
+                                                            "        // 대행사 로그인일 경우, 현재 행의 출판사 코드/명 복사",
+                                                            "        if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '10') {",
+                                                            "            rowData.chulpanCd = record.get('chulpanCd');",
+                                                            "            rowData.chulNm = record.get('chulNm');",
+                                                            "            rowData.cetCd = TmsLabel.util.Common.LOGIN_CUST_CD;",
+                                                            "        }",
+                                                            "",
+                                                            "        if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '1') {",
+                                                            "            rowData.chulpanCd = TmsLabel.util.Common.LOGIN_CUST_CD;",
+                                                            "            rowData.chulNm = TmsLabel.util.Common.LOGIN_CUST_NAME;",
+                                                            "        }",
+                                                            "",
+                                                            "        // 새로운 행 추가",
+                                                            "        const newRec = store.add(rowData)[0];",
+                                                            "",
+                                                            "        if (plugin && newRec && sujumCdCol) {",
+                                                            "            Ext.defer( () => plugin.startEdit(newRec, sujumCdCol), 50);",
+                                                            "        }",
+                                                            "",
+                                                            "    } else {",
+                                                            "        const nextRec = store.getAt(rowIndex + 1);",
+                                                            "        if (plugin && nextRec && sujumCdCol) {",
+                                                            "            Ext.defer(()=>plugin.startEdit(nextRec, sujumCdCol), 50);",
+                                                            "        }",
+                                                            "    }",
+                                                            "",
+                                                            "}"
+                                                        ],
+                                                        "name": "specialkey",
+                                                        "scope": "me"
+                                                    },
+                                                    "configAlternates": {
+                                                        "fn": "string",
+                                                        "implHandler": "code",
+                                                        "name": "string",
+                                                        "scope": "string"
+                                                    },
+                                                    "name": "onTextfieldSpecialkey_bigo",
+                                                    "designerId": "48c067d9-5949-422b-814a-82655b12d2aa"
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.grid.column.Column",
@@ -1352,13 +2080,7 @@
                                                 ],
                                                 "fn": "renderer",
                                                 "implHandler": [
-                                                    "if (value === '01') {",
-                                                    "    return '시내';",
-                                                    "} else if (value === '02') {",
-                                                    "    return '지방';",
-                                                    "} else {",
-                                                    "    return value;",
-                                                    "}"
+                                                    "return TmsLabel.util.Common.createCodeRenderer('173',value);"
                                                 ]
                                             },
                                             "configAlternates": {
@@ -1488,24 +2210,6 @@
                                     ]
                                 },
                                 {
-                                    "type": "Ext.grid.column.Column",
-                                    "reference": {
-                                        "name": "columns",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "dataIndex": "bigo",
-                                        "text": "비고"
-                                    },
-                                    "configAlternates": {
-                                        "text": "string",
-                                        "dataIndex": "datafield"
-                                    },
-                                    "name": "MyColumn1",
-                                    "designerId": "731e7aec-e7ee-42c5-849e-6c69c35da939"
-                                },
-                                {
                                     "type": "viewcontrollereventbinding",
                                     "reference": {
                                         "name": "listeners",
@@ -1534,6 +2238,49 @@
                                     },
                                     "name": "onGridpanelAfterRender_list_grid",
                                     "designerId": "04da7cc4-3b1a-4651-8a8f-d1bb305e3f8d"
+                                },
+                                {
+                                    "type": "Ext.grid.plugin.CellEditing",
+                                    "reference": {
+                                        "name": "plugins",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "clicksToEdit": 1
+                                    },
+                                    "configAlternates": {
+                                        "clicksToEdit": "number"
+                                    },
+                                    "name": "MyCellEditingPlugin",
+                                    "designerId": "d25abb9b-fee9-40ac-a83e-6d5515d1c581",
+                                    "cn": [
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onCellEditingBeforeEdit",
+                                                "implHandler": [
+                                                    "// 전송구분이 전송인 로우는 편집안되게 막음",
+                                                    "if (context.record.get('transGb') === '1') return false;"
+                                                ],
+                                                "name": "beforeedit",
+                                                "scope": "me"
+                                            },
+                                            "configAlternates": {
+                                                "fn": "string",
+                                                "implHandler": "code",
+                                                "name": "string",
+                                                "scope": "string"
+                                            },
+                                            "name": "onCellEditingBeforeEdit",
+                                            "designerId": "c1fd1e19-4cb2-4bc8-afb1-f1e45334fe79"
+                                        }
+                                    ]
                                 }
                             ]
                         },
@@ -1729,6 +2476,8 @@
                                                     "",
                                                     "",
                                                     "const userCetCd = TmsLabel.util.Common.LOGIN_USER_CET_CD;",
+                                                    "const custDivGb = TmsLabel.util.Common.LOGIN_CUST_DIV_GB;",
+                                                    "const custName = TmsLabel.util.Common.LOGIN_CUST_NAME;",
                                                     "const baseUrl   = TmsLabel.util.Common.BASE_URL || '';",
                                                     "const url       = baseUrl + '/tmslabel/print/chulgo';",
                                                     "",
@@ -1750,6 +2499,18 @@
                                                     "        inputUser.name = 'userCetCd';",
                                                     "        inputUser.value = userCetCd;",
                                                     "        form.appendChild(inputUser);",
+                                                    "        ",
+                                                    "        const inputCustDivGb = document.createElement('input');",
+                                                    "        inputCustDivGb.type = 'hidden';",
+                                                    "        inputCustDivGb.name = 'custDivGb';",
+                                                    "        inputCustDivGb.value = custDivGb;",
+                                                    "        form.appendChild(inputCustDivGb);",
+                                                    "        ",
+                                                    "        const inputCustNm = document.createElement('input');",
+                                                    "        inputCustNm.type = 'hidden';",
+                                                    "        inputCustNm.name = 'custName';",
+                                                    "        inputCustNm.value = custName;",
+                                                    "        form.appendChild(inputCustNm);",
                                                     "",
                                                     "        document.body.appendChild(form);",
                                                     "        form.submit();",
@@ -2056,7 +2817,7 @@
                     "userConfig": {
                         "container|align": "stretch",
                         "layout": "vbox",
-                        "title": "사용자관리"
+                        "title": "엑셀업로드"
                     },
                     "configAlternates": {
                         "container|align": "string",
@@ -2085,7 +2846,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "bodyPadding": 10,
-                                "title": "My Form"
+                                "title": "엑셀업로드"
                             },
                             "configAlternates": {
                                 "bodyPadding": "auto",
@@ -2093,6 +2854,56 @@
                             },
                             "name": "MyForm1",
                             "designerId": "de87a6ff-9727-41f5-922f-ead7cdde0320"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "stretch",
+                        "layout": "vbox",
+                        "title": "사용자관리"
+                    },
+                    "configAlternates": {
+                        "container|align": "string",
+                        "layout": "string",
+                        "title": "string"
+                    },
+                    "name": "MyPanel2",
+                    "designerId": "1e0d6598-ba9b-4040-a9d3-d07d98d9a4dc",
+                    "cn": [
+                        {
+                            "type": "Ext.tab.Tab",
+                            "reference": {
+                                "name": "tabConfig",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "name": "TabConfig1",
+                            "designerId": "ccac0669-2048-47e0-8d1e-2bde1784bb94"
+                        },
+                        {
+                            "type": "Ext.form.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "bodyPadding": 10,
+                                "title": "사용자관리"
+                            },
+                            "configAlternates": {
+                                "bodyPadding": "auto",
+                                "title": "string"
+                            },
+                            "name": "MyForm1",
+                            "designerId": "4db5b42f-20dd-4d7f-a274-0a54e67f36f4"
                         }
                     ]
                 },
@@ -2179,6 +2990,30 @@
                     ]
                 }
             ]
+        },
+        {
+            "type": "viewcontrollereventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onViewportBeforeRender_main_panel",
+                "implHandler": [
+                    "TmsLabel.util.Common.loadCode('173');"
+                ],
+                "name": "beforerender",
+                "scope": "me"
+            },
+            "configAlternates": {
+                "fn": "string",
+                "implHandler": "code",
+                "name": "string",
+                "scope": "string"
+            },
+            "name": "onViewportBeforeRender_main_panel",
+            "designerId": "28447eaf-73ac-4fd2-b49b-6494caa2f039"
         }
     ]
 }

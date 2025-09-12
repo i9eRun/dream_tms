@@ -197,7 +197,7 @@
             "designerId": "f023b558-2488-4eed-8013-0b5aa66835c5",
             "cn": [
                 {
-                    "type": "Ext.grid.column.Column",
+                    "type": "Ext.grid.column.RowNumberer",
                     "reference": {
                         "name": "columns",
                         "type": "array"
@@ -211,7 +211,7 @@
                         "text": "string",
                         "width": "auto"
                     },
-                    "name": "MyColumn1",
+                    "name": "MyRowNumberer1",
                     "designerId": "a3ed6d6d-bb16-4244-97a8-ee34c7978442"
                 },
                 {

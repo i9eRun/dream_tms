@@ -110,6 +110,10 @@ Ext.define('TmsLabel.view.popup.custViewController', {
                 button.fireEvent('click', button);
             }
         }
+    },
+
+    onWindowBeforeRender_cust_panel: function(component, eOpts) {
+        TmsLabel.util.Common.loadCode('173');
     }
 
 });
