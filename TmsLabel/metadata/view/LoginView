@@ -41,11 +41,11 @@
                 "bodyPadding": 10,
                 "designer|uiInterfaceName": "default-framed",
                 "frame": true,
-                "height": 250,
+                "height": 202,
                 "margin": "10 10 10 10",
                 "reference": "login_form",
                 "title": "라벨지원 프로그램",
-                "width": 400
+                "width": 318
             },
             "configAlternates": {
                 "bodyPadding": "auto",
@@ -145,6 +145,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "height": 30,
                         "margin": "5 5 5 5",
                         "reference": "login_button",
                         "text": "로그인",
@@ -154,7 +155,8 @@
                         "margin": "auto",
                         "reference": "string",
                         "text": "string",
-                        "width": "auto"
+                        "width": "auto",
+                        "height": "auto"
                     },
                     "name": "MyButton",
                     "designerId": "0d09d13c-eedc-4569-9db6-a7c18d2956dc",

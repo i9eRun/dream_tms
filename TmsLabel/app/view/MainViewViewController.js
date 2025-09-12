@@ -232,13 +232,230 @@ Ext.define('TmsLabel.view.MainViewViewController', {
         if (TmsLabel.util.Common.LOGIN_USER !== 'dream') component.hide();
     },
 
+    onButtonAfterRender_reset_button: function(component, eOpts) {
+        if (TmsLabel.util.Common.LOGIN_USER === 'dream') component.hide();
+    },
+
+    onButtonClick_reset_button: function(button, e, eOpts) {
+        // const grid = this.lookupReference('list_grid');
+        // const store = grid.getStore();
+
+        // store.removeAll();
+
+        // const newRec = store.add({
+        //     dunge:1,
+        //     transGb: '0',
+        //     outYn: '0'
+        // })[0];
+
+        // const col = grid.getColumnManager().getColumns().find(c => c.dataIndex === 'sujumCd');
+
+        // const plugin = grid.findPlugin('cellediting');
+
+        // if (plugin && newRec && col) {
+        //     plugin.startEdit(newRec, col);
+        // }
+
+
+
+
+        const login_cust_cd = TmsLabel.util.Common.LOGIN_CUST_CD;
+        if (Ext.isEmpty(login_cust_cd)) return;
+
+        const grid = this.lookupReference('list_grid');
+        const store = grid.getStore();
+        const choose_date = this.lookupReference('choose_date').getSubmitValue();
+        const chulgo_gb = this.lookupReference('chulgo_gb').getValue();
+        const chulpan_code = this.lookupReference('chulpan_code').getValue();
+        const chulpan_name = this.lookupReference('chulpan_name').getValue();
+
+
+        // 날짜 유효성 체크 (오늘 이전이면 경고 후 중단)
+        const today = Ext.Date.format(new Date(), 'Ymd');
+        if (choose_date < today) {
+            Ext.Msg.alert('경고', '오늘 이전 날짜에는 새로운 데이터를 입력할 수 없습니다.');
+            return;
+        }
+
+        // 조회 조건 세팅
+        if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '1') {
+            store.getProxy().setExtraParams({
+                userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,
+                chooseDate: choose_date,
+                chulpanCd: login_cust_cd,
+                chulgoGb: chulgo_gb
+            });
+        } else if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '10') {
+            if (Ext.isEmpty(chulpan_code)) {
+                Ext.Msg.alert('알림', '데이터를 입력할 출판사를 선택해주세요.');
+                return;
+            }
+            store.getProxy().setExtraParams({
+                userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,
+                chooseDate: choose_date,
+                cetCd: login_cust_cd,
+                chulgoGb: chulgo_gb,
+                chulpanCd: chulpan_code
+            });
+        }
+
+
+        // 스토어 리로드 + 새행 추가
+        store.load({
+            callback: function (recs, op, success) {
+                if (success) {
+                    // 새 행 생성
+                    let newRec;
+                    if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '1') {
+                        newRec = Ext.create('TmsLabel.model.TMS_DUNGE_MST', {
+                            userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,
+                            dunge: 1,
+                            dungeDt: choose_date,
+                            outYn: '0',
+                            transGb: '0'
+                        });
+                    } else if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '10') {
+                        newRec = Ext.create('TmsLabel.model.TMS_DUNGE_MST', {
+                            userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,
+                            chulpanCd: chulpan_code,
+                            chulNm: chulpan_name,
+                            dunge: 1,
+                            dungeDt: choose_date,
+                            outYn: '0',
+                            transGb: '0'
+                        });
+                    }
+
+
+
+                    // 마지막에 추가
+                    store.insert(store.getCount(), newRec);
+                    const plugin = grid.findPlugin('cellediting');
+                    const sujumCol = grid.getColumnManager().getColumns().find( c => c.dataIndex === 'sujumCd');
+                    if (plugin && sujumCol) {
+                        Ext.defer( () => {
+                            plugin.startEdit(newRec, sujumCol);
+                        }, 100);
+                    }
+
+                }
+            }
+        });
+
+
+
+
+
+    },
+
+    onButtonAfterRender_save_button: function(component, eOpts) {
+        if (TmsLabel.util.Common.LOGIN_USER === 'dream') component.hide();
+    },
+
+    onButtonClick_save_button: function(button, e, eOpts) {
+        const grid = this.lookupReference('list_grid');
+        const store = grid.getStore();
+
+        // 상단 날짜 필드 값 가져오기
+        const chooseDateCmp = this.lookupReference('choose_date');
+        const chooseDate = chooseDateCmp ? chooseDateCmp.getSubmitValue() : null;
+
+        const newRecs = store.getNewRecords();
+        const updated = store.getUpdatedRecords();
+        const removed = store.getRemovedRecords();
+
+        const data = {
+            insertId: TmsLabel.util.Common.LOGIN_USER,
+            userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,
+            loginCustDivGb: TmsLabel.util.Common.LOGIN_CUST_DIV_GB, // 로그인 구분값
+            loginCustName: TmsLabel.util.Common.LOGIN_CUST_NAME,
+            loginCustCd: TmsLabel.util.Common.LOGIN_CUST_CD,      // 로그인 출판사 코드
+            insertList: [],
+            updateList: [],
+            deleteList: []
+        };
+
+        // 추가 + 수정
+        Ext.Array.each(newRecs.concat(updated), function (rec) {
+            const qty = rec.get('qty');
+            const dunge = rec.get('dunge');
+
+            if (!Ext.isEmpty(qty) && !Ext.isEmpty(dunge)) {
+                const rowData = Ext.apply({}, rec.getData()); // 얕은 복사
+
+                // 공통 필드 보정 (PK 및 감사정보)
+                rowData.userCetCd = TmsLabel.util.Common.LOGIN_USER_CET_CD;
+                rowData.insertId = TmsLabel.util.Common.LOGIN_USER_ID;
+
+                // 신규행일 경우 DUNGE_DT 세팅
+                if (rec.phantom && chooseDate) {
+                    rowData.dungeDt = chooseDate;
+                }
+
+                if (rec.phantom) {
+                    data.insertList.push(rowData);
+                } else {
+                    data.updateList.push(rowData);
+                }
+            }
+        });
+
+        // 삭제행 처리 (PK만 보내도 됨, 하지만 전체 데이터 보내도 무방)
+        Ext.Array.each(removed, function (rec) {
+            const rowData = Ext.apply({}, rec.getData());
+            rowData.userCetCd = TmsLabel.util.Common.LOGIN_USER_CET_CD;
+            data.deleteList.push(rowData);
+        });
+
+        // 저장할 데이터 없으면 중단
+        if (data.insertList.length === 0 &&
+        data.updateList.length === 0 &&
+        data.deleteList.length === 0) {
+            Ext.Msg.alert('알림', '저장할 데이터가 없습니다.');
+            return;
+        }
+
+        // 서버 호출
+        Ext.Msg.confirm('확인', '저장하시겠습니까?', function(btn) {
+            if (btn !== 'yes') return; // '아니오' 선택 시 중단
+
+            // 서버 호출
+            Ext.Ajax.request({
+                url: TmsLabel.util.Common.BASE_URL + '/tmslabel/save',
+                method: 'POST',
+                jsonData: data,
+                success: function () {
+                    Ext.Msg.alert('성공', '저장이 완료되었습니다.');
+                    store.commitChanges();
+                    store.reload();
+                },
+                failure: function () {
+                    Ext.Msg.alert('실패', '저장 중 오류가 발생했습니다.');
+                }
+            });
+        });
+    },
+
     onTextfieldAfterRender_chulpan_code: function(component, eOpts) {
         if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '1' || TmsLabel.util.Common.LOGIN_USER === 'dream') component.hide();
 
     },
 
     onTextfieldAfterRender_chulpan_name: function(component, eOpts) {
-        if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '1' || TmsLabel.util.Common.LOGIN_USER === 'dream') component.hide();
+        if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '1' || TmsLabel.util.Common.LOGIN_USER === 'dream') {
+            component.hide();
+            return;
+        }
+
+
+
+    },
+
+    onTextfieldSpecialkey_chulpan_name: function(field, e, eOpts) {
+        const button = this.lookupReference('chulpan_search_button');
+        if (e.getKey() === e.ENTER) {
+            if (button) button.fireEvent('click', button);
+        }
     },
 
     onButtonAfterRender_chulpan_search_button: function(component, eOpts) {
@@ -248,6 +465,17 @@ Ext.define('TmsLabel.view.MainViewViewController', {
     onButtonClick_chulpan_search_button: function(button, e, eOpts) {
         const popup = Ext.create('TmsLabel.view.popup.cust');
         const me = this;
+        const keyword = this.lookupReference('chulpan_name').getValue();
+
+        popup.on('afterrender', function(win) {
+            if (!Ext.isEmpty(keyword)) {
+                const searchField = win.lookupReference('search_keyword');
+                if (searchField) searchField.setValue(keyword);
+
+                const btn = win.lookupReference('search_button');
+                if (btn) btn.fireEvent('click', btn);
+            }
+        });
 
         popup.on('selectRow', function(win, record) {
             const form = me.lookupReference('list_grid');
@@ -261,8 +489,6 @@ Ext.define('TmsLabel.view.MainViewViewController', {
 
         popup.show();
 
-
-
     },
 
     onButtonClick_delete_button: function(button, e, eOpts) {
@@ -273,8 +499,8 @@ Ext.define('TmsLabel.view.MainViewViewController', {
         }
 
         const store = grid.getStore();
-
         const rec = grid.getSelection()[0];
+
         if (!rec) {
             Ext.Msg.alert('알림', '삭제할 행을 선택하세요.');
             return;
@@ -289,32 +515,208 @@ Ext.define('TmsLabel.view.MainViewViewController', {
         Ext.Msg.confirm('확인', '선택된 데이터를 삭제하시겠습니까?', function (btn) {
             if (btn !== 'yes') return;
 
-            Ext.Ajax.request({
-                url: TmsLabel.util.Common.BASE_URL + '/tmslabel/delete',
-                method: 'DELETE', // 서버가 DELETE+body를 막으면 POST 사용
-                jsonData: {
-                    userCetCd: TmsLabel.util.Common.LOGIN_USER_CET_CD,
-                    rowSeq   : rec.get('rowSeq'),
-                    ordNo    : rec.get('ordNo')
-                },
-                success: function () {
-                    Ext.toast('삭제되었습니다.');
-                    store.reload();
-                },
-                failure: function () {
-                    Ext.Msg.alert('오류', '삭제 중 오류가 발생했습니다.');
-                }
-            });
+            store.remove(rec);
 
+            Ext.toast('삭제 행이 저장 목록에 추가되었습니다. "저장"을 눌러야 최종 반영됩니다.');
         });
-
-
-
-
     },
 
     onGridcolumnAfterRender_grid_col_chulpanNm: function(component, eOpts) {
         if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '1') component.hide();
+    },
+
+    onTextfieldSpecialkey_sujum_cd: function(field, e, eOpts) {
+        const me = this;
+
+        if (e.getKey() === e.ENTER) {
+            const keyword = field.getValue();
+
+            // 기존 팝업이 열려있으면 제거
+            const oldPopup = Ext.ComponentQuery.query('window[tmsPopupType=cust]')[0];
+            if (oldPopup) {
+                oldPopup.close(); // close()가 destroy까지 처리됨
+            }
+
+            // 새 팝업 생성
+            const popup = Ext.create('TmsLabel.view.popup.cust', {
+                tmsPopupType: 'cust'   // 식별용 custom 속성
+            });
+
+            popup.on('afterrender', function(win) {
+                const custGbField = win.lookupReference('cust_gb');
+                if (custGbField) {
+                    custGbField.getStore().on('load', function () {
+                        custGbField.setValue('2');
+                    }, { single:true });
+                    }
+
+                    if (!Ext.isEmpty(keyword)) {
+                        const searchField = win.lookupReference('search_keyword');
+                        if (searchField) searchField.setValue(keyword);
+
+                        const btn = win.lookupReference('search_button');
+                        if (btn) {
+                            btn.fireEvent('click', btn);
+
+                            const grid = win.lookupReference('list_grid');
+                            if (grid) {
+                                const store = grid.getStore();
+
+                                // 안전한 handler 정의
+                                const onStoreLoad = function(st, recs) {
+                                    if (!win.isDestroyed && grid && grid.rendered && recs && recs.length > 0) {
+                                        grid.getSelectionModel().select(0);
+                                        const view = grid.getView();
+                                        if (view) {
+                                            Ext.defer(() => {
+                                                if (!win.isDestroyed && view.el) {
+                                                    view.focusRow(0);
+                                                }
+                                            }, 50);
+                                        }
+                                    }
+                                };
+
+                                store.on('load', onStoreLoad, { single: true });
+
+                                // 팝업 닫힐 때 이벤트 해제
+                                win.on('close', function() {
+                                    store.un('load', onStoreLoad);
+                                });
+                            }
+                        }
+                    }
+                });
+
+
+                popup.on('selectRow', function(win, record) {
+                    const grid = me.lookupReference('list_grid');
+                    const plugin = grid.findPlugin('cellediting');
+
+                    // 현재 편집중이던 레코드
+                    const editingRec = plugin.context ? plugin.context.record : null;
+
+                    if (editingRec) {
+                        // 팝업에서 가져온 데이터를 현재 그리드 로우에 세팅
+                        editingRec.set('sujumCd', record.get('CUST_CD'));
+                        editingRec.set('courseCd', record.get('DELIV_PATH_CD'));
+                        editingRec.set('jiyukNm', record.get('JIYUK_NM'));
+                        editingRec.set('sujumNm', record.get('CUST_NM'));
+                        editingRec.set('chulgoGb', record.get('CHULGO_GB'));
+                        if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '10') {
+                            editingRec.set('cetCd', TmsLabel.util.Common.LOGIN_CUST_CD);
+                        }
+
+                        // qty(부수) 컬럼으로 편집가능한 상태로 이동
+                        const qtyCol = grid.getColumnManager().getColumns().find(c => c.dataIndex === 'qty');
+
+                        if (qtyCol) {
+                            Ext.defer( () => {
+                                plugin.startEdit(editingRec, qtyCol);
+                            }, 50);
+                        }
+
+                    }
+
+                    win.close(); // 팝업 닫기
+
+                });
+
+                popup.show();
+            }
+
+    },
+
+    onTextfieldSpecialkey_qty: function(field, e, eOpts) {
+        const grid   = this.lookupReference('list_grid');
+        const plugin = grid.findPlugin('cellediting');
+        const record = field.getWidgetRecord ? field.getWidgetRecord() : plugin.context.record;
+        if (e.getKey() === Ext.EventObject.ENTER || e.getKey() === Ext.EventObject.TAB) {
+            if (!record) return;
+
+            // "dunge" 컬럼을 찾아서 바로 편집 시작
+            const dungeCol = grid.down('gridcolumn[dataIndex=dunge]');
+            if (dungeCol) {
+                plugin.completeEdit(); // 현재 에디트 확실히 종료
+                // 딜레이를 주고 실행해야 확실하게 편집모드 진입
+                Ext.defer(function() {
+                    plugin.startEdit(record, dungeCol);
+                }, 50);
+            }
+        }
+    },
+
+    onTextfieldSpecialkey_dunge: function(field, e, eOpts) {
+        const grid   = this.lookupReference('list_grid');
+        const plugin = grid.findPlugin('cellediting');
+        const record = field.getWidgetRecord ? field.getWidgetRecord() : plugin.context.record;
+        if (e.getKey() === Ext.EventObject.ENTER || e.getKey() === Ext.EventObject.TAB) {
+            if (!record) return;
+
+            // "dunge" 컬럼을 찾아서 바로 편집 시작
+            const bigoCol = grid.down('gridcolumn[dataIndex=bigo]');
+            if (bigoCol) {
+                plugin.completeEdit(); // 현재 에디트 확실히 종료
+                // 딜레이를 주고 실행해야 확실하게 편집모드 진입
+                Ext.defer(function() {
+                    plugin.startEdit(record, bigoCol);
+                }, 50);
+            }
+        }
+    },
+
+    onTextfieldSpecialkey_bigo: function(field, e, eOpts) {
+        const me = this;
+
+        if (e.getKey() === e.ENTER || e.getKey() === e.TAB ) {
+            const grid = me.lookupReference('list_grid');
+            const store = grid.getStore();
+            const plugin = grid.findPlugin('cellediting');
+            const record = field.getWidgetRecord ? field.getWidgetRecord() : plugin.context.record;
+            const rowIndex = store.indexOf(record);
+            const lastIndex = store.getCount() - 1;
+            const sujumCdCol = grid.getColumnManager().getColumns().find(c => c.dataIndex === 'sujumCd');
+
+            e.stopEvent();
+
+            if (rowIndex === lastIndex) {
+                const chulgoGb = record.get('chulgoGb');
+
+                let rowData = {
+                    courseCd: record.get('courseCd'),
+                    chulgoGb: chulgoGb,
+                    dunge: 1,
+                    transGb: '0',
+                    outYn: '0'
+                };
+
+                // 대행사 로그인일 경우, 현재 행의 출판사 코드/명 복사
+                if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '10') {
+                    rowData.chulpanCd = record.get('chulpanCd');
+                    rowData.chulNm = record.get('chulNm');
+                    rowData.cetCd = TmsLabel.util.Common.LOGIN_CUST_CD;
+                }
+
+                if (TmsLabel.util.Common.LOGIN_CUST_DIV_GB === '1') {
+                    rowData.chulpanCd = TmsLabel.util.Common.LOGIN_CUST_CD;
+                    rowData.chulNm = TmsLabel.util.Common.LOGIN_CUST_NAME;
+                }
+
+                // 새로운 행 추가
+                const newRec = store.add(rowData)[0];
+
+                if (plugin && newRec && sujumCdCol) {
+                    Ext.defer( () => plugin.startEdit(newRec, sujumCdCol), 50);
+                }
+
+            } else {
+                const nextRec = store.getAt(rowIndex + 1);
+                if (plugin && nextRec && sujumCdCol) {
+                    Ext.defer(()=>plugin.startEdit(nextRec, sujumCdCol), 50);
+                }
+            }
+
+        }
     },
 
     onGridpanelAfterRender_list_grid: function(component, eOpts) {
@@ -424,6 +826,8 @@ Ext.define('TmsLabel.view.MainViewViewController', {
 
 
         const userCetCd = TmsLabel.util.Common.LOGIN_USER_CET_CD;
+        const custDivGb = TmsLabel.util.Common.LOGIN_CUST_DIV_GB;
+        const custName = TmsLabel.util.Common.LOGIN_CUST_NAME;
         const baseUrl   = TmsLabel.util.Common.BASE_URL || '';
         const url       = baseUrl + '/tmslabel/print/chulgo';
 
@@ -445,6 +849,18 @@ Ext.define('TmsLabel.view.MainViewViewController', {
                 inputUser.name = 'userCetCd';
                 inputUser.value = userCetCd;
                 form.appendChild(inputUser);
+
+                const inputCustDivGb = document.createElement('input');
+                inputCustDivGb.type = 'hidden';
+                inputCustDivGb.name = 'custDivGb';
+                inputCustDivGb.value = custDivGb;
+                form.appendChild(inputCustDivGb);
+
+                const inputCustNm = document.createElement('input');
+                inputCustNm.type = 'hidden';
+                inputCustNm.name = 'custName';
+                inputCustNm.value = custName;
+                form.appendChild(inputCustNm);
 
                 document.body.appendChild(form);
                 form.submit();
@@ -666,6 +1082,10 @@ Ext.define('TmsLabel.view.MainViewViewController', {
 
     onLabelAfterRender_welcome: function(component, eOpts) {
         component.setText(TmsLabel.util.Common.LOGIN_CUST_NAME + '님 안녕하세요!');
+    },
+
+    onViewportBeforeRender_main_panel: function(component, eOpts) {
+        TmsLabel.util.Common.loadCode('173');
     }
 
 });

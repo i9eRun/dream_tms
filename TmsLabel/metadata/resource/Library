@@ -11,7 +11,7 @@
         "libraryRequires": [
             "font-awesome"
         ],
-        "theme": "MyTritonTheme"
+        "theme": "classic"
     },
     "configAlternates": {
         "basePath": "uri",

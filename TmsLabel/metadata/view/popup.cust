@@ -588,6 +588,58 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "dataIndex": "CHULGO_GB",
+                        "text": "출고구분",
+                        "width": 80
+                    },
+                    "configAlternates": {
+                        "text": "string",
+                        "dataIndex": "datafield",
+                        "width": "auto"
+                    },
+                    "name": "MyColumn12",
+                    "designerId": "9b3517fd-aca9-4a21-86d6-2debd9acf722",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "return TmsLabel.util.Common.createCodeRenderer('173',value);"
+                                ]
+                            },
+                            "configAlternates": {
+                                "designer|params": "typedarray",
+                                "fn": "string",
+                                "implHandler": "code"
+                            },
+                            "name": "renderer",
+                            "designerId": "742e9ce6-07de-4f50-8cb6-40e84b3d5e8b"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
                         "dataIndex": "BIGO",
                         "text": "비고사항"
                     },
@@ -702,6 +754,30 @@
                     "designerId": "5f2c9951-7d47-40ec-a1cf-b894b4eebc57"
                 }
             ]
+        },
+        {
+            "type": "viewcontrollereventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onWindowBeforeRender_cust_panel",
+                "implHandler": [
+                    "TmsLabel.util.Common.loadCode('173');"
+                ],
+                "name": "beforerender",
+                "scope": "me"
+            },
+            "configAlternates": {
+                "fn": "string",
+                "implHandler": "code",
+                "name": "string",
+                "scope": "string"
+            },
+            "name": "onWindowBeforeRender_cust_panel",
+            "designerId": "41c589f2-081c-42e5-b224-f903bdb07855"
         }
     ]
 }
