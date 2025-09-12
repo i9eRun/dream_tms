@@ -166,36 +166,36 @@ public class CommonService {
     }
 
 
+    // // 엑셀 기본 import 로직
+    // public List<Map<String, Object>> readExcel(MultipartFile file) throws IOException {
+    //     List<Map<String, Object>> result = new ArrayList<>();
 
-    public List<Map<String, Object>> readExcel(MultipartFile file) throws IOException {
-        List<Map<String, Object>> result = new ArrayList<>();
-
-        try (InputStream is = file.getInputStream();
-             Workbook workbook = WorkbookFactory.create(is)) {
+    //     try (InputStream is = file.getInputStream();
+    //          Workbook workbook = WorkbookFactory.create(is)) {
             
-            Sheet sheet = workbook.getSheetAt(0);
-            Iterator<Row> rows = sheet.iterator();
+    //         Sheet sheet = workbook.getSheetAt(0);
+    //         Iterator<Row> rows = sheet.iterator();
 
-            // 첫번째 행은 헤더라고 가정
-            if (rows.hasNext()) rows.next();
+    //         // 첫번째 행은 헤더라고 가정
+    //         if (rows.hasNext()) rows.next();
 
-            while (rows.hasNext()) {
-                Row row = rows.next();
-                Map<String, Object> map = new HashMap<>();
+    //         while (rows.hasNext()) {
+    //             Row row = rows.next();
+    //             Map<String, Object> map = new HashMap<>();
 
-                map.put("chulpanCnvCd", getCellValue((row.getCell(0)))); // 출판사코드
-                map.put("chulpanCnvNm", getCellValue((row.getCell(1)))); // 출판사명
-                map.put("sujumCnvCd", getCellValue((row.getCell(2))));   // 거래처 코드
-                map.put("sujumCnvNm", getCellValue((row.getCell(3))));   // 거래처명
-                map.put("qty", getCellValue((row.getCell(4))));          // 수량 
-                map.put("box", getCellValue((row.getCell(5))));          // 덩이
+    //             map.put("chulpanCnvCd", getCellValue((row.getCell(0)))); // 출판사코드
+    //             map.put("chulpanCnvNm", getCellValue((row.getCell(1)))); // 출판사명
+    //             map.put("sujumCnvCd", getCellValue((row.getCell(2))));   // 거래처 코드
+    //             map.put("sujumCnvNm", getCellValue((row.getCell(3))));   // 거래처명
+    //             map.put("qty", getCellValue((row.getCell(4))));          // 수량 
+    //             map.put("box", getCellValue((row.getCell(5))));          // 덩이
 
-                result.add(map);
-            }
-        }
+    //             result.add(map);
+    //         }
+    //     }
 
-        return result;
-    }
+    //     return result;
+    // }
 
 
 
@@ -214,6 +214,125 @@ public class CommonService {
             default -> "";
         };
     }
+
+
+    
+    public List<Map<String, Object>> readExcel(MultipartFile file) throws IOException {
+        List<Map<String, Object>> result = new ArrayList<>();
+
+        try (InputStream is = file.getInputStream();
+            Workbook workbook = WorkbookFactory.create(is)) {
+
+            Sheet sheet = workbook.getSheetAt(0);
+            Iterator<Row> rows = sheet.iterator();
+
+            if (!rows.hasNext()) return result;
+
+            // === 1) 헤더 행 탐색 ===
+            Row headerRow = null;
+            while (rows.hasNext()) {
+                Row candidate = rows.next();
+                String firstCell = getCellValue(candidate.getCell(0));
+                if (firstCell != null &&
+                    (firstCell.contains("출판사") ||
+                    firstCell.contains("출판사코드") ||
+                    firstCell.contains("거래처") ||
+                    firstCell.equalsIgnoreCase("NO"))) {
+                    headerRow = candidate;
+                    break;
+                }
+            }
+            if (headerRow == null) return result;
+
+            // === 2) 헤더 매핑 ===
+            Map<Integer, String> headerMap = new HashMap<>();
+            for (Cell cell : headerRow) {
+                String header = getCellValue(cell);
+                if (header == null) continue;
+
+                switch (header.trim()) {
+                    // 기본 양식
+                    case "출판사코드", "출판사코" -> headerMap.put(cell.getColumnIndex(), "chulpanCnvCd");
+                    case "출판사명", "출판사"   -> headerMap.put(cell.getColumnIndex(), "chulpanCnvNm");
+                    case "거래처코드"          -> headerMap.put(cell.getColumnIndex(), "sujumCnvCd");
+                    case "거래처명", "서점명"  -> headerMap.put(cell.getColumnIndex(), "sujumCnvNm");
+                    case "수량"               -> headerMap.put(cell.getColumnIndex(), "qty");
+                    case "덩이", "덩이 수량"    -> headerMap.put(cell.getColumnIndex(), "box");
+
+                    // 확장 필드
+                    case "NO"                 -> headerMap.put(cell.getColumnIndex(), "rowNo");
+                    case "지점"               -> headerMap.put(cell.getColumnIndex(), "jiyukNm");
+                    case "박스 수량"           -> headerMap.put(cell.getColumnIndex(), "pack");
+                    case "비고"               -> headerMap.put(cell.getColumnIndex(), "remark");
+                }
+            }
+
+            // === 3) 데이터 행 처리 ===
+            String lastChulpanNm = null; // 출판사명 carry-over
+
+            while (rows.hasNext()) {
+                Row row = rows.next();
+                Map<String, Object> map = new HashMap<>();
+
+                boolean skipRow = false;
+                boolean allEmpty = true;
+
+                for (Map.Entry<Integer, String> entry : headerMap.entrySet()) {
+                    int colIdx = entry.getKey();
+                    String fieldName = entry.getValue();
+
+                    String value = getCellValue(row.getCell(colIdx));
+
+                    if (value != null && !value.trim().isEmpty()) {
+                        allEmpty = false;
+                    }
+
+                    // ✅ 합계/총계/소계 (공백 포함까지 처리)
+                    if (value != null) {
+                        String normalized = value.replaceAll("\\s+", "");
+                        if (normalized.contains("합계") ||
+                            normalized.contains("총계") ||
+                            normalized.contains("소계")) {
+                            skipRow = true;
+                            break;
+                        }
+                    }
+
+                    map.put(fieldName, value);
+                }
+
+                if (!skipRow && !allEmpty && !map.isEmpty()) {
+                    // ✅ 출판사명 carry-over
+                    String chulpanNm = (String) map.get("chulpanCnvNm");
+                    if (chulpanNm != null && !chulpanNm.trim().isEmpty()) {
+                        lastChulpanNm = chulpanNm;
+                    } else if (lastChulpanNm != null) {
+                        map.put("chulpanCnvNm", lastChulpanNm);
+                    }
+
+                    // ✅ 출판사코드/거래처코드 보정
+                    if (isEmpty(map.get("chulpanCnvCd"))) {
+                        map.put("chulpanCnvCd", map.get("chulpanCnvNm"));
+                    }
+                    if (isEmpty(map.get("sujumCnvCd"))) {
+                        map.put("sujumCnvCd", map.get("sujumCnvNm"));
+                    }
+
+                    result.add(map);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    private boolean isEmpty(Object obj) {
+        return obj == null || obj.toString().trim().isEmpty();
+    }
+
+
+
+
 
 
 

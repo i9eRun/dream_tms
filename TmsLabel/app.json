@@ -4,7 +4,7 @@
    "version": "1.0.0.0",
    "framework": "ext",
    "toolkit": "classic",
-   "theme": "theme-triton-cbcdf7a5-dec5-43de-824e-25b10027c56f",
+   "theme": "theme-classic",
    "requires": [
       "font-awesome"
    ],

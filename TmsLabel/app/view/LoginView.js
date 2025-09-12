@@ -39,9 +39,9 @@ Ext.define('TmsLabel.view.LoginView', {
             xtype: 'form',
             reference: 'login_form',
             frame: true,
-            height: 250,
+            height: 202,
             margin: '10 10 10 10',
-            width: 400,
+            width: 318,
             bodyPadding: 10,
             title: '라벨지원 프로그램',
             items: [
@@ -65,6 +65,7 @@ Ext.define('TmsLabel.view.LoginView', {
                 {
                     xtype: 'button',
                     reference: 'login_button',
+                    height: 30,
                     margin: '5 5 5 5',
                     width: '100%',
                     text: '로그인',

@@ -24,8 +24,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dreamnalgae.tms.entity.tmslabel.TmsDungeMst;
 import com.dreamnalgae.tms.model.tchu.tchu1001.TmsDungeMstVO;
 import com.dreamnalgae.tms.model.tmslabel.LabelPrintRequest;
+import com.dreamnalgae.tms.model.tmslabel.TmsDungeMstSaveRequest;
 import com.dreamnalgae.tms.model.tmslabel.TmsDungeTransferReq;
 import com.dreamnalgae.tms.service.tmslabel.LabelService;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -159,7 +161,7 @@ public class LabelController {
 
     // PDF 헤더 생성
     private void addHeader(Document document, Font titleFont, Font font, 
-                        String chooseDate, String custNm) throws Exception {
+                        String chooseDate, String custNm, String custDivGb) throws Exception {
         Paragraph title = new Paragraph("출 고 증", titleFont);
         title.setAlignment(Element.ALIGN_CENTER);
         title.setSpacingAfter(10f);
@@ -167,6 +169,10 @@ public class LabelController {
 
         // 대행사명과 일자 표시
         Paragraph info = new Paragraph("대행사: " + custNm + "         일자: " + chooseDate, font);
+        if ("1".equals(custDivGb)) {
+            info = new Paragraph("일자: " + chooseDate, font);
+        }
+        
         info.setSpacingBefore(5f);
         info.setSpacingAfter(15f);
         document.add(info);
@@ -343,6 +349,8 @@ public class LabelController {
     @PostMapping("/print/chulgo")
     public ResponseEntity<byte[]> exportChulgoPdf(
             @RequestParam("userCetCd") String userCetCd,
+            @RequestParam("custDivGb") String custDivGb,
+            @RequestParam("custName") String custName,
             @RequestParam("ordNos") String ordNos // 프론트에서 JSON.stringify로 보냄
     ) throws Exception {
 
@@ -404,7 +412,7 @@ public class LabelController {
             List<TmsDungeMstVO> page = pages.get(p);
 
             // PDF 헤더 생성
-            addHeader(document, titleFont, bodyFont, chooseDate, custNm); // chooseDate 대신 공란 or 첫 데이터 기준
+            addHeader(document, titleFont, bodyFont, chooseDate, custNm, custDivGb); // chooseDate 대신 공란 or 첫 데이터 기준
 
             // PDF 본문 테이블 생성
             PdfPTable table = buildBodyTable(bodyFont, page, rowsPerPage, 0);
@@ -435,6 +443,29 @@ public class LabelController {
 
         return ResponseEntity.ok().headers(headers).body(baos.toByteArray());
     }
+
+
+
+    @PostMapping("/save")
+    public ResponseEntity<?> save(@RequestBody TmsDungeMstSaveRequest request) {
+        labelService.saveAll(
+            request.getInsertList(),
+            request.getUpdateList(),
+            request.getDeleteList(),
+            request.getInsertId(),
+            request.getUserCetCd(),
+            request.getLoginCustDivGb(),  // 추가
+            request.getLoginCustName(),  // 추가
+            request.getLoginCustCd()     // 추가
+        );
+
+        System.out.println(request);
+
+        return ResponseEntity.ok("success");
+    }
+
+
+
 
 
 
